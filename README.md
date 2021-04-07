@@ -16,5 +16,5 @@ Few features I'll be adding:
 - Remove "Clear All" Button. Currently there
 - Search features: Date, text in Summary/Body, by survey answers
 
-Twitter: https://twitter.com/Lidberg_B
-Slack: https://kotlinlang.slack.com/team/U01P1VA0DC4
+- Twitter: https://twitter.com/Lidberg_B
+- Slack: https://kotlinlang.slack.com/team/U01P1VA0DC4
