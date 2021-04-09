@@ -15,11 +15,10 @@ import com.lid.dailydoc.presentation.viewmodels.*
 class MainActivity : ComponentActivity() {
 
     private val noteListVm: NoteViewModel by viewModels {
-        NoteViewModeFactory((application as NotesApplication).repository)
+        NoteViewModelFactory((application as NotesApplication).repository)
     }
-
     private val noteAddVm: NoteAddViewModel by viewModels {
-        NoteAddViewModeFactory((application as NotesApplication).repository)
+        NoteAddViewModelFactory((application as NotesApplication).repository)
     }
 
     @ExperimentalAnimationApi

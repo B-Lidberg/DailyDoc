@@ -15,7 +15,7 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
     }
 
 }
-    class NoteViewModeFactory(
+    class NoteViewModelFactory(
         private val repository: NoteRepository,
         ) : ViewModelProvider.Factory
     {
