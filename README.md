@@ -6,8 +6,10 @@ First project - Feedback welcomed!
 
 Currently a simple note taking app that stores notes locally. 
 
-![Screenshot](screenshots/img.png) ![Screenshot](screenshots/img_1.png)
-![Screenshot](screenshots/img_2.png) ![Screenshot](screenshots/img_3.png)
+![Screenshot](screenshots/image.png)
+![Screenshot](screenshots/image_1.png)
+![Screenshot](screenshots/image_2.png) 
+![Screenshot](screenshots/image_3.png)
 
 Few features I'll be adding:
 - Login Screen
