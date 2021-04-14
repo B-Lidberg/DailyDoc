@@ -16,6 +16,7 @@ import com.lid.dailydoc.presentation.screens.NoteAddScreen
 import com.lid.dailydoc.presentation.screens.NoteDetailScreen
 import com.lid.dailydoc.presentation.screens.NoteListScreen
 import com.lid.dailydoc.presentation.viewmodels.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 object MainDestinations {
     const val NOTES = "notes"
@@ -24,6 +25,7 @@ object MainDestinations {
     const val NOTE_KEY = "note"
 }
 
+@ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -50,7 +52,7 @@ fun Navigation(
             val detailVm: NoteDetailViewModel = viewModel(
                 factory = NoteDetailViewModeFactory(NotesApplication().repository))
 
-            val noteId = navController.previousBackStackEntry?.arguments?.getInt(NOTE_ID)
+            val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
             if (noteId != null) NoteDetailScreen(detailVm, noteId)
         }
     }
@@ -58,8 +60,8 @@ fun Navigation(
 
 class MainActions(navController: NavController) {
 
-    val detailScreen: (Int) -> Unit = { noteId: Int ->
-        navController.currentBackStackEntry?.arguments?.putInt(
+    val detailScreen: (Long) -> Unit = { noteId: Long ->
+        navController.currentBackStackEntry?.arguments?.putLong(
             NOTE_ID,
             noteId
         )

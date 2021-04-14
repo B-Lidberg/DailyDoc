@@ -1,20 +1,21 @@
 package com.lid.dailydoc.presentation.viewmodels
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepository
-import kotlinx.coroutines.launch
+import com.lid.dailydoc.utils.getCurrentDateAsString
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import java.lang.IllegalArgumentException
 
 class NoteAddViewModel(private val repository: NoteRepository) : ViewModel() {
 
     // DATE
-    private val _date: MutableLiveData<String> = MutableLiveData()
-    val date: LiveData<String> = _date
-
-    fun onDateChange(newDate: String) {
-        _date.value = newDate
-    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    val date: String = getCurrentDateAsString()
 
     // SUMMARY
     private val _summary: MutableLiveData<String> = MutableLiveData()
@@ -55,11 +56,21 @@ class NoteAddViewModel(private val repository: NoteRepository) : ViewModel() {
         _survey3.value = newAnswer
     }
 
+    // get or create Daily Note
+
+
     // Add Note
     fun addNote(note: Note) {
         viewModelScope.launch {
             repository.insertNote(note)
         }
+    }
+    fun clearNote() {
+        onSummaryChange("")
+        onBodyChange("")
+        onSurvey1Change("")
+        onSurvey2Change("")
+        onSurvey3Change("")
     }
 }
 

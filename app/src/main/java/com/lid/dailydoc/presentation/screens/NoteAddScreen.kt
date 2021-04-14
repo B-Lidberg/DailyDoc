@@ -9,6 +9,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -20,42 +23,34 @@ import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.DateBar
 import com.lid.dailydoc.presentation.components.SurveyBar
 import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
-import com.lid.dailydoc.utils.getCurrentDateAsString
 import com.lid.dailydoc.presentation.components.AddBody
 import com.lid.dailydoc.presentation.components.AddSummary
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NoteAddScreen(vm: NoteAddViewModel, backPress: () -> Unit) {
-    val date by vm.date.observeAsState("")
+    val date = vm.date
+
     val summary by vm.summary.observeAsState("")
     val body by vm.body.observeAsState("")
-
     val survey1 by vm.survey1.observeAsState("")
     val survey2 by vm.survey2.observeAsState("")
     val survey3 by vm.survey3.observeAsState("")
 
     val note = Note(dateCreated = date, summary = summary, body = body,
-        survey1 = survey1, survey2 = survey2, survey3 = survey3)
+                survey1 = survey1, survey2 = survey2, survey3 = survey3,
+    )
 
     var expandedSurveyBar by remember { mutableStateOf<String?>(null) }
-    val scope = rememberCoroutineScope()
     val scrollState = rememberLazyListState()
 
-    val clear = {
-        vm.onDateChange("")
-        vm.onSummaryChange("")
-        vm.onBodyChange("")
-        vm.onSurvey1Change("")
-        vm.onSurvey2Change("")
-        vm.onSurvey3Change("")
-
-    }
+    val clear = { vm.clearNote() }
 
     Scaffold(
-        topBar = { HeaderDateBar(vm, date)},
+        topBar = { HeaderDateBar(date, clear)},
         floatingActionButton = { SaveButton(vm, backPress, clear, note) },
         content = {
             LazyColumn(
@@ -67,12 +62,10 @@ fun NoteAddScreen(vm: NoteAddViewModel, backPress: () -> Unit) {
             ) {
                 item { SurveyBar(
                     vm = vm,
-                    expanded = expandedSurveyBar == body,
+                    expanded = expandedSurveyBar == summary,
                     onClick = {
-                        scope.launch {
-                            expandedSurveyBar =
-                                if (expandedSurveyBar == body) null else body
-                        }
+                        expandedSurveyBar =
+                            if (expandedSurveyBar == summary) null else summary
                     },
                     survey1 = survey1,
                     survey2 = survey2,
@@ -119,12 +112,16 @@ fun SaveButton(
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HeaderDateBar(
-    vm: NoteAddViewModel,
     date: String,
+    onClear: () -> Unit,
 ) {
-    if (date.isEmpty())  vm.onDateChange(getCurrentDateAsString())
-    DateBar(date)
-
+    TopAppBar(
+        backgroundColor = MaterialTheme.colors.background,
+        elevation = 0.dp,
+        modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
+    ) {
+        DateBar(date, onClear, Icons.Default.Clear)
+    }
 }
 
 

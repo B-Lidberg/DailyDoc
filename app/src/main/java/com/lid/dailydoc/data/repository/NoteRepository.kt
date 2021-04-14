@@ -4,6 +4,7 @@ import androidx.annotation.WorkerThread
 import com.lid.dailydoc.data.local.NoteDao
 import com.lid.dailydoc.data.model.Note
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 class NoteRepository(
     private val noteDao: NoteDao,
@@ -16,7 +17,8 @@ class NoteRepository(
         noteDao.insertNote(note)
     }
 
-    fun findNoteById(noteId: Int) = noteDao.findById(noteId)
+    fun findNoteById(noteId: Long) = noteDao.findById(noteId)
+
 
     suspend fun clearNotes() {
         noteDao.clearNotes()

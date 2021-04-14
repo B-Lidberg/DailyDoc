@@ -17,7 +17,7 @@ import com.lid.dailydoc.data.model.Note
 
 
 @Composable
-fun NoteCard(note: Note, toDetails: (Int) -> Unit) {
+fun NoteCard(note: Note, toDetails: (Long) -> Unit) {
     val noteId = note.id
     Card(
         modifier = Modifier

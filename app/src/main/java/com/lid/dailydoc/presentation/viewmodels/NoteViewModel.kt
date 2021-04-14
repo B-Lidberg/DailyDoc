@@ -13,7 +13,6 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
     fun clearNotes() = viewModelScope.launch {
         repository.clearNotes()
     }
-
 }
     class NoteViewModelFactory(
         private val repository: NoteRepository,

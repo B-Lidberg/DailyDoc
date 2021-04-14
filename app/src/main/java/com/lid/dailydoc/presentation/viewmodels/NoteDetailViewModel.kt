@@ -7,10 +7,11 @@ import com.lid.dailydoc.data.repository.NoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import java.lang.IllegalArgumentException
+import java.util.*
 
 class NoteDetailViewModel (private val repository: NoteRepository) : ViewModel() {
 
-    fun getNote(noteId: Int): Note {
+    fun getNote(noteId: Long): Note {
         return runBlocking(Dispatchers.IO) {
             repository.findNoteById(noteId)
         }
