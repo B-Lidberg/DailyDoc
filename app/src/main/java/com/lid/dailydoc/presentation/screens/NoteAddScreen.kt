@@ -11,7 +11,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -20,7 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.model.Note
-import com.lid.dailydoc.presentation.components.DateBar
+import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.components.SurveyBar
 import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.presentation.components.AddBody
@@ -120,7 +119,7 @@ fun HeaderDateBar(
         elevation = 0.dp,
         modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
     ) {
-        DateBar(date, onClear, Icons.Default.Clear)
+        CustomTopBar(date, onClear, Icons.Default.Clear)
     }
 }
 

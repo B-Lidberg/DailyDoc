@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.surveyQuestions
-import com.lid.dailydoc.presentation.components.DateBar
+import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.viewmodels.NoteDetailViewModel
 
 @Composable
@@ -26,7 +26,7 @@ fun NoteDetailScreen(vm: NoteDetailViewModel, noteId: Long) {
             elevation = 0.dp,
             modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
         ) {
-            DateBar(note.dateCreated, {}, Icons.Default.Edit) }
+            CustomTopBar(note.dateCreated, {}, Icons.Default.Edit) }
         },
         content = {
             TempBody(note)
