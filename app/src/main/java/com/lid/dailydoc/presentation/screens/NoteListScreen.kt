@@ -40,7 +40,7 @@ fun NoteListScreen(vm: NoteViewModel, toDetails: (Long) -> Unit, toAdd: (Note) -
         topBar = { NoteListTopBar(vm) },
         floatingActionButton = { AddNoteButton(toAdd, note, exists) },
         content = {
-            NoteList(notes, toDetails) }
+            NoteList(notes, toDetails, exists) }
     )
 }
 
@@ -53,23 +53,15 @@ fun NoteListTopBar(vm: NoteViewModel) {
         modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
     ) {
         CustomTopBar("Room Note Sample", {}, Icons.Default.Menu)
-//        Row {
-//            Text(
-//                text = "Room Note Sample",
-//                modifier = Modifier.weight(1f),
-//                style = MaterialTheme.typography.h5
-//            )
-//            CustomButton(clearNotes, "Clear All")
-//        }
-
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit) {
+fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit, exists: Boolean) {
     LazyColumn {
         items(items = notes) { note ->
-            NoteCard(note, toDetails)
+            NoteCard(note, toDetails, exists)
         }
     }
 }

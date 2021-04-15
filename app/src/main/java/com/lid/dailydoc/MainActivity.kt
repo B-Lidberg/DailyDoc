@@ -23,24 +23,16 @@ class MainActivity : ComponentActivity() {
         NoteAddViewModelFactory((application as NotesApplication).repository)
     }
 
-    private lateinit var cacheNote: Job
-
     @ObsoleteCoroutinesApi
-    @ExperimentalCoroutinesApi
     @ExperimentalAnimationApi
+    @ExperimentalCoroutinesApi
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             DailyDocTheme {
                 Surface(color = MaterialTheme.colors.background) {
-//                    cacheNote =
-//                        GlobalScope.launch(newSingleThreadContext("DailyNoteContext")) {
-//                            noteListVm.setDate()
-//                        }
-
                     Navigation(noteListVm, noteAddVm)
-
                 }
             }
         }

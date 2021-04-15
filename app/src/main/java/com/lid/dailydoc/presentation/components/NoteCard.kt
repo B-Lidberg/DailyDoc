@@ -1,5 +1,7 @@
 package com.lid.dailydoc.presentation.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
@@ -14,10 +16,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.data.model.Note
+import com.lid.dailydoc.utils.getCurrentDateAsString
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun NoteCard(note: Note, toDetails: (Long) -> Unit) {
+fun NoteCard(note: Note, toDetails: (Long) -> Unit, exists: Boolean) {
     val noteId = note.id
     Card(
         modifier = Modifier
@@ -25,9 +29,11 @@ fun NoteCard(note: Note, toDetails: (Long) -> Unit) {
             .padding(start = 8.dp, end = 8.dp, bottom = 4.dp)
             .height(80.dp)
             .clip(shape = CutCornerShape(topEnd = 40.dp, bottomEnd = 40.dp))
-            .clickable(onClick = { toDetails(noteId) } ),
+            .clickable(onClick = { toDetails(noteId) }),
         elevation = 4.dp,
-        backgroundColor = MaterialTheme.colors.primaryVariant,
+        backgroundColor =
+            if (note.dateCreated != getCurrentDateAsString()) MaterialTheme.colors.primaryVariant
+            else MaterialTheme.colors.secondary,
     ) {
         Column(
             modifier = Modifier
