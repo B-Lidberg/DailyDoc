@@ -1,6 +1,7 @@
 package com.lid.dailydoc
 
 import android.os.Build
+import android.provider.ContactsContract
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
@@ -12,11 +13,12 @@ import com.lid.dailydoc.MainDestinations.NOTES
 import com.lid.dailydoc.MainDestinations.NOTE_DETAILS
 import com.lid.dailydoc.MainDestinations.NOTE_ID
 import com.lid.dailydoc.MainDestinations.NOTE_KEY
+import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.screens.NoteAddScreen
 import com.lid.dailydoc.presentation.screens.NoteDetailScreen
 import com.lid.dailydoc.presentation.screens.NoteListScreen
 import com.lid.dailydoc.presentation.viewmodels.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 
 object MainDestinations {
     const val NOTES = "notes"
@@ -25,6 +27,7 @@ object MainDestinations {
     const val NOTE_KEY = "note"
 }
 
+@ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
@@ -32,7 +35,7 @@ object MainDestinations {
 fun Navigation(
     NoteListVm: NoteViewModel,
     addNoteVm: NoteAddViewModel,
-    startDestination: String = NOTES
+    startDestination: String = NOTES,
 ) {
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
@@ -41,12 +44,21 @@ fun Navigation(
 
         composable(
             route = NOTES,
-            arguments = listOf(navArgument("userId") { defaultValue = "me" })
         ) {
-            NoteListScreen(NoteListVm, actions.detailScreen, actions.addScreen)
+            val note = addNoteVm.cachedNote
+            NoteListScreen(NoteListVm, actions.detailScreen, actions.addScreen, note)
         }
-
-        composable(NOTE_KEY) { NoteAddScreen(addNoteVm, actions.upPress) }
+        GlobalScope.launch(newSingleThreadContext("DailyNoteContext")) {
+            addNoteVm.setDate()
+            addNoteVm.cacheNote()
+        }
+        val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
+        val note = noteId?.let { addNoteVm.getNoteById(it) }
+        if (noteId != null) {
+            composable("$NOTE_KEY/${NOTE_ID}") { NoteAddScreen(addNoteVm, actions.mainScreen, note!!) }
+        } else {
+            composable("$NOTE_KEY/${NOTE_ID}") { NoteAddScreen(addNoteVm, actions.mainScreen, addNoteVm.cachedNote) }
+        }
 
         composable("$NOTE_DETAILS/${NOTE_ID}") {
             val detailVm: NoteDetailViewModel = viewModel(
@@ -65,10 +77,18 @@ class MainActions(navController: NavController) {
             NOTE_ID,
             noteId
         )
-        navController.navigate("$NOTE_DETAILS/$NOTE_ID")
+        navController.navigate("$NOTE_DETAILS/${NOTE_ID}")
     }
-    val addScreen: () -> Unit = {
-        navController.navigate(NOTE_KEY)
+    val addScreen: (Note) -> Unit = { note: Note ->
+        navController.currentBackStackEntry?.arguments?.putLong(
+            NOTE_ID,
+            note.id
+        )
+        navController.navigate("$NOTE_KEY/${NOTE_ID}")
+    }
+
+    val mainScreen: () -> Unit = {
+        navController.navigate(NOTES)
     }
     val upPress: () -> Unit = {
         navController.navigateUp()

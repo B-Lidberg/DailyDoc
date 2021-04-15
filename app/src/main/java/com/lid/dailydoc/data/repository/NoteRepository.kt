@@ -23,4 +23,16 @@ class NoteRepository(
     suspend fun clearNotes() {
         noteDao.clearNotes()
     }
+
+    fun noteExists(date: String): Boolean {
+        return noteDao.exists(date)
+    }
+
+    fun findNoteByDate(date: String): Note {
+        return noteDao.getNoteByDate(date)
+    }
+
+    suspend fun updateNote(note: Note) {
+        noteDao.updateNote(note)
+    }
 }

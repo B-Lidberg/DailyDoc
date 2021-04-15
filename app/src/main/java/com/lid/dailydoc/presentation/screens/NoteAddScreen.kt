@@ -24,33 +24,35 @@ import com.lid.dailydoc.presentation.components.SurveyBar
 import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.presentation.components.AddBody
 import com.lid.dailydoc.presentation.components.AddSummary
+import com.lid.dailydoc.utils.getCurrentDateAsString
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 
+@ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun NoteAddScreen(vm: NoteAddViewModel, backPress: () -> Unit) {
-    val date = vm.date
+fun NoteAddScreen(vm: NoteAddViewModel, toMain: () -> Unit, note: Note) {
+    val summary by vm.summary.observeAsState(note.summary)
+    val body by vm.body.observeAsState(note.body)
+    val survey1 by vm.survey1.observeAsState(note.survey1)
+    val survey2 by vm.survey2.observeAsState(note.survey2)
+    val survey3 by vm.survey3.observeAsState(note.survey3)
 
-    val summary by vm.summary.observeAsState("")
-    val body by vm.body.observeAsState("")
-    val survey1 by vm.survey1.observeAsState("")
-    val survey2 by vm.survey2.observeAsState("")
-    val survey3 by vm.survey3.observeAsState("")
-
-    val note = Note(dateCreated = date, summary = summary, body = body,
+    val completeNote = Note(dateCreated = note.dateCreated, note.id, summary = summary, body = body,
                 survey1 = survey1, survey2 = survey2, survey3 = survey3,
     )
 
     var expandedSurveyBar by remember { mutableStateOf<String?>(null) }
     val scrollState = rememberLazyListState()
 
+    val clearOnDateChange = { if (note.dateCreated != getCurrentDateAsString()) vm.clearNote() }
     val clear = { vm.clearNote() }
 
     Scaffold(
-        topBar = { HeaderDateBar(date, clear)},
-        floatingActionButton = { SaveButton(vm, backPress, clear, note) },
+        topBar = { HeaderDateBar(vm.cachedNote.dateCreated, clear)},
+        floatingActionButton = { SaveButton(vm, toMain, clearOnDateChange, completeNote) },
         content = {
             LazyColumn(
                 modifier = Modifier
@@ -81,24 +83,25 @@ fun NoteAddScreen(vm: NoteAddViewModel, backPress: () -> Unit) {
     )
 }
 
+@ObsoleteCoroutinesApi
 @Composable
 fun SaveButton(
     vm: NoteAddViewModel,
-    backPress: () -> Unit,
+    toMain: () -> Unit,
     clear: () -> Unit,
-    cachedNote: Note,
+    note: Note,
 ) {
     Button(
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (cachedNote.summary.isEmpty()) Color.LightGray else MaterialTheme.colors.primary),
+            backgroundColor = if (note.summary.isEmpty()) Color.LightGray else MaterialTheme.colors.primary),
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
             .width(100.dp),
-        enabled = (cachedNote.summary.isNotEmpty()),
+        enabled = (vm.cachedNote.summary.isNotEmpty()),
         onClick = {
-            vm.addNote(cachedNote)
+            vm.addNote(note)
             clear.invoke()
-            backPress.invoke()
+            toMain.invoke()
         },
     ) {
         Text(

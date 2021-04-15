@@ -27,6 +27,15 @@ interface NoteDao {
     @Query("SELECT * FROM notes_table WHERE note_id = :noteId")
     fun findById(noteId: Long): Note
 
+    @Query("SELECT EXISTS (SELECT 1 FROM notes_table WHERE note_date = :date)")
+    fun exists(date: String): Boolean
+
+    @Query("SELECT * FROM notes_table WHERE note_date = :date")
+    fun getNoteByDate(date: String): Note
+
+    @Insert(onConflict = REPLACE)
+    suspend fun updateNote(note: Note)
+
     @Query("DELETE FROM notes_table")
     suspend fun clearNotes()
 

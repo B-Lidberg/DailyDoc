@@ -8,8 +8,10 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.*
+import androidx.compose.runtime.currentRecomposeScope
 import com.lid.dailydoc.presentation.ui.theme.DailyDocTheme
 import com.lid.dailydoc.presentation.viewmodels.*
+import kotlinx.coroutines.*
 
 
 class MainActivity : ComponentActivity() {
@@ -21,6 +23,10 @@ class MainActivity : ComponentActivity() {
         NoteAddViewModelFactory((application as NotesApplication).repository)
     }
 
+    private lateinit var cacheNote: Job
+
+    @ObsoleteCoroutinesApi
+    @ExperimentalCoroutinesApi
     @ExperimentalAnimationApi
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +34,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             DailyDocTheme {
                 Surface(color = MaterialTheme.colors.background) {
+                    cacheNote =
+                        GlobalScope.launch(newSingleThreadContext("DailyNoteContext")) {
+                            noteAddVm.setDate()
+                            noteAddVm.cacheNote()
+                        }
+
                     Navigation(noteListVm, noteAddVm)
+
                 }
             }
         }

@@ -15,7 +15,7 @@ class NoteAddViewModel(private val repository: NoteRepository) : ViewModel() {
 
     // DATE
     @RequiresApi(Build.VERSION_CODES.O)
-    val date: String = getCurrentDateAsString()
+    var date: String = getCurrentDateAsString()
 
     // SUMMARY
     private val _summary: MutableLiveData<String> = MutableLiveData()
@@ -57,12 +57,38 @@ class NoteAddViewModel(private val repository: NoteRepository) : ViewModel() {
     }
 
     // get or create Daily Note
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun setDate() {
+        date = getCurrentDateAsString()
+    }
+    private var noteExists: Boolean = false
 
+    @ObsoleteCoroutinesApi
+    fun checkNoteExists() {
+            noteExists = repository.noteExists(date)
+    }
+    var cachedNote = Note(date)
+
+    @ObsoleteCoroutinesApi
+    fun cacheNote() {
+        viewModelScope.launch(Dispatchers.Default) {
+            checkNoteExists()
+            cachedNote = if (noteExists) getNote() else Note(date)
+        }
+    }
+    private fun getNote(): Note = repository.findNoteByDate(date)
+
+    fun getNoteById(noteId: Long): Note {
+        return runBlocking(Dispatchers.IO) {
+            repository.findNoteById(noteId)
+        }
+    }
 
     // Add Note
+    @ObsoleteCoroutinesApi
     fun addNote(note: Note) {
-        viewModelScope.launch {
-            repository.insertNote(note)
+        viewModelScope.launch(newSingleThreadContext("insert note")) {
+            if (noteExists) repository.updateNote(note) else repository.insertNote(note)
         }
     }
     fun clearNote() {
