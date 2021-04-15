@@ -13,26 +13,33 @@ import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.viewmodels.NoteViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.presentation.components.NoteCard
 import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.utils.getCurrentDateAsString
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NoteListScreen(vm: NoteViewModel, toDetails: (Long) -> Unit, toAdd: (Note) -> Unit, note: Note) {
     val notes by vm.allNotes.observeAsState(emptyList())
+    val exists by vm.exists.observeAsState(false)
     Scaffold(
         topBar = { NoteListTopBar(vm) },
-        floatingActionButton = { AddNoteButton(toAdd, note) },
-        content = { NoteList(notes, toDetails) }
+        floatingActionButton = { AddNoteButton(toAdd, note, exists) },
+        content = {
+            NoteList(notes, toDetails) }
     )
 }
 
@@ -68,8 +75,8 @@ fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AddNoteButton(toAdd: (Note) -> Unit, note: Note) {
-    val buttonText = if (note.dateCreated == getCurrentDateAsString()) {
+fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
+    val buttonText = if (exists) {
         "Let's Edit Your Daily Note!"
     } else {
         "Let's Add Your Daily Note!"
@@ -80,7 +87,10 @@ fun AddNoteButton(toAdd: (Note) -> Unit, note: Note) {
                 text = buttonText
             )
         },
-        onClick = { toAdd(note) },
+        onClick = {
+            toAdd(note)
+            println("NOTE: id: ${note.id}, date: ${note.dateCreated}, summary: ${note.summary}, body: ${note.body}")
+                  },
         icon = { if (note.dateCreated == getCurrentDateAsString()) {
                     Icon(Icons.Outlined.Edit, contentDescription = "Edit Button")
                 } else {

@@ -4,7 +4,6 @@ import androidx.annotation.WorkerThread
 import com.lid.dailydoc.data.local.NoteDao
 import com.lid.dailydoc.data.model.Note
 import kotlinx.coroutines.flow.Flow
-import java.util.*
 
 class NoteRepository(
     private val noteDao: NoteDao,
@@ -26,6 +25,9 @@ class NoteRepository(
 
     fun noteExists(date: String): Boolean {
         return noteDao.exists(date)
+    }
+    fun exists(date: String): Flow<Boolean> {
+        return noteDao.existsTest(date)
     }
 
     fun findNoteByDate(date: String): Note {

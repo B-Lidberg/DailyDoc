@@ -34,11 +34,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             DailyDocTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    cacheNote =
-                        GlobalScope.launch(newSingleThreadContext("DailyNoteContext")) {
-                            noteAddVm.setDate()
-                            noteAddVm.cacheNote()
-                        }
+//                    cacheNote =
+//                        GlobalScope.launch(newSingleThreadContext("DailyNoteContext")) {
+//                            noteListVm.setDate()
+//                        }
 
                     Navigation(noteListVm, noteAddVm)
 

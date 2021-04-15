@@ -28,6 +28,9 @@ interface NoteDao {
     fun findById(noteId: Long): Note
 
     @Query("SELECT EXISTS (SELECT 1 FROM notes_table WHERE note_date = :date)")
+    fun existsTest(date: String): Flow<Boolean>
+
+    @Query("SELECT EXISTS (SELECT 1 FROM notes_table WHERE note_date = :date)")
     fun exists(date: String): Boolean
 
     @Query("SELECT * FROM notes_table WHERE note_date = :date")

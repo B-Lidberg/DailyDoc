@@ -45,19 +45,17 @@ fun Navigation(
         composable(
             route = NOTES,
         ) {
-            val note = addNoteVm.cachedNote
-            NoteListScreen(NoteListVm, actions.detailScreen, actions.addScreen, note)
-        }
-        GlobalScope.launch(newSingleThreadContext("DailyNoteContext")) {
             addNoteVm.setDate()
             addNoteVm.cacheNote()
+            val note = addNoteVm.cachedNote
+            NoteListScreen(NoteListVm, actions.detailScreen, actions.addScreen, note)
         }
         val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
         val note = noteId?.let { addNoteVm.getNoteById(it) }
         if (noteId != null) {
-            composable("$NOTE_KEY/${NOTE_ID}") { NoteAddScreen(addNoteVm, actions.mainScreen, note!!) }
+            composable("$NOTE_KEY/${NOTE_ID}") { NoteAddScreen(addNoteVm, actions.upPress, note!!) }
         } else {
-            composable("$NOTE_KEY/${NOTE_ID}") { NoteAddScreen(addNoteVm, actions.mainScreen, addNoteVm.cachedNote) }
+            composable("$NOTE_KEY/${NOTE_ID}") { NoteAddScreen(addNoteVm, actions.upPress, addNoteVm.cachedNote) }
         }
 
         composable("$NOTE_DETAILS/${NOTE_ID}") {

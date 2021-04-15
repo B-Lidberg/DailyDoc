@@ -67,7 +67,7 @@ class NoteAddViewModel(private val repository: NoteRepository) : ViewModel() {
     fun checkNoteExists() {
             noteExists = repository.noteExists(date)
     }
-    var cachedNote = Note(date)
+    var cachedNote = Note(dateCreated = "Mon, Jan 15, 2001")
 
     @ObsoleteCoroutinesApi
     fun cacheNote() {

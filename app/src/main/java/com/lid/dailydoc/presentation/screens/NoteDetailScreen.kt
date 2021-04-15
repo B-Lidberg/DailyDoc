@@ -38,6 +38,7 @@ fun NoteDetailScreen(vm: NoteDetailViewModel, noteId: Long) {
 fun TempBody(note: Note) {
     Column {
         LazyColumn {
+            item { Text(text = "Note ID:\n${note.id}\n", fontSize = 24.sp) }
             item { SurveyDetails(note) }
             item { Text(text = "Summary:\n${note.summary}\n", fontSize = 24.sp) }
             item { Text(text = "Body:\n${note.body}\n", fontSize = 24.sp) }

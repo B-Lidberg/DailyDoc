@@ -61,6 +61,7 @@ fun NoteAddScreen(vm: NoteAddViewModel, toMain: () -> Unit, note: Note) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 state = scrollState,
             ) {
+
                 item { SurveyBar(
                     vm = vm,
                     expanded = expandedSurveyBar == summary,
@@ -97,7 +98,7 @@ fun SaveButton(
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
             .width(100.dp),
-        enabled = (vm.cachedNote.summary.isNotEmpty()),
+        enabled = (note.summary.isNotEmpty()),
         onClick = {
             vm.addNote(note)
             clear.invoke()
