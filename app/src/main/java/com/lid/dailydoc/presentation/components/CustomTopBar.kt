@@ -32,8 +32,7 @@ fun CustomTopBar(headerText: String, onAction: () -> Unit, icon: ImageVector) {
             style = MaterialTheme.typography.h5,
             maxLines = 1,
         )
-        IconButton(onClick = onAction) {
-            Icon(icon, contentDescription = null)
-        }
+        ClearButton(onAction = onAction, icon = icon)
+
     }
 }

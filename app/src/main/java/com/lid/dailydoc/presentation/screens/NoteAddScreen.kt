@@ -19,11 +19,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.model.Note
-import com.lid.dailydoc.presentation.components.CustomTopBar
-import com.lid.dailydoc.presentation.components.SurveyBar
+import com.lid.dailydoc.presentation.components.*
 import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
-import com.lid.dailydoc.presentation.components.AddBody
-import com.lid.dailydoc.presentation.components.AddSummary
 import com.lid.dailydoc.utils.getCurrentDateAsString
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
