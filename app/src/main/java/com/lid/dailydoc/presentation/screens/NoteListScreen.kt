@@ -2,6 +2,7 @@ package com.lid.dailydoc.presentation.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -77,11 +78,12 @@ fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit) {
 @Composable
 fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
     val buttonText = if (exists) {
-        "Let's Edit Your Daily Note!"
+        ""
     } else {
         "Let's Add Your Daily Note!"
     }
     ExtendedFloatingActionButton(
+        modifier = Modifier.animateContentSize(),
         text = {
             Text(
                 text = buttonText
@@ -91,7 +93,7 @@ fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
             toAdd(note)
             println("NOTE: id: ${note.id}, date: ${note.dateCreated}, summary: ${note.summary}, body: ${note.body}")
                   },
-        icon = { if (note.dateCreated == getCurrentDateAsString()) {
+        icon = { if (exists) {
                     Icon(Icons.Outlined.Edit, contentDescription = "Edit Button")
                 } else {
                     Icon(Icons.Outlined.Star, contentDescription = "Add Button")
