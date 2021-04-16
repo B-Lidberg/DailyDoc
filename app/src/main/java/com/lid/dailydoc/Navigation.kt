@@ -2,10 +2,12 @@ package com.lid.dailydoc
 
 import android.os.Build
 import android.provider.ContactsContract
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.*
@@ -33,12 +35,14 @@ object MainDestinations {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation(
-    NoteListVm: NoteViewModel,
-    addNoteVm: NoteAddViewModel,
+    noteListVm: NoteViewModel,
     startDestination: String = NOTES,
 ) {
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
+
+    val addNoteVm: NoteAddViewModel = viewModel(
+        factory = NoteAddViewModelFactory(NotesApplication().repository))
 
     NavHost(navController = navController, startDestination = startDestination) {
 
@@ -48,7 +52,7 @@ fun Navigation(
             addNoteVm.setDate()
             addNoteVm.cacheNote()
             val note = addNoteVm.cachedNote
-            NoteListScreen(NoteListVm, actions.detailScreen, actions.addScreen, note)
+            NoteListScreen(noteListVm, actions.detailScreen, actions.addScreen, note)
         }
         val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
         val note = noteId?.let { addNoteVm.getNoteById(it) }

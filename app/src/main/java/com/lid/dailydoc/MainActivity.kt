@@ -19,9 +19,6 @@ class MainActivity : ComponentActivity() {
     private val noteListVm: NoteViewModel by viewModels {
         NoteViewModelFactory((application as NotesApplication).repository)
     }
-    private val noteAddVm: NoteAddViewModel by viewModels {
-        NoteAddViewModelFactory((application as NotesApplication).repository)
-    }
 
     @ObsoleteCoroutinesApi
     @ExperimentalAnimationApi
@@ -32,7 +29,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DailyDocTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    Navigation(noteListVm, noteAddVm)
+                    Navigation(noteListVm)
                 }
             }
         }
