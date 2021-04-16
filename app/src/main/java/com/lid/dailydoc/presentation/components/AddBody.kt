@@ -68,6 +68,7 @@ fun AddBody(
             Column(
                 horizontalAlignment = Alignment.End,
             ) {
+                Spacer(modifier = Modifier.padding(top = 4.dp))
                 Button(
                     modifier = Modifier.size(45.dp),
                     colors = ButtonDefaults.buttonColors(
