@@ -1,11 +1,10 @@
 package com.lid.dailydoc.presentation.components
 
+import android.widget.Button
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +14,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomTopBar(headerText: String, onAction: () -> Unit, icon: ImageVector) {
+fun CustomTopBar(headerText: String, button: @Composable () -> Unit) {
     Row(
         modifier = Modifier
             .padding(8.dp)
@@ -32,7 +31,7 @@ fun CustomTopBar(headerText: String, onAction: () -> Unit, icon: ImageVector) {
             style = MaterialTheme.typography.h5,
             maxLines = 1,
         )
-        ClearButton(onAction = onAction, icon = icon)
+        button()
 
     }
 }

@@ -44,20 +44,14 @@ fun SurveyBar(
         ) {
             Row {
                 if (!expanded) {
-                    Icon(
-                        imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                        contentDescription = null,
-                    )
+                    ExpandedIcon()
                     Spacer(modifier = Modifier.width(16.dp))
                     Text(
-                        text = if (expanded) "Minimize" else "Expand Survey",
+                        text = "Expand Survey",
                         style = MaterialTheme.typography.body1
                     )
                     Spacer(modifier = Modifier.width(16.dp))
-                    Icon(
-                        imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                        contentDescription = null,
-                    )
+                    ExpandedIcon()
                 }
             }
             if (expanded) {
@@ -72,6 +66,14 @@ fun SurveyBar(
         }
     }
     SurveyBarSpacer(visible = expanded)
+}
+
+@Composable
+fun ExpandedIcon() {
+    Icon(
+        imageVector = Icons.Filled.KeyboardArrowDown,
+        contentDescription = "Expanded Icon",
+    )
 }
 
 @ExperimentalAnimationApi

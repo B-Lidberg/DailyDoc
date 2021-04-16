@@ -1,6 +1,7 @@
 package com.lid.dailydoc.presentation.screens
 
 import android.os.Build
+import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.gestures.draggable
@@ -12,6 +13,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.Edit
@@ -43,7 +45,7 @@ fun NoteListScreen(vm: NoteViewModel, toDetails: (Long) -> Unit, toAdd: (Note) -
         topBar = { NoteListTopBar() },
         floatingActionButton = { AddNoteButton(toAdd, note, exists) },
         content = {
-            NoteList(notes, toDetails, exists) }
+            NoteList(notes, toDetails) }
     )
 }
 
@@ -54,16 +56,16 @@ fun NoteListTopBar() {
         elevation = 0.dp,
         modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
     ) {
-        CustomTopBar("Room Note Sample", {}, Icons.Default.Menu)
+        CustomTopBar("Room Note Sample") { SearchButton() }
     }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit, exists: Boolean) {
+fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit) {
     LazyColumn {
         items(items = notes) { note ->
-            NoteCard(note, toDetails, exists)
+            NoteCard(note, toDetails)
         }
     }
 }
@@ -77,4 +79,9 @@ fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
     ) {
         Icon(imageVector =  if (exists) Icons.Outlined.Edit else Icons.Outlined.Add, contentDescription = "To Add Screen")
     }
+}
+
+@Composable
+fun SearchButton() {
+    IconButton(onClick = {} ) { Icon(Icons.Default.Search, contentDescription = "Search Icon") }
 }

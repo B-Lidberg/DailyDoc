@@ -115,12 +115,13 @@ fun HeaderDateBar(
     date: String,
     onClear: () -> Unit,
 ) {
+    val clearButton = ClearButton(onAction = onClear)
     TopAppBar(
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
         modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
     ) {
-        CustomTopBar(date, onClear, Icons.Default.Clear)
+        CustomTopBar(date) { ClearButton(onAction = onClear) }
     }
 }
 

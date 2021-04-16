@@ -2,19 +2,21 @@ package com.lid.dailydoc.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
-fun ClearButton(onAction: () -> Unit, icon: ImageVector) {
+fun ClearButton(onAction: () -> Unit) {
     MaterialTheme {
         Column {
             val openDialog = remember { mutableStateOf(false) }
 
             IconButton(onClick = { openDialog.value = true } ) {
-                Icon(icon, contentDescription = null)
+                Icon(Icons.Default.Clear, contentDescription = null)
             }
 
             if (openDialog.value) {

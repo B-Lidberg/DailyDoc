@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -21,12 +22,14 @@ fun NoteDetailScreen(vm: NoteDetailViewModel, noteId: Long) {
     val note = vm.getNote(noteId)
 
     Scaffold(
-        topBar = { TopAppBar(
-            backgroundColor = MaterialTheme.colors.background,
-            elevation = 0.dp,
-            modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
-        ) {
-            CustomTopBar(note.dateCreated, {}, Icons.Default.Edit) }
+        topBar = {
+            TopAppBar(
+                backgroundColor = MaterialTheme.colors.background,
+                elevation = 0.dp,
+                modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
+            ) {
+                CustomTopBar(note.dateCreated) { EditBodyButton() }
+            }
         },
         content = {
             TempBody(note)
@@ -54,4 +57,8 @@ fun SurveyDetails(note: Note) {
         Text(text = "${surveyQuestions[1]}:\n ${note.survey2}\n", fontSize = 24.sp)
         Text(text = "${surveyQuestions[2]}:\n ${note.survey3}\n", fontSize = 24.sp)
     }
+}
+@Composable
+fun EditBodyButton() {
+    IconButton(onClick = {} ) { Icon(Icons.Default.Edit, contentDescription = "Search Icon") }
 }

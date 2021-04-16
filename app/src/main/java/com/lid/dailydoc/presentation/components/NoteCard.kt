@@ -21,7 +21,7 @@ import com.lid.dailydoc.utils.getCurrentDateAsString
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun NoteCard(note: Note, toDetails: (Long) -> Unit, exists: Boolean) {
+fun NoteCard(note: Note, toDetails: (Long) -> Unit) {
     val noteId = note.id
     Card(
         modifier = Modifier
@@ -33,7 +33,7 @@ fun NoteCard(note: Note, toDetails: (Long) -> Unit, exists: Boolean) {
         elevation = 4.dp,
         backgroundColor =
             if (note.dateCreated != getCurrentDateAsString()) MaterialTheme.colors.primaryVariant
-            else MaterialTheme.colors.secondary,
+            else MaterialTheme.colors.secondary
     ) {
         Column(
             modifier = Modifier
