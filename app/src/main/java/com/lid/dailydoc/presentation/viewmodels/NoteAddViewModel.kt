@@ -7,8 +7,6 @@ import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepository
 import com.lid.dailydoc.utils.getCurrentDateAsString
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import java.lang.IllegalArgumentException
 
 class NoteAddViewModel(private val repository: NoteRepository) : ViewModel() {
@@ -39,7 +37,6 @@ class NoteAddViewModel(private val repository: NoteRepository) : ViewModel() {
 
     fun onSurvey1Change(newAnswer: String) {
         _survey1.value = newAnswer
-
     }
 
     private val _survey2: MutableLiveData<String> = MutableLiveData()

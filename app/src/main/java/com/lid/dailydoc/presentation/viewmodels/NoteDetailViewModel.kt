@@ -16,6 +16,7 @@ class NoteDetailViewModel (private val repository: NoteRepository) : ViewModel()
             repository.findNoteById(noteId)
         }
     }
+
 }
 class NoteDetailViewModeFactory(
     private val repository: NoteRepository,
