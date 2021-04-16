@@ -56,7 +56,7 @@ fun NoteListTopBar() {
         elevation = 0.dp,
         modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
     ) {
-        CustomTopBar("Room Note Sample") { SearchButton() }
+        CustomTopBar("Daily Doc") { SearchButton() }
     }
 }
 
