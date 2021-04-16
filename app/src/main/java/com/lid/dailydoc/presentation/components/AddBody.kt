@@ -1,9 +1,7 @@
 package com.lid.dailydoc.presentation.components
 
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -58,7 +56,13 @@ fun AddBody(
 
         )
         AnimatedVisibility(
-                visible = isFocused,
+            visible = isFocused,
+            initiallyVisible = false,
+            enter = fadeIn(),
+            exit = fadeOut(),
+            modifier = Modifier.animateContentSize()
+
+
         ) {
 
             Column(
