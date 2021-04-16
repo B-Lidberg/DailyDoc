@@ -6,9 +6,9 @@ First project - Feedback welcomed!
 
 Currently a simple note taking app that stores notes locally.
 
-|![Screenshot](screenshots/EmptyListScreen.png)| |![Screenshot](screenshots/ListScreenWithDaily.png)|
-|![Screenshot](screenshots/Survey.png)| |![Screenshot](screenshots/AddNoteBody.png)|
-|![Screenshot](screenshots/ClearDialog.png) |![Screenshot](screenshots/NoteDetailScreen.png)|
+<kbd>![Screenshot](screenshots/EmptyListScreen.png)</kbd> ![Screenshot](screenshots/ListScreenWithDaily.png)
+![Screenshot](screenshots/Survey.png) ![Screenshot](screenshots/AddNoteBody.png)
+![Screenshot](screenshots/ClearDialog.png) ![Screenshot](screenshots/NoteDetailScreen.png)
 
 **Few features I'll be adding:**
 - Login Screen
