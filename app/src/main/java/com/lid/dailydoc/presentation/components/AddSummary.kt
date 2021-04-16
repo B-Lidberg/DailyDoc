@@ -8,17 +8,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
 
 @Composable
 fun AddSummary(
-    vm: NoteAddViewModel,
+    summaryChange: (String) -> Unit,
     summary: String,
 ) {
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = summary,
-        onValueChange = { vm.onSummaryChange(it) },
+        onValueChange = { summaryChange(it) },
         label = { Text(text = "Note Summary") },
         placeholder = {  Text(text = "Overview", Modifier.alpha(.25f))},
         colors = TextFieldDefaults.outlinedTextFieldColors(

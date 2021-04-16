@@ -9,11 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
-import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
 
 @Composable
 fun AddBody(
-    vm: NoteAddViewModel,
+    bodyChange: (String) -> Unit,
     body: String,
 ) {
     TextField(
@@ -22,7 +21,7 @@ fun AddBody(
             .padding(4.dp)
             .background(MaterialTheme.colors.background),
         value = body,
-        onValueChange = { vm.onBodyChange(it) },
+        onValueChange = { bodyChange(it) },
         label = { Text(text = "Note Body") },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colors.background, unfocusedBorderColor = MaterialTheme.colors.background

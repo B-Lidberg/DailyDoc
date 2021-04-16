@@ -10,15 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
 
 @Composable
 fun FourOptions(
-    vm: NoteAddViewModel,
+    onSurveyChange: (String) -> Unit,
     savedAnswer: String,
     survey: List<String>
 ) {
-    vm.onSurvey3Change(savedAnswer)
+    onSurveyChange(savedAnswer)
 
     Text(survey[0])
     Spacer(modifier = Modifier.size(4.dp))
@@ -31,7 +30,7 @@ fun FourOptions(
             OutlinedButton(
                 modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
                 onClick = {
-                    vm.onSurvey3Change(survey[1])
+                    onSurveyChange(survey[1])
 
                 },
                 shape = CircleShape,
@@ -45,7 +44,7 @@ fun FourOptions(
             OutlinedButton(
                 modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
                 onClick = {
-                    vm.onSurvey3Change(survey[2])
+                    onSurveyChange(survey[2])
 
                 },
                 shape = CircleShape,
@@ -60,7 +59,7 @@ fun FourOptions(
             OutlinedButton(
                 modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
                 onClick = {
-                    vm.onSurvey3Change(survey[3])
+                    onSurveyChange(survey[3])
 
                 },
                 shape = CircleShape,
@@ -73,7 +72,7 @@ fun FourOptions(
             OutlinedButton(
                 modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
                 onClick = {
-                    vm.onSurvey3Change(survey[4])
+                    onSurveyChange(survey[4])
 
                 },
                 shape = CircleShape,

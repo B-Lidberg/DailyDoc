@@ -15,14 +15,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
 
 @ExperimentalAnimationApi
 @Composable
 fun SurveyBar(
-    vm: NoteAddViewModel,
     expanded: Boolean,
     onClick: () -> Unit,
+    onSurvey1Change: (String) -> Unit,
+    onSurvey2Change: (String) -> Unit,
+    onSurvey3Change: (String) -> Unit,
     survey1: String,
     survey2: String,
     survey3: String,
@@ -57,7 +58,10 @@ fun SurveyBar(
             if (expanded) {
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Survey(vm = vm,
+                Survey(
+                    { onSurvey1Change(it) },
+                    { onSurvey2Change(it) },
+                    { onSurvey3Change(it) },
                     survey1 = survey1,
                     survey2 = survey2,
                     survey3 = survey3,

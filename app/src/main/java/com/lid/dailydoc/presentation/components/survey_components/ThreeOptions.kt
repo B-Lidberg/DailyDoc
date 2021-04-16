@@ -12,15 +12,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
 
 @Composable
 fun ThreeOptions(
-    vm: NoteAddViewModel,
+    onSurveyChange: (String) -> Unit,
     savedAnswer: String,
     survey: List<String>
 ) {
-    vm.onSurvey2Change(savedAnswer)
+    onSurveyChange(savedAnswer)
 
     Text(survey[0])
     Spacer(modifier = Modifier.size(4.dp))
@@ -29,7 +28,7 @@ fun ThreeOptions(
         OutlinedButton(
             modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
             onClick = {
-                vm.onSurvey2Change(survey[1])
+                onSurveyChange(survey[1])
             },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
@@ -42,7 +41,7 @@ fun ThreeOptions(
         OutlinedButton(
             modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
             onClick = {
-                vm.onSurvey2Change(survey[2])
+                onSurveyChange(survey[2])
             },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
@@ -56,7 +55,7 @@ fun ThreeOptions(
         OutlinedButton(
             modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
             onClick = {
-                vm.onSurvey2Change(survey[3])
+                onSurveyChange(survey[3])
 
             },
             shape = CircleShape,

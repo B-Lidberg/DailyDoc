@@ -9,8 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -48,8 +46,20 @@ fun NoteAddScreen(vm: NoteAddViewModel, toMain: () -> Unit, note: Note) {
     val clear = { vm.clearNote() }
 
     Scaffold(
-        topBar = { HeaderDateBar(vm.cachedNote.dateCreated, clear)},
-        floatingActionButton = { SaveButton(vm, toMain, clearOnDateChange, completeNote) },
+        topBar = {
+            HeaderDateBar(
+                vm.cachedNote.dateCreated,
+                clear
+            )
+        },
+        floatingActionButton = {
+            SaveButton(
+                { vm.addNote(it) },
+                toMain,
+                clearOnDateChange,
+                completeNote
+            )
+        },
         content = {
             LazyColumn(
                 modifier = Modifier
@@ -59,23 +69,24 @@ fun NoteAddScreen(vm: NoteAddViewModel, toMain: () -> Unit, note: Note) {
                 state = scrollState,
             ) {
 
-                item { SurveyBar(
-                    vm = vm,
-                    expanded = expandedSurveyBar == summary,
-                    onClick = {
-                        expandedSurveyBar =
-                            if (expandedSurveyBar == summary) null else summary
-                    },
-                    survey1 = survey1,
-                    survey2 = survey2,
-                    survey3 = survey3,
-                ) }
-                item { AddSummary(vm = vm, summary = summary) }
+                item {
+                    SurveyBar(
+                        expanded = expandedSurveyBar == summary,
+                        onClick = {
+                            expandedSurveyBar =
+                                if (expandedSurveyBar == summary) null else summary
+                        },
+                        { vm.onSurvey1Change(it) },
+                        { vm.onSurvey2Change(it) },
+                        { vm.onSurvey3Change(it) },
+                        survey1 = survey1,
+                        survey2 = survey2,
+                        survey3 = survey3,
+                    )
+                }
+                item { AddSummary( { vm.onSummaryChange(it) }, summary) }
 
-                item { AddBody(
-                    vm = vm,
-                    body = body,
-                ) }
+                item { AddBody( { vm.onBodyChange(it) }, body) }
             }
         }
     )
@@ -84,20 +95,22 @@ fun NoteAddScreen(vm: NoteAddViewModel, toMain: () -> Unit, note: Note) {
 @ObsoleteCoroutinesApi
 @Composable
 fun SaveButton(
-    vm: NoteAddViewModel,
+    addNote: (Note) -> Unit,
     toMain: () -> Unit,
     clear: () -> Unit,
     note: Note,
 ) {
     Button(
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (note.summary.isEmpty()) Color.LightGray else MaterialTheme.colors.secondary),
+            backgroundColor =
+                if (note.summary.isEmpty()) Color.LightGray else MaterialTheme.colors.secondary
+        ),
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
             .width(100.dp),
         enabled = (note.summary.isNotEmpty()),
         onClick = {
-            vm.addNote(note)
+            addNote(note)
             clear.invoke()
             toMain.invoke()
         },
@@ -115,13 +128,12 @@ fun HeaderDateBar(
     date: String,
     onClear: () -> Unit,
 ) {
-    val clearButton = ClearButton(onAction = onClear)
     TopAppBar(
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
         modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
     ) {
-        CustomTopBar(date) { ClearButton(onAction = onClear) }
+        CustomTopBar(date) { ClearButton(onClear) }
     }
 }
 

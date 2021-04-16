@@ -12,38 +12,41 @@ import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.survey1Data
 import com.lid.dailydoc.data.survey2Data
 import com.lid.dailydoc.data.survey3Data
-import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.presentation.components.survey_components.FourOptions
 import com.lid.dailydoc.presentation.components.survey_components.ThreeOptions
 import com.lid.dailydoc.presentation.components.survey_components.TwoOptions
 
 @Composable
 fun Survey(
-    vm: NoteAddViewModel,
+    onSurvey1Change: (String) -> Unit,
+    onSurvey2Change: (String) -> Unit,
+    onSurvey3Change: (String) -> Unit,
     survey1: String,
     survey2: String,
     survey3: String,
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth().animateContentSize(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .animateContentSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TwoOptions(
-            vm = vm,
+            { onSurvey1Change(it) },
             savedAnswer = survey1,
             survey = survey1Data
         )
         Spacer(modifier = Modifier.size(4.dp))
 
         ThreeOptions(
-            vm = vm,
+            { onSurvey2Change(it) },
             savedAnswer = survey2,
             survey = survey2Data
         )
         Spacer(modifier = Modifier.size(4.dp))
 
         FourOptions(
-            vm = vm,
+            { onSurvey3Change(it) },
             savedAnswer = survey3,
             survey = survey3Data
         )
