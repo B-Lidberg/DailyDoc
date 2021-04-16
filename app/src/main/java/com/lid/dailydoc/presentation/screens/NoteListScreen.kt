@@ -72,11 +72,6 @@ fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit, exists: Boolean) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
-    val buttonText = if (exists) {
-        ""
-    } else {
-        "Let's Add Your Daily Note!"
-    }
     FloatingActionButton(
         onClick = { toAdd(note) },
         backgroundColor = MaterialTheme.colors.secondaryVariant
