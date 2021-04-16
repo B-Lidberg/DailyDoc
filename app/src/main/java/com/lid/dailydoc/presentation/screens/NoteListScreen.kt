@@ -40,7 +40,7 @@ fun NoteListScreen(vm: NoteViewModel, toDetails: (Long) -> Unit, toAdd: (Note) -
     val notes by vm.allNotes.observeAsState(emptyList())
     val exists by vm.exists.observeAsState(false)
     Scaffold(
-        topBar = { NoteListTopBar(vm) },
+        topBar = { NoteListTopBar() },
         floatingActionButton = { AddNoteButton(toAdd, note, exists) },
         content = {
             NoteList(notes, toDetails, exists) }
@@ -48,8 +48,7 @@ fun NoteListScreen(vm: NoteViewModel, toDetails: (Long) -> Unit, toAdd: (Note) -
 }
 
 @Composable
-fun NoteListTopBar(vm: NoteViewModel) {
-    val clearNotes: () -> Unit = { vm.clearNotes() }
+fun NoteListTopBar() {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
