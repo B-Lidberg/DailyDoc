@@ -36,10 +36,10 @@ fun FourOptions(
                 },
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (savedAnswer == survey[1]) MaterialTheme.colors.primary else MaterialTheme.colors.onPrimary),
+                    backgroundColor = if (savedAnswer == survey[1]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary),
 
                 ) {
-                Text(survey[1])
+                Text(survey[1], color = if (savedAnswer == survey[1]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
             }
 
             OutlinedButton(
@@ -50,10 +50,10 @@ fun FourOptions(
                 },
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (savedAnswer == survey[2]) MaterialTheme.colors.primary else MaterialTheme.colors.onPrimary),
+                    backgroundColor = if (savedAnswer == survey[2]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary),
 
                 ) {
-                Text(survey[2])
+                Text(survey[2], color = if (savedAnswer == survey[2]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
             }
         }
         Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
@@ -65,10 +65,10 @@ fun FourOptions(
                 },
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (savedAnswer == survey[3]) MaterialTheme.colors.primary else MaterialTheme.colors.onPrimary),
+                    backgroundColor = if (savedAnswer == survey[3]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary),
 
                 ) {
-                Text(survey[3])
+                Text(survey[3], color = if (savedAnswer == survey[3]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
             }
             OutlinedButton(
                 modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
@@ -78,10 +78,10 @@ fun FourOptions(
                 },
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (savedAnswer == survey[4]) MaterialTheme.colors.primary else MaterialTheme.colors.onPrimary),
+                    backgroundColor = if (savedAnswer == survey[4]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary),
 
                 ) {
-                Text(survey[4])
+                Text(survey[4], color = if (savedAnswer == survey[4]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
             }
         }
     }

@@ -3,6 +3,8 @@ package com.lid.dailydoc.presentation.screens
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -10,6 +12,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Star
@@ -74,23 +77,10 @@ fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
     } else {
         "Let's Add Your Daily Note!"
     }
-    ExtendedFloatingActionButton(
-        modifier = Modifier.animateContentSize(),
-        text = {
-            Text(
-                text = buttonText
-            )
-        },
-        onClick = {
-            toAdd(note)
-            println("NOTE: id: ${note.id}, date: ${note.dateCreated}, summary: ${note.summary}, body: ${note.body}")
-                  },
-        icon = { if (exists) {
-                    Icon(Icons.Outlined.Edit, contentDescription = "Edit Button")
-                } else {
-                    Icon(Icons.Outlined.Star, contentDescription = "Add Button")
-                }
-        },
-        backgroundColor = MaterialTheme.colors.primary
-    )
+    FloatingActionButton(
+        onClick = { toAdd(note) },
+        backgroundColor = MaterialTheme.colors.secondaryVariant
+    ) {
+        Icon(imageVector =  if (exists) Icons.Outlined.Edit else Icons.Outlined.Add, contentDescription = "To Add Screen")
+    }
 }

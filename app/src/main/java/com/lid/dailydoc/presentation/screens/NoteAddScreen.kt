@@ -91,7 +91,7 @@ fun SaveButton(
 ) {
     Button(
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (note.summary.isEmpty()) Color.LightGray else MaterialTheme.colors.primary),
+            backgroundColor = if (note.summary.isEmpty()) Color.LightGray else MaterialTheme.colors.secondary),
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
             .width(100.dp),

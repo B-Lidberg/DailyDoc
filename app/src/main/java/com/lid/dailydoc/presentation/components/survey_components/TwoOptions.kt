@@ -33,10 +33,10 @@ fun TwoOptions(
             },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (savedAnswer == survey[1]) MaterialTheme.colors.primary else MaterialTheme.colors.onPrimary),
+                backgroundColor = if (savedAnswer == survey[1]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary),
 
         ) {
-            Text(survey[1])
+            Text(survey[1], color = if (savedAnswer == survey[1]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
         }
 
         Spacer(modifier = Modifier.width(25.dp))
@@ -47,10 +47,10 @@ fun TwoOptions(
             },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (savedAnswer == survey[2]) MaterialTheme.colors.primary else MaterialTheme.colors.onPrimary),
+                backgroundColor = if (savedAnswer == survey[2]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary),
 
         ) {
-            Text(survey[2])
+            Text(survey[2], color = if (savedAnswer == survey[2]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
         }
     }
 }
