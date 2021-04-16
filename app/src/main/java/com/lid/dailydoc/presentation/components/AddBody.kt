@@ -1,7 +1,7 @@
 package com.lid.dailydoc.presentation.components
 
 
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -26,7 +26,7 @@ fun AddBody(
 ) {
     var isFocused by remember { mutableStateOf(true) }
     val focusRequester = remember { FocusRequester() }
-    var textFieldValue by  remember { mutableStateOf(TextFieldValue(body)) }
+    var textFieldValue by remember { mutableStateOf(TextFieldValue(body)) }
 
 
     Row {
@@ -51,18 +51,26 @@ fun AddBody(
                 unfocusedBorderColor = colors.background
             ),
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
-
         )
+
+        AnimatedVisibility(
+            visible = isFocused,
+            initiallyVisible = false,
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
             Column(
                 horizontalAlignment = Alignment.End,
-                modifier = Modifier.padding(end = 6.dp)
+                modifier = Modifier
+                    .padding(end = 6.dp)
+                    .animateContentSize(),
             ) {
                 val symbols = symbolList
                 val placeSymbol = { symbol: String ->
                     textFieldValue = TextFieldValue("${textFieldValue.text}$symbol")
                     focusRequester.requestFocus()
                     textFieldValue = textFieldValue.copyWithCursorPosition(CursorPosition.End)
-            }
+                }
                 Spacer(modifier = Modifier.padding(bottom = 6.dp))
                 symbols.forEach { symbol ->
                     Button(
@@ -76,8 +84,9 @@ fun AddBody(
                     }
                     Spacer(modifier = Modifier.padding(bottom = 6.dp))
                 }
+                Spacer(modifier = Modifier.padding(bottom = 70.dp))
 
             }
         }
-
     }
+}
