@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.*
-import androidx.compose.runtime.currentRecomposeScope
 import com.lid.dailydoc.presentation.ui.theme.DailyDocTheme
 import com.lid.dailydoc.presentation.viewmodels.*
 import kotlinx.coroutines.*
