@@ -4,7 +4,6 @@ import androidx.room.*
 import androidx.room.OnConflictStrategy.*
 import com.lid.dailydoc.data.model.Note
 import kotlinx.coroutines.flow.Flow
-import java.util.*
 
 @Dao
 interface NoteDao {
@@ -13,13 +12,6 @@ interface NoteDao {
 
     @Insert(onConflict = IGNORE)
     suspend fun insertNote(note: Note)
-
-    // Unsure if I'll use @Transaction or @Update
-//    @Transaction
-//    suspend fun updateNote(note: Note) {
-//        deleteNote(note.dateCreated)
-//        insertNote(note)
-//    }
 
     @Query("DELETE FROM notes_table WHERE note_date = :date")
     fun deleteNote(date: String)

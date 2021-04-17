@@ -1,9 +1,9 @@
-package com.lid.dailydoc.presentation.components.survey_components
+package com.lid.dailydoc.presentation.components.addscreen_components.survey_options
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -14,12 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TwoOptions(
+fun ThreeOptions(
     onSurveyChange: (String) -> Unit,
     savedAnswer: String,
     survey: List<String>
 ) {
-
     onSurveyChange(savedAnswer)
 
     Text(survey[0])
@@ -27,29 +26,45 @@ fun TwoOptions(
 
     Row {
         OutlinedButton(
+            modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
             onClick = {
                 onSurveyChange(survey[1])
             },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (savedAnswer == survey[1]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary),
-
+                backgroundColor = if (savedAnswer == survey[1]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary
+            ),
         ) {
             Text(survey[1], color = if (savedAnswer == survey[1]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
         }
 
-        Spacer(modifier = Modifier.width(25.dp))
-
         OutlinedButton(
+            modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
             onClick = {
                 onSurveyChange(survey[2])
             },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (savedAnswer == survey[2]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary),
+                backgroundColor = if (savedAnswer == survey[2]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary
+            ),
 
-        ) {
+            ) {
             Text(survey[2], color = if (savedAnswer == survey[2]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
+        }
+
+        OutlinedButton(
+            modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
+            onClick = {
+                onSurveyChange(survey[3])
+
+            },
+            shape = CircleShape,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = if (savedAnswer == survey[3]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary
+            ),
+
+            ) {
+            Text(survey[3], color = if (savedAnswer == survey[3]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
         }
     }
 }

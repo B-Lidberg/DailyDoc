@@ -1,4 +1,4 @@
-package com.lid.dailydoc.presentation.components
+package com.lid.dailydoc.presentation.components.addscreen_components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions

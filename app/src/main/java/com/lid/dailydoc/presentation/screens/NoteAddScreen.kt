@@ -18,6 +18,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.*
+import com.lid.dailydoc.presentation.components.addscreen_components.AddBody
+import com.lid.dailydoc.presentation.components.addscreen_components.AddSummary
+import com.lid.dailydoc.presentation.components.addscreen_components.ClearButton
+import com.lid.dailydoc.presentation.components.addscreen_components.SurveyBar
 import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.utils.getCurrentDateAsString
 import kotlinx.coroutines.ExperimentalCoroutinesApi

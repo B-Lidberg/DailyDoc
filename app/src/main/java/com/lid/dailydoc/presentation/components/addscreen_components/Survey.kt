@@ -1,4 +1,4 @@
-package com.lid.dailydoc.presentation.components
+package com.lid.dailydoc.presentation.components.addscreen_components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
@@ -12,9 +12,9 @@ import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.extras.survey1Data
 import com.lid.dailydoc.data.extras.survey2Data
 import com.lid.dailydoc.data.extras.survey3Data
-import com.lid.dailydoc.presentation.components.survey_components.FourOptions
-import com.lid.dailydoc.presentation.components.survey_components.ThreeOptions
-import com.lid.dailydoc.presentation.components.survey_components.TwoOptions
+import com.lid.dailydoc.presentation.components.addscreen_components.survey_options.FourOptions
+import com.lid.dailydoc.presentation.components.addscreen_components.survey_options.ThreeOptions
+import com.lid.dailydoc.presentation.components.addscreen_components.survey_options.TwoOptions
 
 @Composable
 fun Survey(

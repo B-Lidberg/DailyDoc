@@ -1,4 +1,4 @@
-package com.lid.dailydoc.presentation.components.survey_components
+package com.lid.dailydoc.presentation.components.addscreen_components.survey_options
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape

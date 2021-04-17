@@ -1,4 +1,4 @@
-package com.lid.dailydoc.presentation.components
+package com.lid.dailydoc.presentation.components.addscreen_components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
@@ -7,7 +7,7 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.vector.ImageVector
+import com.lid.dailydoc.presentation.components.CustomButton
 
 @Composable
 fun ClearButton(onAction: () -> Unit) {

@@ -18,11 +18,6 @@ class NoteRepository(
 
     fun findNoteById(noteId: Long) = noteDao.findById(noteId)
 
-
-    suspend fun clearNotes() {
-        noteDao.clearNotes()
-    }
-
     fun noteExists(date: String): Boolean {
         return noteDao.exists(date)
     }
