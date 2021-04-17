@@ -1,4 +1,4 @@
-package com.lid.dailydoc.data
+package com.lid.dailydoc.data.extras
 
 val surveyQuestions = listOf(
     "Did I challenge myself today?",

@@ -1,4 +1,4 @@
-package com.lid.dailydoc.data.model
+package com.lid.dailydoc.data.extras
 
 val bullet = "•"
 val arrow = "‣"

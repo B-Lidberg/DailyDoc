@@ -16,7 +16,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.lid.dailydoc.data.model.symbolList
+import com.lid.dailydoc.data.extras.symbolList
 
 @ExperimentalAnimationApi
 @Composable

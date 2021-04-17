@@ -9,9 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lid.dailydoc.data.survey1Data
-import com.lid.dailydoc.data.survey2Data
-import com.lid.dailydoc.data.survey3Data
+import com.lid.dailydoc.data.extras.survey1Data
+import com.lid.dailydoc.data.extras.survey2Data
+import com.lid.dailydoc.data.extras.survey3Data
 import com.lid.dailydoc.presentation.components.survey_components.FourOptions
 import com.lid.dailydoc.presentation.components.survey_components.ThreeOptions
 import com.lid.dailydoc.presentation.components.survey_components.TwoOptions
