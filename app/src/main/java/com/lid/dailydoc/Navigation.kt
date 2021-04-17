@@ -1,3 +1,5 @@
+@file:Suppress("NAME_SHADOWING")
+
 package com.lid.dailydoc
 
 import android.os.Build
@@ -84,10 +86,6 @@ class MainActions(navController: NavController) {
             note.id
         )
         navController.navigate("$NOTE_KEY/${NOTE_ID}")
-    }
-
-    val mainScreen: () -> Unit = {
-        navController.navigate(NOTES)
     }
     val upPress: () -> Unit = {
         navController.navigateUp()
