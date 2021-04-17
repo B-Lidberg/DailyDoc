@@ -1,10 +1,10 @@
 package com.lid.dailydoc.data.extras
 
-val bullet = "•"
-val arrow = "‣"
-val star = "★"
-val complete = "✅"
-val cross = "❌"
+const val bullet = "•"
+const val arrow = "‣"
+const val star = "★"
+const val complete = "✅"
+const val cross = "❌"
 
 val symbolList = listOf(
     bullet,
