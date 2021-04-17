@@ -9,9 +9,11 @@ Daily Doc is a productivity app to help you keep track of your daily progress.
 Download APK: [Daily Doc](https://drive.google.com/file/d/1QNgtfXcrYIcCSJWijaeHScoawmNUNh6e/view?usp=sharing)
 
 
-<kbd>![Screenshot](screenshots/LightListScreen.png)</kbd><kbd>![Screenshot](screenshots/ListScreen.png)</kbd>
-<kbd>![Screenshot](screenshots/LightSurvey.png)</kbd><kbd>![Screenshot](screenshots/AddScreenBody.png)</kbd>
-<kbd>![Screenshot](screenshots/ClearDialog.png)</kbd><kbd>![Screenshot](screenshots/NoteDetailScreen.png)</kbd>
+[comment]: <> (<kbd>![Screenshot]&#40;screenshots/LightListScreen.png&#41;</kbd> <kbd>![Screenshot]&#40;screenshots/ListScreen.png&#41;</kbd>)
+
+[comment]: <> (<kbd>![Screenshot]&#40;screenshots/LightSurvey.png&#41;</kbd><kbd>![Screenshot]&#40;screenshots/AddScreenBody.png&#41;</kbd>)
+
+[comment]: <> (<kbd>![Screenshot]&#40;screenshots/ClearDialog.png&#41;</kbd><kbd>![Screenshot]&#40;screenshots/NoteDetailScreen.png&#41;</kbd>)
 
 **Few features I'll be adding:**
 - Login Screen
