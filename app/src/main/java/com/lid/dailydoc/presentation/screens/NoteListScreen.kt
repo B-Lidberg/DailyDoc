@@ -18,13 +18,10 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Star
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.viewmodels.NoteViewModel
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.presentation.components.NoteCard
@@ -38,9 +35,15 @@ import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun NoteListScreen(vm: NoteViewModel, toDetails: (Long) -> Unit, toAdd: (Note) -> Unit, note: Note) {
-    val notes by vm.allNotes.observeAsState(emptyList())
+fun NoteListScreen(
+    vm: NoteViewModel,
+    toDetails: (Long) -> Unit,
+    toAdd: (Note) -> Unit,
+    note: Note
+) {
+    val notes by vm.allNotes.collectAsState(emptyList())
     val exists by vm.exists.observeAsState(false)
+
     Scaffold(
         topBar = { NoteListTopBar() },
         floatingActionButton = { AddNoteButton(toAdd, note, exists) },

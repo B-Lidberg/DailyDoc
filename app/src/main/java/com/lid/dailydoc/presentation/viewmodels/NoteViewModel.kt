@@ -7,11 +7,12 @@ import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepository
 import com.lid.dailydoc.utils.getCurrentDateAsString
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
 import java.lang.IllegalArgumentException
 
 class NoteViewModel(repository: NoteRepository) : ViewModel() {
 
-    val allNotes: LiveData<List<Note>> = repository.allNotes.asLiveData()
+    val allNotes: Flow<List<Note>> = repository.allNotes
 
     @RequiresApi(Build.VERSION_CODES.O)
     var date: String = getCurrentDateAsString()

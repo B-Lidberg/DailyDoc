@@ -17,7 +17,10 @@ import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.viewmodels.NoteDetailViewModel
 
 @Composable
-fun NoteDetailScreen(vm: NoteDetailViewModel, noteId: Long) {
+fun NoteDetailScreen(
+    vm: NoteDetailViewModel,
+    noteId: Long,
+) {
     val note = vm.getNote(noteId)
 
     Scaffold(

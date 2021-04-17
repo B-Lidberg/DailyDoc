@@ -28,7 +28,12 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun NoteAddScreen(vm: NoteAddViewModel, toMain: () -> Unit, note: Note) {
+fun NoteAddScreen(
+    vm: NoteAddViewModel,
+    toMain: () -> Unit,
+    note: Note,
+) {
+
     val summary by vm.summary.observeAsState(note.summary)
     val body by vm.body.observeAsState(note.body)
     val survey1 by vm.survey1.observeAsState(note.survey1)
