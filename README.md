@@ -10,10 +10,8 @@ Download APK: [Daily Doc](https://drive.google.com/file/d/1QNgtfXcrYIcCSJWijaeHS
 
 
 <kbd>![Screenshot](screenshots/LightListScreen.png)</kbd> <kbd>![Screenshot](screenshots/ListScreen.png)</kbd>
-
-[comment]: <> (<kbd>![Screenshot]&#40;screenshots/LightSurvey.png&#41;</kbd><kbd>![Screenshot]&#40;screenshots/AddScreenBody.png&#41;</kbd>)
-
-[comment]: <> (<kbd>![Screenshot]&#40;screenshots/ClearDialog.png&#41;</kbd><kbd>![Screenshot]&#40;screenshots/NoteDetailScreen.png&#41;</kbd>)
+<kbd>![Screenshot](screenshots/LightSurvey.png)</kbd><kbd>![Screenshot](screenshots/AddScreenBody.png)</kbd>
+<kbd>![Screenshot](screenshots/ClearDialog.png)</kbd><kbd>![Screenshot](screenshots/NoteDetailScreen.png)</kbd>
 
 **Few features I'll be adding:**
 - Login Screen
