@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.extras.surveyQuestions
 import com.lid.dailydoc.presentation.components.CustomTopBar
-import com.lid.dailydoc.presentation.viewmodels.NoteDetailViewModel
+import com.lid.dailydoc.viewmodels.NoteDetailViewModel
 
 @Composable
 fun NoteDetailScreen(

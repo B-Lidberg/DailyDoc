@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.*
 import com.lid.dailydoc.presentation.ui.theme.DailyDocTheme
-import com.lid.dailydoc.presentation.viewmodels.*
+import com.lid.dailydoc.viewmodels.*
 import kotlinx.coroutines.*
 
 

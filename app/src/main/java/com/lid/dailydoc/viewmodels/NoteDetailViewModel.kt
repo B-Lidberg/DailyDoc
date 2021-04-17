@@ -1,4 +1,4 @@
-package com.lid.dailydoc.presentation.viewmodels
+package com.lid.dailydoc.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,7 +7,6 @@ import com.lid.dailydoc.data.repository.NoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import java.lang.IllegalArgumentException
-import java.util.*
 
 class NoteDetailViewModel (private val repository: NoteRepository) : ViewModel() {
 

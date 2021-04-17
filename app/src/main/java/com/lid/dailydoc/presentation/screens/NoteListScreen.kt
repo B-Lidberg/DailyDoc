@@ -1,36 +1,23 @@
 package com.lid.dailydoc.presentation.screens
 
 import android.os.Build
-import android.widget.Button
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.gestures.draggable
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.*
 import com.lid.dailydoc.data.model.Note
-import com.lid.dailydoc.presentation.viewmodels.NoteViewModel
+import com.lid.dailydoc.viewmodels.NoteViewModel
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.presentation.components.NoteCard
 import com.lid.dailydoc.presentation.components.CustomTopBar
-import com.lid.dailydoc.presentation.viewmodels.NoteAddViewModel
-import com.lid.dailydoc.utils.getCurrentDateAsString
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 @RequiresApi(Build.VERSION_CODES.O)

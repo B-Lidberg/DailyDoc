@@ -18,7 +18,7 @@ import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.screens.NoteAddScreen
 import com.lid.dailydoc.presentation.screens.NoteDetailScreen
 import com.lid.dailydoc.presentation.screens.NoteListScreen
-import com.lid.dailydoc.presentation.viewmodels.*
+import com.lid.dailydoc.viewmodels.*
 import kotlinx.coroutines.*
 
 object MainDestinations {

@@ -1,4 +1,4 @@
-package com.lid.dailydoc.presentation.viewmodels
+package com.lid.dailydoc.viewmodels
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -6,7 +6,6 @@ import androidx.lifecycle.*
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepository
 import com.lid.dailydoc.utils.getCurrentDateAsString
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import java.lang.IllegalArgumentException
 

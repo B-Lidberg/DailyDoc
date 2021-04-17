@@ -1,4 +1,4 @@
-package com.lid.dailydoc.presentation.viewmodels
+package com.lid.dailydoc.viewmodels
 
 import android.os.Build
 import androidx.annotation.RequiresApi
