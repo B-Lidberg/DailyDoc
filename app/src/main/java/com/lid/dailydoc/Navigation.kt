@@ -9,7 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
 import com.lid.dailydoc.MainDestinations.NOTES
 import com.lid.dailydoc.MainDestinations.NOTE_DETAILS
 import com.lid.dailydoc.MainDestinations.NOTE_ID
@@ -19,7 +22,8 @@ import com.lid.dailydoc.presentation.screens.NoteAddScreen
 import com.lid.dailydoc.presentation.screens.NoteDetailScreen
 import com.lid.dailydoc.presentation.screens.NoteListScreen
 import com.lid.dailydoc.viewmodels.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 
 object MainDestinations {
     const val NOTES = "notes"

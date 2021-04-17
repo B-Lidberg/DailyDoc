@@ -2,7 +2,13 @@ package com.lid.dailydoc.presentation.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -65,7 +71,8 @@ fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit) {
 fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
     FloatingActionButton(
         onClick = { toAdd(note) },
-        backgroundColor = MaterialTheme.colors.secondaryVariant
+        backgroundColor = MaterialTheme.colors.secondaryVariant,
+
     ) {
         Icon(imageVector =  if (exists) Icons.Outlined.Edit else Icons.Outlined.Add, contentDescription = "To Add Screen")
     }
