@@ -18,8 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.*
-import com.lid.dailydoc.presentation.components.addscreen_components.AddBody
-import com.lid.dailydoc.presentation.components.addscreen_components.AddSummary
+import com.lid.dailydoc.presentation.components.addscreen_components.BodyField
+import com.lid.dailydoc.presentation.components.addscreen_components.SummaryField
 import com.lid.dailydoc.presentation.components.addscreen_components.ClearButton
 import com.lid.dailydoc.presentation.components.addscreen_components.SurveyBar
 import com.lid.dailydoc.viewmodels.NoteAddViewModel
@@ -93,9 +93,9 @@ fun NoteAddScreen(
                         survey3 = survey3,
                     )
                 }
-                item { AddSummary( { vm.onSummaryChange(it) }, summary) }
+                item { SummaryField( { vm.onSummaryChange(it) }, summary) }
 
-                item { AddBody( { vm.onBodyChange(it) }, body) }
+                item { BodyField( { vm.onBodyChange(it) }, body) }
             }
         }
     )

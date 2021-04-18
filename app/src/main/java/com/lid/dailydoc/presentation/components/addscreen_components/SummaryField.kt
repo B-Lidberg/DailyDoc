@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
 
 @Composable
-fun AddSummary(
+fun SummaryField(
     summaryChange: (String) -> Unit,
     summary: String,
 ) {

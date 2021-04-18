@@ -20,14 +20,13 @@ import com.lid.dailydoc.data.extras.symbolList
 
 @ExperimentalAnimationApi
 @Composable
-fun AddBody(
+fun BodyField(
     bodyChange: (String) -> Unit,
     body: String,
 ) {
     var isFocused by remember { mutableStateOf(true) }
     val focusRequester = remember { FocusRequester() }
     var textFieldValue by remember { mutableStateOf(TextFieldValue(body)) }
-
 
     Row {
         TextField(
