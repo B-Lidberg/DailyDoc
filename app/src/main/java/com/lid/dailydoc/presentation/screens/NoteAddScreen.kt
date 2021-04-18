@@ -151,10 +151,12 @@ fun SaveButton(
                 }
             }
         },
-        contentColor =
-            contentColorFor(backgroundColor =
-                if (note.summary.isEmpty()) Color.LightGray else MaterialTheme.colors.secondary
-        ),
+        backgroundColor =
+            if (note.summary.isEmpty()) {
+                MaterialTheme.colors.background
+            } else {
+                MaterialTheme.colors.secondary
+            },
         modifier =
             Modifier
                 .size(width = 90.dp, height = 45.dp)
