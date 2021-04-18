@@ -85,7 +85,6 @@ fun NoteAddScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 state = scrollState,
             ) {
-
                 item {
                     SurveyBar(
                         expanded = expandedSurveyBar == summary,
