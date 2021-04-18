@@ -2,11 +2,7 @@ package com.lid.dailydoc.presentation.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.animateColor
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.*
-import androidx.compose.animation.fadeIn
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -14,17 +10,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.runtime.*
-import com.lid.dailydoc.data.model.Note
-import com.lid.dailydoc.viewmodels.NoteViewModel
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.dp
-import com.lid.dailydoc.presentation.components.NoteCard
+import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
+import com.lid.dailydoc.presentation.components.NoteCard
+import com.lid.dailydoc.viewmodels.NoteViewModel
 
 
 @RequiresApi(Build.VERSION_CODES.O)

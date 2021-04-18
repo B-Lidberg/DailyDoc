@@ -4,33 +4,27 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideIn
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.model.Note
-import com.lid.dailydoc.presentation.components.*
+import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.components.addscreen_components.BodyField
-import com.lid.dailydoc.presentation.components.addscreen_components.SummaryField
 import com.lid.dailydoc.presentation.components.addscreen_components.ClearButton
+import com.lid.dailydoc.presentation.components.addscreen_components.SummaryField
 import com.lid.dailydoc.presentation.components.addscreen_components.SurveyBar
-import com.lid.dailydoc.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.utils.getCurrentDateAsString
+import com.lid.dailydoc.viewmodels.NoteAddViewModel
 import kotlinx.coroutines.*
 
 @ObsoleteCoroutinesApi
@@ -43,7 +37,6 @@ fun NoteAddScreen(
     toMain: () -> Unit,
     note: Note,
 ) {
-
     val summary by vm.summary.observeAsState(note.summary)
     val body by vm.body.observeAsState(note.body)
     val survey1 by vm.survey1.observeAsState(note.survey1)
@@ -100,25 +93,8 @@ fun NoteAddScreen(
                         survey3 = survey3,
                     )
                 }
-                item {
-                    SnackbarHost(
-                        hostState = snackbarHostState,
-                        snackbar = {
-                            Snackbar(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .animateContentSize()
-                                    .padding(bottom = 8.dp),
-                                backgroundColor = MaterialTheme.colors.primary,
-                                contentColor = MaterialTheme.colors.onPrimary,
-                            ) {
-                                Text(
-                                    text = snackbarHostState.currentSnackbarData?.message ?: "",
-                                    style = MaterialTheme.typography.body1, textAlign = TextAlign.Center)
-                            }
-                        }
-                    )
-                }
+                item { EmptySummarySnackBar(snackbarHostState) }
+
                 item { SummaryField({ vm.onSummaryChange(it) }, summary) }
 
                 item { BodyField({ vm.onBodyChange(it) }, body) }
@@ -181,6 +157,27 @@ fun HeaderDateBar(
     ) {
         CustomTopBar(date) { ClearButton(onClear) }
     }
+}
+
+@Composable
+fun EmptySummarySnackBar(snackbarHostState: SnackbarHostState) {
+    SnackbarHost(
+        hostState = snackbarHostState,
+        snackbar = {
+            Snackbar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .animateContentSize()
+                    .padding(bottom = 8.dp),
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.onPrimary,
+            ) {
+                Text(
+                    text = snackbarHostState.currentSnackbarData?.message ?: "",
+                    style = MaterialTheme.typography.body1, textAlign = TextAlign.Center)
+            }
+        }
+    )
 }
 
 
