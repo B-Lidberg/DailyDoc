@@ -55,8 +55,8 @@ fun BodyField(
         AnimatedVisibility(
             visible = isFocused,
             initiallyVisible = false,
-            enter = fadeIn(),
-            exit = fadeOut(),
+            enter = fadeIn() + expandIn(Alignment.TopStart),
+            exit = fadeOut() + shrinkOut(Alignment.TopStart),
         ) {
             Column(
                 horizontalAlignment = Alignment.End,
