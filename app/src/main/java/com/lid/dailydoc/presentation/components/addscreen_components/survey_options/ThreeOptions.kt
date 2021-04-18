@@ -32,10 +32,10 @@ fun ThreeOptions(
             },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (savedAnswer == survey[1]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary
+                backgroundColor = if (savedAnswer == survey[1]) MaterialTheme.colors.secondaryVariant else MaterialTheme.colors.background
             ),
         ) {
-            Text(survey[1], color = if (savedAnswer == survey[1]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
+            Text(survey[1], color = if (savedAnswer == survey[1]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onBackground)
         }
 
         OutlinedButton(
@@ -45,11 +45,11 @@ fun ThreeOptions(
             },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (savedAnswer == survey[2]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary
+                backgroundColor = if (savedAnswer == survey[2]) MaterialTheme.colors.secondaryVariant else MaterialTheme.colors.background
             ),
 
             ) {
-            Text(survey[2], color = if (savedAnswer == survey[2]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
+            Text(survey[2], color = if (savedAnswer == survey[2]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onBackground)
         }
 
         OutlinedButton(
@@ -60,11 +60,11 @@ fun ThreeOptions(
             },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (savedAnswer == survey[3]) MaterialTheme.colors.secondary else MaterialTheme.colors.onPrimary
+                backgroundColor = if (savedAnswer == survey[3]) MaterialTheme.colors.secondaryVariant else MaterialTheme.colors.background
             ),
 
             ) {
-            Text(survey[3], color = if (savedAnswer == survey[3]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSecondary)
+            Text(survey[3], color = if (savedAnswer == survey[3]) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onBackground)
         }
     }
 }

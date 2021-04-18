@@ -72,7 +72,7 @@ fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit) {
 fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
     FloatingActionButton(
         onClick = { toAdd(note) },
-        backgroundColor = MaterialTheme.colors.secondaryVariant,
+        backgroundColor = MaterialTheme.colors.secondary,
     ) {
         Icon(if (exists) Icons.Outlined.Edit else Icons.Outlined.Add,
             contentDescription = "To Add Screen")

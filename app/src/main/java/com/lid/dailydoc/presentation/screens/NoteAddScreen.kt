@@ -4,6 +4,11 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideIn
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -15,6 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.*
@@ -24,8 +31,7 @@ import com.lid.dailydoc.presentation.components.addscreen_components.ClearButton
 import com.lid.dailydoc.presentation.components.addscreen_components.SurveyBar
 import com.lid.dailydoc.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.utils.getCurrentDateAsString
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.*
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -54,6 +60,8 @@ fun NoteAddScreen(
     val clearOnDateChange = { if (note.dateCreated != getCurrentDateAsString()) vm.clearNote() }
     val clear = { vm.clearNote() }
 
+    val snackbarHostState = remember { SnackbarHostState() }
+
     Scaffold(
         topBar = {
             HeaderDateBar(
@@ -66,14 +74,14 @@ fun NoteAddScreen(
                 { vm.addNote(it) },
                 toMain,
                 clearOnDateChange,
-                completeNote
+                completeNote,
+                snackbarHostState,
             )
         },
         content = {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .animateContentSize(),
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 state = scrollState,
             ) {
@@ -93,9 +101,28 @@ fun NoteAddScreen(
                         survey3 = survey3,
                     )
                 }
-                item { SummaryField( { vm.onSummaryChange(it) }, summary) }
+                item {
+                    SnackbarHost(
+                        hostState = snackbarHostState,
+                        snackbar = {
+                            Snackbar(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .animateContentSize()
+                                    .padding(bottom = 8.dp),
+                                backgroundColor = MaterialTheme.colors.primary,
+                                contentColor = MaterialTheme.colors.onPrimary,
+                            ) {
+                                Text(
+                                    text = snackbarHostState.currentSnackbarData?.message ?: "",
+                                    style = MaterialTheme.typography.body1, textAlign = TextAlign.Center)
+                            }
+                        }
+                    )
+                }
+                item { SummaryField({ vm.onSummaryChange(it) }, summary) }
 
-                item { BodyField( { vm.onBodyChange(it) }, body) }
+                item { BodyField({ vm.onBodyChange(it) }, body) }
             }
         }
     )
@@ -108,25 +135,34 @@ fun SaveButton(
     toMain: () -> Unit,
     clear: () -> Unit,
     note: Note,
+    snackbarHostState: SnackbarHostState,
 ) {
-    Button(
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor =
+    FloatingActionButton(
+        onClick = {
+            if (note.summary.isNotEmpty()) {
+                addNote(note)
+                clear.invoke()
+                toMain.invoke()
+            } else {
+                CoroutineScope(Dispatchers.IO).launch {
+                    snackbarHostState.showSnackbar(
+                        message = "Summary cannot be empty!",
+                        duration = SnackbarDuration.Short
+                    )
+                }
+            }
+        },
+        contentColor =
+            contentColorFor(backgroundColor =
                 if (note.summary.isEmpty()) Color.LightGray else MaterialTheme.colors.secondary
         ),
-        modifier = Modifier
-            .clip(RoundedCornerShape(20.dp))
-            .width(100.dp),
-        enabled = (note.summary.isNotEmpty()),
-        onClick = {
-            addNote(note)
-            clear.invoke()
-            toMain.invoke()
-        },
+        modifier =
+            Modifier
+                .size(width = 90.dp, height = 45.dp)
     ) {
         Text(
             text = "Save",
-            color = MaterialTheme.colors.onPrimary,
+            color = MaterialTheme.colors.onSecondary,
         )
     }
 }
