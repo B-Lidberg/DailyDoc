@@ -1,4 +1,4 @@
-package com.lid.dailydoc.login_sandbox
+package com.lid.dailydoc.authorization
 
 /** Not Implemented Yet. Still testing
  *  May try to stick to Single Activity or decide on building a Login Activity
@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.R
+import com.lid.dailydoc.viewmodels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -114,7 +115,7 @@ private fun GoogleSignInOption(enabled: Boolean = true, onClick: () -> Unit) {
             .fillMaxWidth()
             .padding(20.dp)
             .clip(shape = RoundedCornerShape(8.dp))
-            .border(width = 2.dp, color = Color.DarkGray, shape = RoundedCornerShape(8.dp))
+            .border(width = 2.dp, color = MaterialTheme.colors.onBackground, shape = RoundedCornerShape(8.dp))
             .padding(10.dp)
             .background(MaterialTheme.colors.background)
             .clickable(enabled = enabled) { onClick() }

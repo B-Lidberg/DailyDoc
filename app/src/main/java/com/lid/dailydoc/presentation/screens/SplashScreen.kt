@@ -1,4 +1,4 @@
-package com.lid.dailydoc.login_sandbox
+package com.lid.dailydoc.authorization
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.lid.dailydoc.viewmodels.LoginViewModel
 import kotlinx.coroutines.delay
 
 @Composable

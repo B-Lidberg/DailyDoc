@@ -9,9 +9,9 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import com.lid.dailydoc.login_sandbox.AuthRepository
-import com.lid.dailydoc.login_sandbox.LoginViewModel
-import com.lid.dailydoc.login_sandbox.LoginViewModelFactory
+import com.lid.dailydoc.data.repository.AuthRepository
+import com.lid.dailydoc.viewmodels.LoginViewModel
+import com.lid.dailydoc.viewmodels.LoginViewModelFactory
 import com.lid.dailydoc.presentation.ui.theme.DailyDocTheme
 import com.lid.dailydoc.viewmodels.NoteViewModel
 import com.lid.dailydoc.viewmodels.NoteViewModelFactory
@@ -36,6 +36,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             DailyDocTheme {
                 Surface(color = MaterialTheme.colors.background) {
                         Navigation(noteListVm, loginVm)

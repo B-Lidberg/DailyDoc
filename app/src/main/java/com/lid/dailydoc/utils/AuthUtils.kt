@@ -1,4 +1,4 @@
-package com.lid.dailydoc.login_sandbox
+package com.lid.dailydoc.authorization
 
 import android.content.Context
 import android.net.ConnectivityManager

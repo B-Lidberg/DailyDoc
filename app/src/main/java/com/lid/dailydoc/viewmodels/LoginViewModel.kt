@@ -1,4 +1,4 @@
-package com.lid.dailydoc.login_sandbox
+package com.lid.dailydoc.viewmodels
 
 import android.app.Application
 import android.os.Build
@@ -6,21 +6,14 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.lid.dailydoc.authorization.connectedOrThrow
+import com.lid.dailydoc.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val app: Application,
     private val authRepository: AuthRepository
 ) : AndroidViewModel(app) {
-
-    //note: You have to add SHA1 for google login to work.
-
-    //to get SHA1 for debug mode, run this: keytool -list -v -keystore <debug keystore path> -alias androiddebugkey -storepass android -keystore android
-    //debug keystore path example: C:\Users\sheri\.android\debug.keystore (replace "\Users\sheri\" with your username on your computer.
-
-    //to get SHA1 for release mode, run this: keytool -list -v -alias keytstore -keystore <keystore path> -alias <alias name>
-    //keystore path example: F:\Ameen\upload-keystore.jks
-    //keystore alias name example: upload
 
     init {
         Firebase.auth.addAuthStateListener {

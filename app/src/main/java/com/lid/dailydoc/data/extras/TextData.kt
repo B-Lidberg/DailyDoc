@@ -1,7 +1,7 @@
-package com.lid.dailydoc.login_sandbox
+package com.lid.dailydoc.authorization
 
 const val informationText =
-    "The app is under constantly under development and will " +
+    "The app is under constant development and will " +
         "be undergoing several changes. Data may be lost in the " +
         "process. Feedback on the app or codebase goes a long way. " +
         "Thank you :)"
