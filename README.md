@@ -8,19 +8,23 @@ Daily Doc is a productivity app to help you keep track of your daily progress.
 
 Direct Download: [Daily Doc](https://drive.google.com/file/d/1QNgtfXcrYIcCSJWijaeHScoawmNUNh6e/view?usp=sharing)
 
-
+**Recent Features Added**
+- Login feature with google sign in
+- Splash Screen
+- Symbols available when editing body
+--------------------------------------
 <kbd>![Screenshot](screenshots/LightListScreen.png)</kbd> <kbd>![Screenshot](screenshots/ListScreen.png)</kbd>
 <kbd>![Screenshot](screenshots/LightSurvey.png)</kbd><kbd>![Screenshot](screenshots/AddScreenBody.png)</kbd>
 <kbd>![Screenshot](screenshots/ClearDialog.png)</kbd><kbd>![Screenshot](screenshots/NoteDetailScreen.png)</kbd>
-
+-------------------------------------
 **Few features I'll be adding:**
-- Login Screen
+- ~~Login Screen~~ ✅
 - Remote Database
 - Profile Settings
-- ~~Limit 1 note per day (can be edited on same day but restricted editing after)~~
+- ~~Limit 1 note per day (can be edited on same day but restricted editing after)~~ ✅
 - Improved UI
 - Animations
-- ~~Remove "Clear All" Button. Currently there~~
+- ~~Remove "Clear All" Button. Currently there~~ ✅
 - Search features: Date, text in Summary/Body, by survey answers
 ------------------------------------------
 **Other ways to contact me:**
