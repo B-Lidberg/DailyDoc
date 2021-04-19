@@ -6,6 +6,14 @@ plugins {
 }
 
     android {
+        signingConfigs {
+            'RELEASE-SHA1' {
+                storeFile file('C:\\code\\mykeystore.jks')
+                storePassword 'dailydoc1207'
+                keyAlias 'key0'
+                keyPassword 'dailydoc1207'
+            }
+        }
         compileSdk 30
         buildToolsVersion "30.0.3"
 
@@ -17,6 +25,7 @@ plugins {
             versionName "1.0"
 
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            signingConfig signingConfigs.'RELEASE-SHA1'
         }
 
         buildTypes {
@@ -66,9 +75,6 @@ plugins {
         androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
         androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
         androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-
-        testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test"
-        androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test"
 
         // LifeCycle
         def lifecycle_version = "2.3.1"
