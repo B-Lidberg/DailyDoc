@@ -3,8 +3,6 @@
 package com.lid.dailydoc
 
 import android.os.Build
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
@@ -88,7 +86,7 @@ fun Navigation(
         composable(
             route = LOGIN,
         ) {
-            LoginScreen(loginVm, actions.mainScreen)
+            LoginScreen(loginVm, actions.mainScreen, actions.splashScreen)
         }
 
         composable(

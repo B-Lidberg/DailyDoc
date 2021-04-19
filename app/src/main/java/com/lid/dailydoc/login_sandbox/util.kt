@@ -6,7 +6,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.google.android.gms.tasks.Task
-import com.lid.dailydoc.R
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.concurrent.CancellationException
 import kotlin.coroutines.resumeWithException

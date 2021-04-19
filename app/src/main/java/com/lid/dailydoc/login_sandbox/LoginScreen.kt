@@ -9,7 +9,10 @@ import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -22,7 +25,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -40,6 +42,7 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     vm: LoginViewModel,
     toMain: () -> Unit,
+    toSplash: () -> Unit,
 ) {
     val launcher = rememberLauncherForActivityResult(LoginWithGoogle()) {
         if (it != null) {
@@ -50,14 +53,14 @@ fun LoginScreen(
     val signIn by vm.signedIn.observeAsState(vm.signedIn.value!!)
     LaunchedEffect(signIn) {
         if (signIn) {
-            toMain()
+            toSplash()
         }
     }
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(bottom = 100.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Button(toMain, modifier = Modifier
             .align(Alignment.End)
@@ -96,7 +99,12 @@ fun LoginScreen(
 
 @Composable
 fun DisplayText(signedIn: Boolean) {
-    Text(if (signedIn)"Loading..." else "")
+    if (signedIn) {
+        Text(
+            text = "Loading...",
+            style = MaterialTheme.typography.h4
+        )
+    }
 }
 
 @Composable

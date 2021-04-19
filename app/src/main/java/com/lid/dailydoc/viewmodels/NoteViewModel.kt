@@ -2,12 +2,14 @@ package com.lid.dailydoc.viewmodels
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepository
 import com.lid.dailydoc.utils.getCurrentDateAsString
 import kotlinx.coroutines.flow.Flow
-import java.lang.IllegalArgumentException
 
 class NoteViewModel(repository: NoteRepository) : ViewModel() {
 

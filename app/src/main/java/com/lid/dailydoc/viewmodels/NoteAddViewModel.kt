@@ -7,7 +7,6 @@ import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepository
 import com.lid.dailydoc.utils.getCurrentDateAsString
 import kotlinx.coroutines.*
-import java.lang.IllegalArgumentException
 
 class NoteAddViewModel(private val repository: NoteRepository) : ViewModel() {
 

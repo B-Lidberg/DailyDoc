@@ -2,7 +2,6 @@ package com.lid.dailydoc.login_sandbox
 
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings.System.getString
 import androidx.activity.result.contract.ActivityResultContract
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

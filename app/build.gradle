@@ -6,6 +6,14 @@ plugins {
 }
 
     android {
+        signingConfigs {
+            'RELEASE-SHA1' {
+                storeFile file('C:\\code\\mykeystore.jks')
+                storePassword 'dailydoc1207'
+                keyAlias 'key0'
+                keyPassword 'dailydoc1207'
+            }
+        }
         compileSdk 30
         buildToolsVersion "30.0.3"
 
@@ -17,6 +25,7 @@ plugins {
             versionName "1.0"
 
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            signingConfig signingConfigs.'RELEASE-SHA1'
         }
 
         buildTypes {
@@ -67,8 +76,7 @@ plugins {
         androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
         androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
-        testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test"
-        androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test"
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
         // LifeCycle
         def lifecycle_version = "2.3.1"
@@ -85,7 +93,7 @@ plugins {
         implementation "androidx.navigation:navigation-compose:$nav_version"
 
         // Room Database
-        def room_version = "2.3.0-beta03"
+        def room_version = '2.3.0-rc01'
         implementation "androidx.room:room-runtime:$room_version"
         kapt "androidx.room:room-compiler:$room_version"
         implementation "androidx.room:room-ktx:$room_version"
@@ -94,7 +102,7 @@ plugins {
         implementation platform('com.google.firebase:firebase-bom:27.0.0')
         implementation 'com.google.firebase:firebase-auth-ktx'
         implementation('com.google.android.gms:play-services-auth:19.0.0')
-        implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
+        implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
 
 
     }

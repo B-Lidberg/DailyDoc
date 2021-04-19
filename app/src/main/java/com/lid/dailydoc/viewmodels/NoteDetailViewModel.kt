@@ -6,7 +6,6 @@ import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import java.lang.IllegalArgumentException
 
 class NoteDetailViewModel (private val repository: NoteRepository) : ViewModel() {
 
