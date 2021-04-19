@@ -3,6 +3,8 @@
 package com.lid.dailydoc
 
 import android.os.Build
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
@@ -13,11 +15,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import com.lid.dailydoc.MainDestinations.LOGIN
 import com.lid.dailydoc.MainDestinations.NOTES
 import com.lid.dailydoc.MainDestinations.NOTE_DETAILS
 import com.lid.dailydoc.MainDestinations.NOTE_ID
 import com.lid.dailydoc.MainDestinations.NOTE_KEY
+import com.lid.dailydoc.MainDestinations.SPLASH
 import com.lid.dailydoc.data.model.Note
+import com.lid.dailydoc.login_sandbox.LoginScreen
+import com.lid.dailydoc.login_sandbox.LoginViewModel
+import com.lid.dailydoc.login_sandbox.SplashScreen
 import com.lid.dailydoc.presentation.screens.NoteAddScreen
 import com.lid.dailydoc.presentation.screens.NoteDetailScreen
 import com.lid.dailydoc.presentation.screens.NoteListScreen
@@ -30,6 +37,8 @@ object MainDestinations {
     const val NOTE_DETAILS = "note_details"
     const val NOTE_ID = "noteId"
     const val NOTE_KEY = "note"
+    const val LOGIN = "login"
+    const val SPLASH = "loading"
 }
 
 @ObsoleteCoroutinesApi
@@ -39,13 +48,16 @@ object MainDestinations {
 @Composable
 fun Navigation(
     noteListVm: NoteViewModel,
-    startDestination: String = NOTES,
+    loginVm: LoginViewModel,
+    startDestination: String = SPLASH,
 ) {
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
     val addNoteVm: NoteAddViewModel = viewModel(
         factory = NoteAddViewModelFactory(NotesApplication().repository))
+
+    val signOut = { loginVm.signOut() }
 
     NavHost(navController = navController, startDestination = startDestination) {
 
@@ -55,7 +67,7 @@ fun Navigation(
             addNoteVm.setDate()
             addNoteVm.cacheNote()
             val note = addNoteVm.cachedNote
-            NoteListScreen(noteListVm, actions.detailScreen, actions.addScreen, note)
+            NoteListScreen(noteListVm, actions.detailScreen, actions.addScreen, note, actions.loginScreen, signOut)
         }
         val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
         val note = noteId?.let { addNoteVm.getNoteById(it) }
@@ -71,6 +83,18 @@ fun Navigation(
 
             val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
             if (noteId != null) NoteDetailScreen(detailVm, noteId)
+        }
+
+        composable(
+            route = LOGIN,
+        ) {
+            LoginScreen(loginVm, actions.mainScreen)
+        }
+
+        composable(
+            route = SPLASH,
+        ) {
+            SplashScreen(loginVm, actions.mainScreen, actions.loginScreen)
         }
     }
 }
@@ -93,5 +117,21 @@ class MainActions(navController: NavController) {
     }
     val upPress: () -> Unit = {
         navController.navigateUp()
+    }
+    val mainScreen: () -> Unit = {
+        navController.navigate(NOTES) {
+            popUpTo(0) { inclusive = true }
+        }
+    }
+
+    val loginScreen: () -> Unit = {
+        navController.navigate(LOGIN) {
+            popUpTo(0) { inclusive = true }
+        }
+    }
+    val splashScreen: () -> Unit = {
+        navController.navigate(SPLASH) {
+            popUpTo(0) { inclusive = true }
+        }
     }
 }

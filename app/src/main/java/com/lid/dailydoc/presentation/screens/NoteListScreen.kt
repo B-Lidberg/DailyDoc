@@ -28,13 +28,15 @@ fun NoteListScreen(
     vm: NoteViewModel,
     toDetails: (Long) -> Unit,
     toAdd: (Note) -> Unit,
-    note: Note
+    note: Note,
+    toLogin: () -> Unit,
+    signOutEvent: () -> Unit,
 ) {
     val notes by vm.allNotes.collectAsState(emptyList())
     val exists by vm.exists.observeAsState(false)
 
     Scaffold(
-        topBar = { NoteListTopBar() },
+        topBar = { NoteListTopBar(signOutEvent, toLogin) },
         floatingActionButton = { AddNoteButton(toAdd, note, exists) },
         content = {
             NoteList(notes, toDetails) }
@@ -42,14 +44,24 @@ fun NoteListScreen(
 }
 
 @Composable
-fun NoteListTopBar() {
+fun NoteListTopBar(signOutEvent: () -> Unit, toLogin: () -> Unit) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
         modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
     ) {
-        CustomTopBar("Daily Doc") { SearchButton() }
+        CustomTopBar("Daily Doc") { SignOutButton(signOutEvent, toLogin) }
     }
+}
+@Composable
+fun SignOutButton(signOutEvent: () -> Unit, toLogin: () -> Unit) {
+    Button(
+        onClick = {
+            signOutEvent()
+            toLogin()
+        }
+    ) {
+        Text("Sign Out") }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)

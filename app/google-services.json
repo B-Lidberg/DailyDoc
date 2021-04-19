@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "844436319960",
+    "firebase_url": "https://daily-doc-3c7d0-default-rtdb.firebaseio.com",
+    "project_id": "daily-doc-3c7d0",
+    "storage_bucket": "daily-doc-3c7d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844436319960:android:881757adaf5f4c4e25b1ad",
+        "android_client_info": {
+          "package_name": "com.lid.dailydoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844436319960-qtrj3b5fgh4j42o0fcub1tv7p58e3m4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lid.dailydoc",
+            "certificate_hash": "f94ed7017830e82133267ba18d59c502d71a4527"
+          }
+        },
+        {
+          "client_id": "844436319960-tupni9c3p3jnbpagqcvrrmpno8t3es0v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy3a3MjM3rTQRT8BUWJAOLf6VN4t0mpdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844436319960-tupni9c3p3jnbpagqcvrrmpno8t3es0v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
