@@ -6,6 +6,7 @@ package com.lid.dailydoc.authorization
  */
 
 import android.os.Build
+import android.util.AttributeSet
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
 import androidx.annotation.RequiresApi
@@ -15,9 +16,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -26,15 +25,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.ContentLoadingProgressBar
 import com.lid.dailydoc.R
 import com.lid.dailydoc.viewmodels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -52,24 +56,26 @@ fun LoginScreen(
     }
     val loading by vm.loading.observeAsState(false)
     val signIn by vm.signedIn.observeAsState(vm.signedIn.value!!)
+
     LaunchedEffect(signIn) {
         if (signIn) {
+            delay(2500)
             toSplash()
         }
     }
+
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = 100.dp),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Button(toMain, modifier = Modifier
-            .align(Alignment.End)
-            .padding(16.dp))
+        Button(
+            toMain, modifier = Modifier
+                .align(Alignment.End)
+                .padding(top = 16.dp, end = 16.dp)
+        )
         {
-            Text(guestSignInText)
+            Text(guestSignInText, color = Color.White)
         }
-        Spacer(modifier = Modifier.padding(8.dp))
         Text(
             text = appName,
             style = MaterialTheme.typography.h3,
@@ -82,29 +88,32 @@ fun LoginScreen(
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(24.dp)
         )
+        GoogleSignInOption(enabled = !loading) {
+            CoroutineScope(Dispatchers.Main).launch {
+                launcher.launch()
+            }
+        }
+        ProgressBar(signIn)
+        Spacer(modifier = Modifier.weight(1f))
         Text(
             text = informationText,
             style = MaterialTheme.typography.body1,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(24.dp)
         )
-        Spacer(modifier = Modifier.weight(1f))
-        GoogleSignInOption(enabled = !loading) {
-            CoroutineScope(Dispatchers.Main).launch {
-                launcher.launch()
-            }
-        }
-        DisplayText(signIn)
     }
 }
-
 @Composable
-fun DisplayText(signedIn: Boolean) {
+fun ProgressBar(signedIn: Boolean) {
     if (signedIn) {
-        Text(
-            text = "Loading...",
-            style = MaterialTheme.typography.h4
-        )
+        Column() {
+            LinearProgressIndicator(
+                Modifier
+                    .fillMaxWidth()
+                    .height(20.dp))
+            Text("(Delay set to feature progress bar)")
+        }
+
     }
 }
 
@@ -115,7 +124,11 @@ private fun GoogleSignInOption(enabled: Boolean = true, onClick: () -> Unit) {
             .fillMaxWidth()
             .padding(20.dp)
             .clip(shape = RoundedCornerShape(8.dp))
-            .border(width = 2.dp, color = MaterialTheme.colors.onBackground, shape = RoundedCornerShape(8.dp))
+            .border(
+                width = 2.dp,
+                color = MaterialTheme.colors.onBackground,
+                shape = RoundedCornerShape(8.dp)
+            )
             .padding(10.dp)
             .background(MaterialTheme.colors.background)
             .clickable(enabled = enabled) { onClick() }
