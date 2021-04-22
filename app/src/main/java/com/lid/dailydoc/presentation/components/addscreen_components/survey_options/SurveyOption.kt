@@ -29,7 +29,7 @@ fun SurveyButtonAndOptions(
                     shape = CircleShape,
                     colors = surveyButtonBackground(savedAnswer, surveyAnswer),
                 ) {
-                    SurveyText(savedAnswer, surveyAnswer)
+                    SurveyButtonText(savedAnswer, surveyAnswer)
                 }
             }
         }
@@ -48,7 +48,7 @@ fun SurveyButtonAndOptions(
                             shape = CircleShape,
                             colors = surveyButtonBackground(savedAnswer, surveyAnswer),
                         ) {
-                            SurveyText(savedAnswer, surveyAnswer)
+                            SurveyButtonText(savedAnswer, surveyAnswer)
                         }
                     }
                 }
@@ -58,7 +58,7 @@ fun SurveyButtonAndOptions(
 }
 
 @Composable
-fun SurveyText(savedAnswer: String, currentAnswer: String) {
+fun SurveyButtonText(savedAnswer: String, currentAnswer: String) {
     Text(currentAnswer, color = if (savedAnswer == currentAnswer) {
         MaterialTheme.colors.onPrimary
     } else {
