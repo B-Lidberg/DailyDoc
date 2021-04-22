@@ -9,9 +9,8 @@ sealed class CursorPosition {
     data class Cursor(val loc: Int): CursorPosition()
     data class Selection(val start: Int, val end: Int): CursorPosition()
 }
-/**
- * Some useful ways to select
- */
+
+
 fun TextFieldValue.copyWithCursorPosition(cursorPosition: CursorPosition): TextFieldValue {
     return when(cursorPosition) {
         CursorPosition.Start -> copy(selection = TextRange(0))

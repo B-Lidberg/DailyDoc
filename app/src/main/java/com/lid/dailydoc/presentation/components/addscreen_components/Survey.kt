@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.extras.survey1Data
 import com.lid.dailydoc.data.extras.survey2Data
 import com.lid.dailydoc.data.extras.survey3Data
-import com.lid.dailydoc.presentation.components.addscreen_components.survey_options.SurveyButtonAndOptions
 
 @Composable
 fun Survey(
