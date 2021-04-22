@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.lid.dailydoc.authorization.connectedOrThrow
+import com.lid.dailydoc.utils.connectedOrThrow
 import com.lid.dailydoc.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 

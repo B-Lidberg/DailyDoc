@@ -20,9 +20,9 @@ import com.lid.dailydoc.MainDestinations.NOTE_ID
 import com.lid.dailydoc.MainDestinations.NOTE_KEY
 import com.lid.dailydoc.MainDestinations.SPLASH
 import com.lid.dailydoc.data.model.Note
-import com.lid.dailydoc.authorization.LoginScreen
+import com.lid.dailydoc.presentation.screens.LoginScreen
 import com.lid.dailydoc.viewmodels.LoginViewModel
-import com.lid.dailydoc.authorization.SplashScreen
+import com.lid.dailydoc.presentation.screens.SplashScreen
 import com.lid.dailydoc.presentation.screens.NoteAddScreen
 import com.lid.dailydoc.presentation.screens.NoteDetailScreen
 import com.lid.dailydoc.presentation.screens.NoteListScreen

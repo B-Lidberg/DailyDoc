@@ -1,4 +1,4 @@
-package com.lid.dailydoc.authorization
+package com.lid.dailydoc.data.authorization
 
 import android.content.Context
 import android.content.Intent

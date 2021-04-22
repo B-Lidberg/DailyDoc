@@ -1,4 +1,4 @@
-package com.lid.dailydoc.authorization
+package com.lid.dailydoc.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

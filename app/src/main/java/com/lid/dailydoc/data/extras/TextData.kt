@@ -1,4 +1,4 @@
-package com.lid.dailydoc.authorization
+package com.lid.dailydoc.data.extras
 
 const val informationText =
     "The app is under constant development and will " +

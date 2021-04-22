@@ -1,4 +1,4 @@
-package com.lid.dailydoc.authorization
+package com.lid.dailydoc.presentation.screens
 
 /** Not Implemented Yet. Still testing
  *  May try to stick to Single Activity or decide on building a Login Activity
@@ -6,7 +6,6 @@ package com.lid.dailydoc.authorization
  */
 
 import android.os.Build
-import android.util.AttributeSet
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
 import androidx.annotation.RequiresApi
@@ -25,16 +24,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.ContentLoadingProgressBar
 import com.lid.dailydoc.R
+import com.lid.dailydoc.data.authorization.LoginWithGoogle
+import com.lid.dailydoc.data.extras.*
 import com.lid.dailydoc.viewmodels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

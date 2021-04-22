@@ -1,4 +1,4 @@
-package com.lid.dailydoc.authorization
+package com.lid.dailydoc.presentation.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
