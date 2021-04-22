@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.lid.dailydoc.data.extras.fakeNote
 import com.lid.dailydoc.data.model.Note
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,11 +29,7 @@ abstract class NoteDatabase : RoomDatabase() {
         }
 
         suspend fun populateDatabase(noteDao: NoteDao) {
-            val note = Note( "Sunday Jan 1, 2000",-1, "Sample summary! Sum up your daily notes here",
-                "Body goes here! Expand on summary information and include self comments",
-                survey1 = "Yes!", survey2 = "Downloaded the app, of course!", survey3 = "Pushed and Pushed!"
-            )
-            noteDao.insertNote(note)
+            noteDao.insertNote(fakeNote)
         }
     }
 
