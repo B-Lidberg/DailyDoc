@@ -20,36 +20,25 @@ fun SurveyButtonAndOptions(
     Spacer(modifier = Modifier.size(4.dp))
     val surveyAnswers = survey.drop(1)
 
-    if (surveyAnswers.size != 4) {
-        Row {
-            surveyAnswers.forEach { surveyAnswer ->
-                OutlinedButton(
-                    modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
-                    onClick = { onSurveyChange(surveyAnswer) },
-                    shape = CircleShape,
-                    colors = surveyButtonBackground(savedAnswer, surveyAnswer),
-                ) {
-                    SurveyButtonText(savedAnswer, surveyAnswer)
-                }
-            }
-        }
+    val answerSets = if (surveyAnswers.size != 4) {
+        listOf(surveyAnswers)
     } else {
-        val answerSets = listOf(
+        listOf(
             listOf(surveyAnswers[0], surveyAnswers[1]),
-            listOf(surveyAnswers[2], surveyAnswers[3]),
+            listOf(surveyAnswers[2], surveyAnswers[3])
         )
+    }
         Column {
             answerSets.forEach { answerSet ->
-                Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                    answerSet.forEach { surveyAnswer ->
-                        OutlinedButton(
-                            modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
-                            onClick = { onSurveyChange(surveyAnswer) },
-                            shape = CircleShape,
-                            colors = surveyButtonBackground(savedAnswer, surveyAnswer),
-                        ) {
-                            SurveyButtonText(savedAnswer, surveyAnswer)
-                        }
+            Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                answerSet.forEach { surveyAnswer ->
+                    OutlinedButton(
+                        modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
+                        onClick = { onSurveyChange(surveyAnswer) },
+                        shape = CircleShape,
+                        colors = surveyButtonBackground(savedAnswer, surveyAnswer),
+                    ) {
+                        SurveyButtonText(savedAnswer, surveyAnswer)
                     }
                 }
             }
