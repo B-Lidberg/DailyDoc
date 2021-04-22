@@ -12,9 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.extras.survey1Data
 import com.lid.dailydoc.data.extras.survey2Data
 import com.lid.dailydoc.data.extras.survey3Data
-import com.lid.dailydoc.presentation.components.addscreen_components.survey_options.FourOptions
-import com.lid.dailydoc.presentation.components.addscreen_components.survey_options.ThreeOptions
-import com.lid.dailydoc.presentation.components.addscreen_components.survey_options.TwoOptions
+import com.lid.dailydoc.presentation.components.addscreen_components.survey_options.SurveyButtonAndOptions
 
 @Composable
 fun Survey(
@@ -31,22 +29,22 @@ fun Survey(
             .animateContentSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        TwoOptions(
-            { onSurvey1Change(it) },
+        SurveyButtonAndOptions(
+            onSurveyChange = { onSurvey1Change(it) },
             savedAnswer = survey1,
             survey = survey1Data
         )
         Spacer(modifier = Modifier.size(4.dp))
 
-        ThreeOptions(
-            { onSurvey2Change(it) },
+        SurveyButtonAndOptions(
+            onSurveyChange = { onSurvey2Change(it) },
             savedAnswer = survey2,
             survey = survey2Data
         )
         Spacer(modifier = Modifier.size(4.dp))
 
-        FourOptions(
-            { onSurvey3Change(it) },
+        SurveyButtonAndOptions(
+            onSurveyChange = { onSurvey3Change(it) },
             savedAnswer = survey3,
             survey = survey3Data
         )
