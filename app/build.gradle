@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+    id 'dagger.hilt.android.plugin'
 }
 
     android {
@@ -68,6 +69,8 @@ plugins {
         implementation "androidx.compose.ui:ui-tooling:$compose_version"
         implementation "androidx.activity:activity-compose:$compose_activity_version"
 
+
+        // Test
         def junit_version = "4.+"
         def ext_junit_version = "1.1.2"
         def espresso_version = "3.3.0"
@@ -91,6 +94,18 @@ plugins {
         // Navigation
         def nav_version = "1.0.0-alpha10"
         implementation "androidx.navigation:navigation-compose:$nav_version"
+
+        // Hilt
+        def hiltCoreVersion = "2.34.1-beta"
+        def hiltVersion = "1.0.0-beta01"
+        def hiltComposeNavigation = "1.0.0-alpha01"
+        implementation "com.google.dagger:hilt-android:$hiltCoreVersion"
+        implementation "androidx.hilt:hilt-navigation-compose:$hiltComposeNavigation"
+        kapt "com.google.dagger:hilt-compiler:$hiltCoreVersion"
+        kapt "androidx.hilt:hilt-compiler:$hiltVersion"
+        // Hilt Tests
+        androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltCoreVersion"
+        kaptAndroidTest "com.google.dagger:hilt-compiler:$hiltCoreVersion"
 
         // Room Database
         def room_version = '2.3.0-rc01'
