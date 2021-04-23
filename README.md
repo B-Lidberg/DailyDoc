@@ -8,6 +8,8 @@ Daily Doc is a productivity app to help you keep track of your daily progress.
 
 Direct Download: [Daily Doc](https://drive.google.com/file/d/1QNgtfXcrYIcCSJWijaeHScoawmNUNh6e/view?usp=sharing)
 
+There is a branch without Hilt (pre-hilt) if you're interested, but it will no longer be updated unless asked to.
+
 **Recent Features Added**
 - Login feature with google sign in
 - Splash Screen
