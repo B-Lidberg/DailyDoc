@@ -1,9 +1,5 @@
 package com.lid.dailydoc.presentation.screens
 
-/** Not Implemented Yet. Still testing
- *  May try to stick to Single Activity or decide on building a Login Activity
- *  Firebase Auth / Google Sign in?
- */
 
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -42,11 +38,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun LoginScreen(
-    vm: LoginViewModel = viewModel(),
+    vm: LoginViewModel,
     toMain: () -> Unit,
     toSplash: () -> Unit,
 ) {

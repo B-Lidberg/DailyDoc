@@ -15,15 +15,4 @@ class AuthRepository @Inject constructor() {
             .signInWithCredential(GoogleAuthProvider.getCredential(idToken, null))
             .await()
     }
-
-    companion object {
-        @Volatile
-        var INSTANCE: AuthRepository? = null
-
-        fun getInstance() = INSTANCE ?: synchronized(this) {
-            val instance = AuthRepository()
-            INSTANCE = instance
-            return instance
-        }
-    }
 }

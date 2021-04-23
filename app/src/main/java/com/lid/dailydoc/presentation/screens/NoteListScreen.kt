@@ -26,7 +26,7 @@ import com.lid.dailydoc.viewmodels.NoteViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NoteListScreen(
-    vm: NoteViewModel = viewModel(),
+    vm: NoteViewModel,
     toDetails: (Long) -> Unit,
     toAdd: (Note) -> Unit,
     note: Note,

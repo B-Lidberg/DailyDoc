@@ -2,6 +2,7 @@ package com.lid.dailydoc.presentation.screens
 
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -11,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lid.dailydoc.data.extras.surveyQuestions
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
@@ -19,7 +19,7 @@ import com.lid.dailydoc.viewmodels.NoteDetailViewModel
 
 @Composable
 fun NoteDetailScreen(
-    vm: NoteDetailViewModel = viewModel(),
+    vm: NoteDetailViewModel,
     noteId: Long,
 ) {
     val note = vm.getNote(noteId)
@@ -42,16 +42,13 @@ fun NoteDetailScreen(
 
 @Composable
 fun TempBody(note: Note) {
-    Column {
-        LazyColumn {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
             item { Text(text = "Note ID:\n${note.id}\n", fontSize = 24.sp) }
             item { SurveyDetails(note) }
             item { Text(text = "Summary:\n${note.summary}\n", fontSize = 24.sp) }
             item { Text(text = "Body:\n${note.body}\n", fontSize = 24.sp) }
-
         }
     }
-}
 
 @Composable
 fun SurveyDetails(note: Note) {

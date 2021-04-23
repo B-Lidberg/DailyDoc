@@ -34,7 +34,7 @@ import kotlinx.coroutines.*
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NoteAddScreen(
-    vm: NoteAddViewModel = viewModel(),
+    vm: NoteAddViewModel,
     toMain: () -> Unit,
     note: Note,
 ) {

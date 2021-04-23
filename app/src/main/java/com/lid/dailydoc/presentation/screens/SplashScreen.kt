@@ -17,7 +17,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    vm: LoginViewModel = viewModel(),
+    vm: LoginViewModel,
     toMain: () -> Unit,
     toLogin: () -> Unit,
     ) {
