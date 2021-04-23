@@ -16,7 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.components.NoteCard
@@ -85,9 +84,4 @@ fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
         Icon(if (exists) Icons.Outlined.Edit else Icons.Outlined.Add,
             contentDescription = "To Add Screen")
     }
-}
-
-@Composable
-fun SearchButton() {
-    IconButton(onClick = {} ) { Icon(Icons.Default.Search, contentDescription = "Search Icon") }
 }
