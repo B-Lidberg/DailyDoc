@@ -4,14 +4,18 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepository
 import com.lid.dailydoc.utils.getCurrentDateAsString
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class NoteViewModel(repository: NoteRepository) : ViewModel() {
+@HiltViewModel
+class NoteViewModel @Inject constructor(
+    repository: NoteRepository
+) : ViewModel() {
 
     val allNotes: Flow<List<Note>> = repository.allNotes
 
@@ -19,18 +23,5 @@ class NoteViewModel(repository: NoteRepository) : ViewModel() {
     var date: String = getCurrentDateAsString()
 
     val exists: LiveData<Boolean> = repository.exists(date).asLiveData()
-
-}
-    class NoteViewModelFactory(
-        private val repository: NoteRepository,
-        ) : ViewModelProvider.Factory
-    {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(NoteViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return NoteViewModel(repository) as T
-            }
-            throw IllegalArgumentException("Unknown NoteViewModel class")
-        }
 
 }

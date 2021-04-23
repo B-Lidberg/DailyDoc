@@ -7,12 +7,14 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.lid.dailydoc.MainDestinations.LOGIN
 import com.lid.dailydoc.MainDestinations.NOTES
 import com.lid.dailydoc.MainDestinations.NOTE_DETAILS
@@ -20,13 +22,11 @@ import com.lid.dailydoc.MainDestinations.NOTE_ID
 import com.lid.dailydoc.MainDestinations.NOTE_KEY
 import com.lid.dailydoc.MainDestinations.SPLASH
 import com.lid.dailydoc.data.model.Note
-import com.lid.dailydoc.presentation.screens.LoginScreen
+import com.lid.dailydoc.presentation.screens.*
 import com.lid.dailydoc.viewmodels.LoginViewModel
-import com.lid.dailydoc.presentation.screens.SplashScreen
-import com.lid.dailydoc.presentation.screens.NoteAddScreen
-import com.lid.dailydoc.presentation.screens.NoteDetailScreen
-import com.lid.dailydoc.presentation.screens.NoteListScreen
-import com.lid.dailydoc.viewmodels.*
+import com.lid.dailydoc.viewmodels.NoteAddViewModel
+import com.lid.dailydoc.viewmodels.NoteDetailViewModel
+import com.lid.dailydoc.viewmodels.NoteViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 
@@ -45,39 +45,40 @@ object MainDestinations {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation(
-    noteListVm: NoteViewModel,
-    loginVm: LoginViewModel,
     startDestination: String = SPLASH,
 ) {
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
-    val addNoteVm: NoteAddViewModel = viewModel(
-        factory = NoteAddViewModelFactory(NotesApplication().repository))
-
-    val signOut = { loginVm.signOut() }
+    val addNoteVm = hiltNavGraphViewModel<NoteAddViewModel>()
 
     NavHost(navController = navController, startDestination = startDestination) {
 
         composable(
             route = NOTES,
         ) {
+
+            val noteListVm = hiltNavGraphViewModel<NoteViewModel>()
+
             addNoteVm.setDate()
             addNoteVm.cacheNote()
             val note = addNoteVm.cachedNote
+            val signOut = { Firebase.auth.signOut() }
+
             NoteListScreen(noteListVm, actions.detailScreen, actions.addScreen, note, actions.loginScreen, signOut)
         }
         val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
         val note = noteId?.let { addNoteVm.getNoteById(it) }
         if (noteId != null) {
-            composable("$NOTE_KEY/${NOTE_ID}") { NoteAddScreen(addNoteVm, actions.upPress, note!!) }
+            composable("$NOTE_KEY/${NOTE_ID}") {
+                NoteAddScreen(addNoteVm, actions.upPress, note!!) }
         } else {
-            composable("$NOTE_KEY/${NOTE_ID}") { NoteAddScreen(addNoteVm, actions.upPress, addNoteVm.cachedNote) }
+            composable("$NOTE_KEY/${NOTE_ID}") {
+                NoteAddScreen(addNoteVm, actions.upPress, addNoteVm.cachedNote) }
         }
 
         composable("$NOTE_DETAILS/${NOTE_ID}") {
-            val detailVm: NoteDetailViewModel = viewModel(
-                factory = NoteDetailViewModeFactory(NotesApplication().repository))
+            val detailVm = hiltNavGraphViewModel<NoteDetailViewModel>(backStackEntry = it)
 
             val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
             if (noteId != null) NoteDetailScreen(detailVm, noteId)
@@ -86,12 +87,17 @@ fun Navigation(
         composable(
             route = LOGIN,
         ) {
+
+            val loginVm = hiltNavGraphViewModel<LoginViewModel>(backStackEntry = it)
+
             LoginScreen(loginVm, actions.mainScreen, actions.splashScreen)
         }
 
         composable(
             route = SPLASH,
         ) {
+            val loginVm = hiltNavGraphViewModel<LoginViewModel>(backStackEntry = it)
+
             SplashScreen(loginVm, actions.mainScreen, actions.loginScreen)
         }
     }

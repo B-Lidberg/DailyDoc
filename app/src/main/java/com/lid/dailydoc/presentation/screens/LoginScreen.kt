@@ -15,7 +15,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lid.dailydoc.R
 import com.lid.dailydoc.data.authorization.LoginWithGoogle
 import com.lid.dailydoc.data.extras.*
@@ -42,7 +46,7 @@ import kotlinx.coroutines.launch
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun LoginScreen(
-    vm: LoginViewModel,
+    vm: LoginViewModel = viewModel(),
     toMain: () -> Unit,
     toSplash: () -> Unit,
 ) {

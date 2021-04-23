@@ -4,8 +4,9 @@ import androidx.annotation.WorkerThread
 import com.lid.dailydoc.data.local.NoteDao
 import com.lid.dailydoc.data.model.Note
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class NoteRepository(
+class NoteRepository @Inject constructor(
     private val noteDao: NoteDao,
 ) {
     val allNotes: Flow<List<Note>> = noteDao.getAllNotes()

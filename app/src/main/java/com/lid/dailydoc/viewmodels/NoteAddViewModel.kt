@@ -2,13 +2,21 @@ package com.lid.dailydoc.viewmodels
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepository
 import com.lid.dailydoc.utils.getCurrentDateAsString
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class NoteAddViewModel(private val repository: NoteRepository) : ViewModel() {
+@HiltViewModel
+class NoteAddViewModel @Inject constructor(
+    private val repository: NoteRepository
+) : ViewModel() {
 
     // DATE
     @RequiresApi(Build.VERSION_CODES.O)
@@ -93,18 +101,5 @@ class NoteAddViewModel(private val repository: NoteRepository) : ViewModel() {
         onSurvey1Change("")
         onSurvey2Change("")
         onSurvey3Change("")
-    }
-}
-
-
-class NoteAddViewModelFactory(
-    private val repository: NoteRepository,
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(NoteAddViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return NoteAddViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown AddViewModel class")
     }
 }

@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.components.addscreen_components.BodyField
@@ -33,7 +34,7 @@ import kotlinx.coroutines.*
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NoteAddScreen(
-    vm: NoteAddViewModel,
+    vm: NoteAddViewModel = viewModel(),
     toMain: () -> Unit,
     note: Note,
 ) {

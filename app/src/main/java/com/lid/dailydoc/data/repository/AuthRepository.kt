@@ -6,8 +6,9 @@ import com.google.firebase.ktx.Firebase
 import com.lid.dailydoc.utils.await
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AuthRepository {
+class AuthRepository @Inject constructor() {
 
     suspend fun loginWithGoogle(idToken: String): Unit = withContext(IO) {
         Firebase.auth

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lid.dailydoc.data.extras.surveyQuestions
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
@@ -18,7 +19,7 @@ import com.lid.dailydoc.viewmodels.NoteDetailViewModel
 
 @Composable
 fun NoteDetailScreen(
-    vm: NoteDetailViewModel,
+    vm: NoteDetailViewModel = viewModel(),
     noteId: Long,
 ) {
     val note = vm.getNote(noteId)

@@ -96,7 +96,7 @@ plugins {
         implementation "androidx.navigation:navigation-compose:$nav_version"
 
         // Hilt
-        def hiltCoreVersion = "2.34.1-beta"
+        def hiltCoreVersion = "2.33-beta"
         def hiltVersion = "1.0.0-beta01"
         def hiltComposeNavigation = "1.0.0-alpha01"
         implementation "com.google.dagger:hilt-android:$hiltCoreVersion"

@@ -3,14 +3,20 @@ package com.lid.dailydoc.viewmodels
 import android.app.Application
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.lid.dailydoc.utils.connectedOrThrow
 import com.lid.dailydoc.data.repository.AuthRepository
+import com.lid.dailydoc.utils.connectedOrThrow
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val app: Application,
     private val authRepository: AuthRepository
 ) : AndroidViewModel(app) {
@@ -52,19 +58,5 @@ class LoginViewModel(
         } finally {
             _loading.postValue(false)
         }
-    }
-
-}
-
-class LoginViewModelFactory(
-    private val app: Application,
-    private val authRepository: AuthRepository
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return LoginViewModel(app, authRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
