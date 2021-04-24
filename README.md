@@ -17,7 +17,7 @@ There is a branch without Hilt (pre-hilt) if you're interested, but it will no l
 --------------------------------------
 <kbd>![Screenshot](screenshots/LightListScreen.png)</kbd> <kbd>![Screenshot](screenshots/ListScreen.png)</kbd>
 <kbd>![Screenshot](screenshots/LightSurvey.png)</kbd><kbd>![Screenshot](screenshots/AddScreenBody.png)</kbd>
-<kbd>![Screenshot](screenshots/ClearDialog.png)</kbd><kbd>![Screenshot](screenshots/NoteDetailScreen.png)</kbd>
+<kbd>![Screenshot](screenshots/NoteDetailScreen.png)</kbd><kbd>![Screenshot](screenshots/ClearDialog.png)</kbd>
 <kbd>![Screenshot](screenshots/splashscreen.png)</kbd><kbd>![Screenshot](screenshots/signinscreen.png)</kbd>
 -------------------------------------
 **Few features I'll be adding:**
