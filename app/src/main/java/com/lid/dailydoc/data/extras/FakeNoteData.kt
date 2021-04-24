@@ -3,7 +3,7 @@ package com.lid.dailydoc.data.extras
 import com.lid.dailydoc.data.model.Note
 
 val fakeNote = Note(
-    dateCreated = "Sunday Jan 1, 2000",
+    dateCreated = "Saturday Jan 1, 2000",
     id = -1,
     summary = "Sample summary! Sum up your daily notes here",
     body = "Body goes here! Expand on summary information and include self comments. " +
