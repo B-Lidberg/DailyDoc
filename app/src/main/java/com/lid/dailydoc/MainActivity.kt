@@ -32,6 +32,7 @@ private lateinit var firebaseAnalytics: FirebaseAnalytics
             DailyDocTheme {
                 Surface(color = MaterialTheme.colors.background) {
                     Navigation()
+//                    OptionDrawer()
                 }
             }
         }

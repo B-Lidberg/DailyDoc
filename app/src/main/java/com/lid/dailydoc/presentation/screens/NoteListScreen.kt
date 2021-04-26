@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.runtime.Composable
@@ -19,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
+import com.lid.dailydoc.presentation.components.DrawerMenu
 import com.lid.dailydoc.presentation.components.NoteCard
 import com.lid.dailydoc.viewmodels.NoteViewModel
 
@@ -35,13 +35,21 @@ fun NoteListScreen(
 ) {
     val notes by vm.allNotes.collectAsState(emptyList())
     val exists by vm.exists.observeAsState(false)
-
-    Scaffold(
-        topBar = { NoteListTopBar(signOutEvent, toLogin) },
-        floatingActionButton = { AddNoteButton(toAdd, note, exists) },
-        content = {
-            NoteList(notes, toDetails) }
-    )
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
+    ModalDrawer(
+        drawerState = drawerState,
+        drawerContent = { DrawerMenu(drawerState, notes) },
+        drawerBackgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.95f),
+        drawerElevation = 8.dp,
+    ) {
+        Scaffold(
+            topBar = { NoteListTopBar(signOutEvent, toLogin) },
+            floatingActionButton = { AddNoteButton(toAdd, note, exists) },
+            content = {
+                NoteList(notes, toDetails)
+            }
+        )
+    }
 }
 
 @Composable
