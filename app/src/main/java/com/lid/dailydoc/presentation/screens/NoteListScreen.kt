@@ -45,9 +45,7 @@ fun NoteListScreen(
         Scaffold(
             topBar = { NoteListTopBar(signOutEvent, toLogin) },
             floatingActionButton = { AddNoteButton(toAdd, note, exists) },
-            content = {
-                NoteList(notes, toDetails)
-            }
+            content = { NoteList(notes, toDetails) }
         )
     }
 }
