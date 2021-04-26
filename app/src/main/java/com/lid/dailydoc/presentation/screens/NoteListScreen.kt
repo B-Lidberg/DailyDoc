@@ -15,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
@@ -61,7 +62,7 @@ fun SignOutButton(signOutEvent: () -> Unit, toLogin: () -> Unit) {
             toLogin()
         }
     ) {
-        Text("Sign Out") }
+        Text("Sign Out", color = Color.White) }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
