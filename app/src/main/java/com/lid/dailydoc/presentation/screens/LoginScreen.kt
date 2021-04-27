@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.R
 import com.lid.dailydoc.data.authorization.LoginWithGoogle
 import com.lid.dailydoc.data.extras.*
-import com.lid.dailydoc.presentation.navigation.UiDrawerState
+import com.lid.dailydoc.navigation.UiDrawerState
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

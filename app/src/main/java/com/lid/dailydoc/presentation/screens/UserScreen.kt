@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
-import com.lid.dailydoc.presentation.navigation.UiDrawerState
+import com.lid.dailydoc.navigation.UiDrawerState
 import com.lid.dailydoc.viewmodels.UserViewModel
 
 @Composable

@@ -15,11 +15,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.firebase.auth.FirebaseAuth
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.components.NoteCard
-import com.lid.dailydoc.presentation.navigation.DrawerNavigation
+import com.lid.dailydoc.navigation.DrawerNavigation
 import com.lid.dailydoc.viewmodels.UserViewModel
 import com.lid.dailydoc.viewmodels.NoteViewModel
 
@@ -33,7 +32,6 @@ fun NoteListScreen(
     toAdd: (Note) -> Unit,
     note: Note,
 ) {
-    val user by userVm.user.observeAsState(FirebaseAuth.getInstance().currentUser?.email ?: "")
     val notes by vm.allNotes.collectAsState(emptyList())
     val exists by vm.exists.observeAsState(false)
     val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -44,7 +42,7 @@ fun NoteListScreen(
         drawerElevation = 8.dp,
     ) {
         Scaffold(
-            topBar = { NoteListTopBar(user) },
+            topBar = { NoteListTopBar() },
             floatingActionButton = { AddNoteButton(toAdd, note, exists) },
             content = { NoteList(notes, toDetails) }
         )
@@ -52,13 +50,13 @@ fun NoteListScreen(
 }
 
 @Composable
-fun NoteListTopBar(user: String) {
+fun NoteListTopBar() {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
         modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
     ) {
-        CustomTopBar("Daily Doc") { Text(user) }
+        CustomTopBar("Daily Doc") { }
     }
 }
 

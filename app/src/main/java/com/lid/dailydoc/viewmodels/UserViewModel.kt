@@ -10,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.lid.dailydoc.data.repository.AuthRepository
-import com.lid.dailydoc.presentation.navigation.UiDrawerState
+import com.lid.dailydoc.navigation.UiDrawerState
 import com.lid.dailydoc.utils.connectedOrThrow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
