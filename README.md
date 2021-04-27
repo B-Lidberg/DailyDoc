@@ -33,6 +33,8 @@ There is a branch without Hilt (pre-hilt) if you're interested, but it will no l
 - ~~Remove "Clear All" Button. Currently there~~ ✅
 - Search features: Date, text in Summary/Body, by survey answers
 ------------------------------------------
+MADSCORE: https://madscorecard.withgoogle.com/scorecard/share/416599438/
+------------------------------------------
 **Other ways to contact me:**
 - Twitter: https://twitter.com/Lidberg_B
 - Slack: https://kotlinlang.slack.com/team/U01P1VA0DC4
