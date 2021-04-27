@@ -65,15 +65,6 @@ fun LoginScreen(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Button(
-            onClick = {},
-            modifier = Modifier
-                .align(Alignment.End)
-                .padding(top = 16.dp, end = 16.dp)
-        )
-        {
-            Text(guestSignInText, color = Color.White)
-        }
         Text(
             text = appName,
             style = MaterialTheme.typography.h3,
