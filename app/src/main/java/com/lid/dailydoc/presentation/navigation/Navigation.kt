@@ -13,8 +13,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.lid.dailydoc.MainDestinations.LOGIN
 import com.lid.dailydoc.MainDestinations.NOTES
 import com.lid.dailydoc.MainDestinations.NOTE_DETAILS
@@ -23,7 +21,7 @@ import com.lid.dailydoc.MainDestinations.NOTE_KEY
 import com.lid.dailydoc.MainDestinations.SPLASH
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.screens.*
-import com.lid.dailydoc.viewmodels.LoginViewModel
+import com.lid.dailydoc.viewmodels.UserViewModel
 import com.lid.dailydoc.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.viewmodels.NoteDetailViewModel
 import com.lid.dailydoc.viewmodels.NoteViewModel
@@ -63,9 +61,13 @@ fun Navigation(
             addNoteVm.setDate()
             addNoteVm.cacheNote()
             val note = addNoteVm.cachedNote
-            val signOut = { Firebase.auth.signOut() }
+            val loginVm = hiltNavGraphViewModel<UserViewModel>(backStackEntry = it)
 
-            NoteListScreen(noteListVm, actions.detailScreen, actions.addScreen, note, actions.loginScreen, signOut)
+            NoteListScreen(
+                noteListVm, loginVm,
+                actions.detailScreen, actions.addScreen,
+                note
+            )
         }
         val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
         val note = noteId?.let { addNoteVm.getNoteById(it) }
@@ -85,20 +87,9 @@ fun Navigation(
         }
 
         composable(
-            route = LOGIN,
-        ) {
-
-            val loginVm = hiltNavGraphViewModel<LoginViewModel>(backStackEntry = it)
-
-            LoginScreen(loginVm, actions.mainScreen, actions.splashScreen)
-        }
-
-        composable(
             route = SPLASH,
         ) {
-            val loginVm = hiltNavGraphViewModel<LoginViewModel>(backStackEntry = it)
-
-            SplashScreen(loginVm, actions.mainScreen, actions.loginScreen)
+            SplashScreen(actions.mainScreen)
         }
     }
 }
@@ -130,11 +121,6 @@ class MainActions(navController: NavController) {
 
     val loginScreen: () -> Unit = {
         navController.navigate(LOGIN) {
-            popUpTo(0) { inclusive = true }
-        }
-    }
-    val splashScreen: () -> Unit = {
-        navController.navigate(SPLASH) {
             popUpTo(0) { inclusive = true }
         }
     }

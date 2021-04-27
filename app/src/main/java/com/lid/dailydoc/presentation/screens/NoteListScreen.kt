@@ -14,12 +14,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.google.firebase.auth.FirebaseAuth
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
-import com.lid.dailydoc.presentation.components.DrawerMenu
 import com.lid.dailydoc.presentation.components.NoteCard
+import com.lid.dailydoc.presentation.navigation.DrawerNavigation
+import com.lid.dailydoc.viewmodels.UserViewModel
 import com.lid.dailydoc.viewmodels.NoteViewModel
 
 
@@ -27,23 +28,23 @@ import com.lid.dailydoc.viewmodels.NoteViewModel
 @Composable
 fun NoteListScreen(
     vm: NoteViewModel,
+    userVm: UserViewModel,
     toDetails: (Long) -> Unit,
     toAdd: (Note) -> Unit,
     note: Note,
-    toLogin: () -> Unit,
-    signOutEvent: () -> Unit,
 ) {
+    val user by userVm.user.observeAsState(FirebaseAuth.getInstance().currentUser?.email ?: "")
     val notes by vm.allNotes.collectAsState(emptyList())
     val exists by vm.exists.observeAsState(false)
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     ModalDrawer(
         drawerState = drawerState,
-        drawerContent = { DrawerMenu(drawerState, notes) },
+        drawerContent = { DrawerNavigation(userVm) },
         drawerBackgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.95f),
         drawerElevation = 8.dp,
     ) {
         Scaffold(
-            topBar = { NoteListTopBar(signOutEvent, toLogin) },
+            topBar = { NoteListTopBar(user) },
             floatingActionButton = { AddNoteButton(toAdd, note, exists) },
             content = { NoteList(notes, toDetails) }
         )
@@ -51,25 +52,16 @@ fun NoteListScreen(
 }
 
 @Composable
-fun NoteListTopBar(signOutEvent: () -> Unit, toLogin: () -> Unit) {
+fun NoteListTopBar(user: String) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
         modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
     ) {
-        CustomTopBar("Daily Doc") { SignOutButton(signOutEvent, toLogin) }
+        CustomTopBar("Daily Doc") { Text(user) }
     }
 }
-@Composable
-fun SignOutButton(signOutEvent: () -> Unit, toLogin: () -> Unit) {
-    Button(
-        onClick = {
-            signOutEvent()
-            toLogin()
-        }
-    ) {
-        Text("Sign Out", color = Color.White) }
-}
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

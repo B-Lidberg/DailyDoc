@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,18 +33,16 @@ import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.R
 import com.lid.dailydoc.data.authorization.LoginWithGoogle
 import com.lid.dailydoc.data.extras.*
-import com.lid.dailydoc.viewmodels.LoginViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.lid.dailydoc.presentation.navigation.UiDrawerState
+import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun LoginScreen(
-    vm: LoginViewModel,
-    toMain: () -> Unit,
-    toSplash: () -> Unit,
+    vm: UserViewModel,
+    uiState: MutableTransitionState<UiDrawerState>
 ) {
     val launcher = rememberLauncherForActivityResult(LoginWithGoogle()) {
         if (it != null) {
@@ -56,8 +55,9 @@ fun LoginScreen(
 
     LaunchedEffect(signIn) {
         if (signIn) {
-            delay(2500)
-            toSplash()
+            uiState.targetState = UiDrawerState.LOADING
+            delay(2000)
+            uiState.targetState = UiDrawerState.LOGGED_IN
         }
     }
 
@@ -66,7 +66,8 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Button(
-            toMain, modifier = Modifier
+            onClick = {},
+            modifier = Modifier
                 .align(Alignment.End)
                 .padding(top = 16.dp, end = 16.dp)
         )
@@ -108,7 +109,7 @@ fun ProgressBar(signedIn: Boolean) {
                 Modifier
                     .fillMaxWidth()
                     .height(20.dp))
-            Text("(Delay set to feature progress bar)")
+            Text("(2 Second delay set to feature progress bar)")
         }
 
     }

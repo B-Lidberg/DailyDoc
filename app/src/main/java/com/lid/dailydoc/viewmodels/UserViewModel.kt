@@ -10,24 +10,26 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.lid.dailydoc.data.repository.AuthRepository
+import com.lid.dailydoc.presentation.navigation.UiDrawerState
 import com.lid.dailydoc.utils.connectedOrThrow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class UserViewModel @Inject constructor(
     private val app: Application,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
 ) : AndroidViewModel(app) {
 
     init {
         Firebase.auth.addAuthStateListener {
             _signedIn.value = it.currentUser != null
-            _user.value = it.currentUser?.email ?: "Navigating to Login Screen..."
+            _user.value = it.currentUser?.email ?: "Guest"
         }
     }
 
+    internal var subContentState: ((UiDrawerState) -> Unit)? = null
     private val _user = MutableLiveData("")
     val user: LiveData<String> = _user
 

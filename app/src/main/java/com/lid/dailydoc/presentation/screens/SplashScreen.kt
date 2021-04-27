@@ -6,44 +6,26 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.lid.dailydoc.viewmodels.LoginViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun SplashScreen(
-    vm: LoginViewModel,
     toMain: () -> Unit,
-    toLogin: () -> Unit,
     ) {
-    val signIn by vm.signedIn.observeAsState(vm.signedIn.value!!)
-    val user by vm.user.observeAsState("")
+    val scope = rememberCoroutineScope()
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Text("Welcome!", style = MaterialTheme.typography.h3)
-        Text(user, style = MaterialTheme.typography.h5)
-        LaunchedEffect(signIn) {
+        Text("Daily Doc", style = MaterialTheme.typography.h3)
+        scope.launch {
             delay(1500)
-            if (signIn) {
-                toMain()
-            } else {
-                toLogin()
-            }
-        }
-        LaunchedEffect(!signIn) {
-            delay(1500)
-            if (signIn) {
-                toMain()
-            } else {
-                toLogin()
-            }
+            toMain()
         }
     }
 }
