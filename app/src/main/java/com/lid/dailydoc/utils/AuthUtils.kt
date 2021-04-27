@@ -3,8 +3,6 @@ package com.lid.dailydoc.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.concurrent.CancellationException
@@ -34,7 +32,6 @@ suspend fun <T> Task<T>.await(): T {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.M)
 private fun ConnectivityManager.isConnected(): Boolean {
     val capabilities = getNetworkCapabilities(activeNetwork) ?: return false
     val wifiConnected = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
@@ -43,12 +40,10 @@ private fun ConnectivityManager.isConnected(): Boolean {
     return wifiConnected || mobileDataActive || ethernetConnected
 }
 
-@RequiresApi(Build.VERSION_CODES.M)
 fun Context.isConnected(): Boolean {
     return (this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).isConnected()
 }
 
-@RequiresApi(Build.VERSION_CODES.M)
 fun Context.connectedOrThrow() {
     if (!isConnected()) throw Exception("You are offline")
 }

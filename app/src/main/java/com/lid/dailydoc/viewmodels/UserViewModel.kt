@@ -1,8 +1,6 @@
 package com.lid.dailydoc.viewmodels
 
 import android.app.Application
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -48,7 +46,6 @@ class UserViewModel @Inject constructor(
 
     fun signOut() = Firebase.auth.signOut()
 
-    @RequiresApi(Build.VERSION_CODES.M)
     fun loginWithGoogle(idToken: String) = viewModelScope.launch {
         try {
             app.connectedOrThrow()

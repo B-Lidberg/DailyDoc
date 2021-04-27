@@ -11,6 +11,7 @@ import androidx.compose.material.Surface
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import com.lid.dailydoc.navigation.Navigation
 import com.lid.dailydoc.presentation.ui.theme.DailyDocTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi

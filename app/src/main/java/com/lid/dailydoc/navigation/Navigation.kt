@@ -1,9 +1,7 @@
 @file:Suppress("NAME_SHADOWING")
 
-package com.lid.dailydoc
+package com.lid.dailydoc.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -13,13 +11,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
-import com.lid.dailydoc.MainDestinations.LOGIN
-import com.lid.dailydoc.MainDestinations.NOTES
-import com.lid.dailydoc.MainDestinations.NOTE_DETAILS
-import com.lid.dailydoc.MainDestinations.NOTE_ID
-import com.lid.dailydoc.MainDestinations.NOTE_KEY
-import com.lid.dailydoc.MainDestinations.SPLASH
 import com.lid.dailydoc.data.model.Note
+import com.lid.dailydoc.navigation.MainDestinations.LOGIN
+import com.lid.dailydoc.navigation.MainDestinations.NOTES
+import com.lid.dailydoc.navigation.MainDestinations.NOTE_DETAILS
+import com.lid.dailydoc.navigation.MainDestinations.NOTE_ID
+import com.lid.dailydoc.navigation.MainDestinations.NOTE_KEY
+import com.lid.dailydoc.navigation.MainDestinations.SPLASH
 import com.lid.dailydoc.presentation.screens.NoteAddScreen
 import com.lid.dailydoc.presentation.screens.NoteDetailScreen
 import com.lid.dailydoc.presentation.screens.NoteListScreen
@@ -43,7 +41,6 @@ object MainDestinations {
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation(
     startDestination: String = SPLASH,

@@ -1,10 +1,8 @@
 package com.lid.dailydoc.presentation.screens
 
 
-import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,7 +10,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -32,13 +29,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.R
 import com.lid.dailydoc.data.authorization.LoginWithGoogle
-import com.lid.dailydoc.data.extras.*
+import com.lid.dailydoc.data.extras.appName
+import com.lid.dailydoc.data.extras.googleSignInText
+import com.lid.dailydoc.data.extras.informationText
+import com.lid.dailydoc.data.extras.summaryText
 import com.lid.dailydoc.navigation.UiDrawerState
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun LoginScreen(
     vm: UserViewModel,

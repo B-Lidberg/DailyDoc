@@ -1,7 +1,5 @@
 package com.lid.dailydoc.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.tween
@@ -19,7 +17,6 @@ enum class UiDrawerState {
     LOGGED_OUT
 }
 
-@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun DrawerNavigation(
     vm: UserViewModel,

@@ -1,7 +1,5 @@
 package com.lid.dailydoc.presentation.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,7 +21,6 @@ import com.lid.dailydoc.viewmodels.NoteViewModel
 import com.lid.dailydoc.viewmodels.UserViewModel
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NoteListScreen(
     vm: NoteViewModel,
@@ -61,7 +58,6 @@ fun NoteListTopBar() {
 }
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit) {
     LazyColumn {
@@ -71,7 +67,6 @@ fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit) {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
     FloatingActionButton(
