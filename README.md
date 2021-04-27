@@ -10,7 +10,10 @@ Direct Download: [Daily Doc](https://drive.google.com/file/d/1QNgtfXcrYIcCSJWija
 
 There is a branch without Hilt (pre-hilt) if you're interested, but it will no longer be updated unless asked to.
 
-**Recent Features Added**
+**Most Recent Features Added**
+- Drawer Navigation for Login & Account Screens (*Screenshots not update*)
+
+**Other Recent Features Added**
 - Login feature with google sign in
 - Splash Screen
 - Symbols available when editing body
