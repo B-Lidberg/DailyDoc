@@ -20,11 +20,14 @@ import com.lid.dailydoc.MainDestinations.NOTE_ID
 import com.lid.dailydoc.MainDestinations.NOTE_KEY
 import com.lid.dailydoc.MainDestinations.SPLASH
 import com.lid.dailydoc.data.model.Note
-import com.lid.dailydoc.presentation.screens.*
-import com.lid.dailydoc.viewmodels.UserViewModel
+import com.lid.dailydoc.presentation.screens.NoteAddScreen
+import com.lid.dailydoc.presentation.screens.NoteDetailScreen
+import com.lid.dailydoc.presentation.screens.NoteListScreen
+import com.lid.dailydoc.presentation.screens.SplashScreen
 import com.lid.dailydoc.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.viewmodels.NoteDetailViewModel
 import com.lid.dailydoc.viewmodels.NoteViewModel
+import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 
@@ -73,10 +76,12 @@ fun Navigation(
         val note = noteId?.let { addNoteVm.getNoteById(it) }
         if (noteId != null) {
             composable("$NOTE_KEY/${NOTE_ID}") {
-                NoteAddScreen(addNoteVm, actions.upPress, note!!) }
+                NoteAddScreen(addNoteVm, actions.upPress, note!!)
+            }
         } else {
             composable("$NOTE_KEY/${NOTE_ID}") {
-                NoteAddScreen(addNoteVm, actions.upPress, addNoteVm.cachedNote) }
+                NoteAddScreen(addNoteVm, actions.upPress, addNoteVm.cachedNote)
+            }
         }
 
         composable("$NOTE_DETAILS/${NOTE_ID}") {

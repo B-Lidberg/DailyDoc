@@ -15,7 +15,7 @@ fun ClearButton(onAction: () -> Unit) {
         Column {
             val openDialog = remember { mutableStateOf(false) }
 
-            IconButton(onClick = { openDialog.value = true } ) {
+            IconButton(onClick = { openDialog.value = true }) {
                 Icon(Icons.Default.Clear, contentDescription = null)
             }
 
@@ -28,9 +28,11 @@ fun ClearButton(onAction: () -> Unit) {
                         Text(text = "Are you sure?")
                     },
                     text = {
-                        Text("If Confirmed the note will be cleared, " +
-                            "however an overwrite will not occur until Saved. " +
-                            "To retain previous state, close and re-open the app")
+                        Text(
+                            "If Confirmed the note will be cleared, " +
+                                    "however an overwrite will not occur until Saved. " +
+                                    "To retain previous state, close and re-open the app"
+                        )
                     },
                     confirmButton = {
                         CustomButton(

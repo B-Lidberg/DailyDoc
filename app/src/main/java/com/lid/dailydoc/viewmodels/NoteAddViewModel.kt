@@ -65,12 +65,14 @@ class NoteAddViewModel @Inject constructor(
     fun setDate() {
         date = getCurrentDateAsString()
     }
+
     private var noteExists: Boolean = false
 
     @ObsoleteCoroutinesApi
     fun checkNoteExists() {
-            noteExists = repository.noteExists(date)
+        noteExists = repository.noteExists(date)
     }
+
     var cachedNote = Note(dateCreated = "Mon, Jan 15, 2001")
 
     @ObsoleteCoroutinesApi
@@ -80,6 +82,7 @@ class NoteAddViewModel @Inject constructor(
             cachedNote = if (noteExists) getNote() else Note(date)
         }
     }
+
     private fun getNote(): Note = repository.findNoteByDate(date)
 
     fun getNoteById(noteId: Long): Note {
@@ -95,6 +98,7 @@ class NoteAddViewModel @Inject constructor(
             if (noteExists) repository.updateNote(note) else repository.insertNote(note)
         }
     }
+
     fun clearNote() {
         onSummaryChange("")
         onBodyChange("")

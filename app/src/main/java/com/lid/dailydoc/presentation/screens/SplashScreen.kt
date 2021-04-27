@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SplashScreen(
     toMain: () -> Unit,
-    ) {
+) {
     val scope = rememberCoroutineScope()
     Column(
         modifier = Modifier.fillMaxSize(),

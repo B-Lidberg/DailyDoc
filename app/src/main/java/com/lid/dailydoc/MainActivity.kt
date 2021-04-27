@@ -19,7 +19,7 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-private lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     @ObsoleteCoroutinesApi
     @ExperimentalAnimationApi

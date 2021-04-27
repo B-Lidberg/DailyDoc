@@ -16,11 +16,11 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.model.Note
+import com.lid.dailydoc.navigation.DrawerNavigation
 import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.components.NoteCard
-import com.lid.dailydoc.navigation.DrawerNavigation
-import com.lid.dailydoc.viewmodels.UserViewModel
 import com.lid.dailydoc.viewmodels.NoteViewModel
+import com.lid.dailydoc.viewmodels.UserViewModel
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -78,7 +78,9 @@ fun AddNoteButton(toAdd: (Note) -> Unit, note: Note, exists: Boolean) {
         onClick = { toAdd(note) },
         backgroundColor = MaterialTheme.colors.secondary,
     ) {
-        Icon(if (exists) Icons.Outlined.Edit else Icons.Outlined.Add,
-            contentDescription = "To Add Screen")
+        Icon(
+            if (exists) Icons.Outlined.Edit else Icons.Outlined.Add,
+            contentDescription = "To Add Screen"
+        )
     }
 }

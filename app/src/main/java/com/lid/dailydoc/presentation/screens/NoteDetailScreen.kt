@@ -42,13 +42,13 @@ fun NoteDetailScreen(
 
 @Composable
 fun TempBody(note: Note) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            item { Text(text = "Note ID:\n${note.id}\n", fontSize = 24.sp) }
-            item { SurveyDetails(note) }
-            item { Text(text = "Summary:\n${note.summary}\n", fontSize = 24.sp) }
-            item { Text(text = "Body:\n${note.body}\n", fontSize = 24.sp) }
-        }
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+        item { Text(text = "Note ID:\n${note.id}\n", fontSize = 24.sp) }
+        item { SurveyDetails(note) }
+        item { Text(text = "Summary:\n${note.summary}\n", fontSize = 24.sp) }
+        item { Text(text = "Body:\n${note.body}\n", fontSize = 24.sp) }
     }
+}
 
 @Composable
 fun SurveyDetails(note: Note) {
@@ -58,7 +58,8 @@ fun SurveyDetails(note: Note) {
         Text(text = "${surveyQuestions[2]}:\n ${note.survey3}\n", fontSize = 24.sp)
     }
 }
+
 @Composable
 fun EditBodyButton() {
-    IconButton(onClick = {} ) { Icon(Icons.Default.Edit, contentDescription = "Search Icon") }
+    IconButton(onClick = {}) { Icon(Icons.Default.Edit, contentDescription = "Search Icon") }
 }

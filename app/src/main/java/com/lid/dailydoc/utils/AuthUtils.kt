@@ -33,6 +33,7 @@ suspend fun <T> Task<T>.await(): T {
         }
     }
 }
+
 @RequiresApi(Build.VERSION_CODES.M)
 private fun ConnectivityManager.isConnected(): Boolean {
     val capabilities = getNetworkCapabilities(activeNetwork) ?: return false

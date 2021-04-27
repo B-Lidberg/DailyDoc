@@ -3,8 +3,6 @@ package com.lid.dailydoc.presentation.screens
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
@@ -38,19 +36,20 @@ fun UserScreen(vm: UserViewModel, uiState: MutableTransitionState<UiDrawerState>
 fun UserSettings(vm: UserViewModel, uiState: MutableTransitionState<UiDrawerState>) {
     var showSettings by remember { mutableStateOf(false) }
 
-    IconButton(onClick = { showSettings = true } ) {
+    IconButton(onClick = { showSettings = true }) {
         Icon(
             imageVector = Icons.Filled.Person,
             contentDescription = "Settings"
         )
     }
-        DropdownMenu(
-            expanded = showSettings,
-            onDismissRequest = { showSettings = false }
-        ) {
-            SignOutButton(uiState) { vm.signOut() }
-        }
+    DropdownMenu(
+        expanded = showSettings,
+        onDismissRequest = { showSettings = false }
+    ) {
+        SignOutButton(uiState) { vm.signOut() }
+    }
 }
+
 @Composable
 fun SignOutButton(uiState: MutableTransitionState<UiDrawerState>, signOut: () -> Unit) {
     Button(

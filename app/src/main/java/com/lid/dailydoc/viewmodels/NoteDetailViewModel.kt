@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NoteDetailViewModel @Inject constructor(
     private val repository: NoteRepository
-    ) : ViewModel() {
+) : ViewModel() {
 
     fun getNote(noteId: Long): Note {
         return runBlocking(Dispatchers.IO) {

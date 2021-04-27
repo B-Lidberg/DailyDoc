@@ -4,15 +4,15 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 
 sealed class CursorPosition {
-    object Start: CursorPosition()
-    object End: CursorPosition()
-    data class Cursor(val loc: Int): CursorPosition()
-    data class Selection(val start: Int, val end: Int): CursorPosition()
+    object Start : CursorPosition()
+    object End : CursorPosition()
+    data class Cursor(val loc: Int) : CursorPosition()
+    data class Selection(val start: Int, val end: Int) : CursorPosition()
 }
 
 
 fun TextFieldValue.copyWithCursorPosition(cursorPosition: CursorPosition): TextFieldValue {
-    return when(cursorPosition) {
+    return when (cursorPosition) {
         CursorPosition.Start -> copy(selection = TextRange(0))
         CursorPosition.End -> copy(selection = TextRange(text.length))
         is CursorPosition.Cursor -> copy(

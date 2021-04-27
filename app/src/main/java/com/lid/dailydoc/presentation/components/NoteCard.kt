@@ -32,8 +32,8 @@ fun NoteCard(note: Note, toDetails: (Long) -> Unit) {
             .clickable(onClick = { toDetails(noteId) }),
         elevation = 4.dp,
         backgroundColor =
-            if (note.dateCreated != getCurrentDateAsString()) MaterialTheme.colors.primary
-            else MaterialTheme.colors.primaryVariant
+        if (note.dateCreated != getCurrentDateAsString()) MaterialTheme.colors.primary
+        else MaterialTheme.colors.primaryVariant
     ) {
         Column(
             modifier = Modifier

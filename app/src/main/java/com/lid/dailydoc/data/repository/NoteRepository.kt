@@ -30,6 +30,7 @@ class NoteRepository @Inject constructor(
     fun noteExists(date: String): Boolean {
         return noteDao.exists(date)
     }
+
     fun exists(date: String): Flow<Boolean> {
         return noteDao.existsTest(date)
     }

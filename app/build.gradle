@@ -6,122 +6,122 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
-    android {
-        signingConfigs {
-            'RELEASE-SHA1' {
-                storeFile file('C:\\code\\mykeystore.jks')
-                storePassword 'dailydoc1207'
-                keyAlias 'key0'
-                keyPassword 'dailydoc1207'
-            }
-        }
-        compileSdk 30
-        buildToolsVersion "30.0.3"
-
-        defaultConfig {
-            applicationId "com.lid.dailydoc"
-            minSdk 21
-            targetSdk 30
-            versionCode 1
-            versionName "1.0"
-
-            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-            signingConfig signingConfigs.'RELEASE-SHA1'
-        }
-
-        buildTypes {
-            release {
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            }
-        }
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
-        kotlinOptions {
-            jvmTarget = '1.8'
-            useIR = true
-        }
-        buildFeatures {
-            compose true
-            viewBinding true
-        }
-        composeOptions {
-            kotlinCompilerExtensionVersion compose_version
+android {
+    signingConfigs {
+        'RELEASE-SHA1' {
+            storeFile file('C:\\code\\mykeystore.jks')
+            storePassword 'dailydoc1207'
+            keyAlias 'key0'
+            keyPassword 'dailydoc1207'
         }
     }
+    compileSdk 30
+    buildToolsVersion "30.0.3"
 
-    dependencies {
+    defaultConfig {
+        applicationId "com.lid.dailydoc"
+        minSdk 21
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
 
-        implementation 'androidx.annotation:annotation:1.2.0'
-        implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-        implementation 'com.google.firebase:firebase-auth:20.0.4'
-        implementation 'com.google.firebase:firebase-analytics:18.0.3'
-        implementation 'com.google.firebase:firebase-database:19.7.0'
-        def ktx_version = "1.3.2"
-        def appCompat_version = "1.2.0"
-        def material_version = "1.3.0"
-        def compose_activity_version = "1.3.0-alpha06"
-        implementation "androidx.core:core-ktx:$ktx_version"
-        implementation "androidx.appcompat:appcompat:$appCompat_version"
-        implementation "com.google.android.material:material:$material_version"
-        implementation "androidx.compose.ui:ui:$compose_version"
-        implementation "androidx.compose.material:material:$compose_version"
-        implementation "androidx.compose.ui:ui-tooling:$compose_version"
-        implementation "androidx.activity:activity-compose:$compose_activity_version"
-
-
-        // Test
-        def junit_version = "4.+"
-        def ext_junit_version = "1.1.2"
-        def espresso_version = "3.3.0"
-        testImplementation "junit:junit:$junit_version"
-        androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
-        androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-        androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-
-        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
-
-        // LifeCycle
-        def lifecycle_version = "2.3.1"
-        def compose_lifecycle_version = "1.0.0-alpha04"
-        implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
-        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-        implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-        implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-        implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$compose_lifecycle_version"
-        implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
-
-        // Navigation
-        def nav_version = "1.0.0-alpha10"
-        implementation "androidx.navigation:navigation-compose:$nav_version"
-
-        // Hilt
-        def hiltCoreVersion = "2.33-beta"
-        def hiltVersion = "1.0.0-beta01"
-        def hiltComposeNavigation = "1.0.0-alpha01"
-        implementation "com.google.dagger:hilt-android:$hiltCoreVersion"
-        implementation "androidx.hilt:hilt-navigation-compose:$hiltComposeNavigation"
-        kapt "com.google.dagger:hilt-compiler:$hiltCoreVersion"
-        kapt "androidx.hilt:hilt-compiler:$hiltVersion"
-        // Hilt Tests
-        androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltCoreVersion"
-        kaptAndroidTest "com.google.dagger:hilt-compiler:$hiltCoreVersion"
-
-        // Room Database
-        def room_version = '2.3.0-rc01'
-        implementation "androidx.room:room-runtime:$room_version"
-        kapt "androidx.room:room-compiler:$room_version"
-        implementation "androidx.room:room-ktx:$room_version"
-
-        // Firebase
-        implementation platform('com.google.firebase:firebase-bom:27.0.0')
-        implementation 'com.google.firebase:firebase-auth-ktx'
-        implementation('com.google.android.gms:play-services-auth:19.0.0')
-        implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
-
-        implementation 'com.google.firebase:firebase-analytics-ktx'
-
-
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.'RELEASE-SHA1'
     }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+    buildFeatures {
+        compose true
+        viewBinding true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.firebase:firebase-auth:20.0.4'
+    implementation 'com.google.firebase:firebase-analytics:18.0.3'
+    implementation 'com.google.firebase:firebase-database:19.7.0'
+    def ktx_version = "1.3.2"
+    def appCompat_version = "1.2.0"
+    def material_version = "1.3.0"
+    def compose_activity_version = "1.3.0-alpha06"
+    implementation "androidx.core:core-ktx:$ktx_version"
+    implementation "androidx.appcompat:appcompat:$appCompat_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.activity:activity-compose:$compose_activity_version"
+
+
+    // Test
+    def junit_version = "4.+"
+    def ext_junit_version = "1.1.2"
+    def espresso_version = "3.3.0"
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+
+    // LifeCycle
+    def lifecycle_version = "2.3.1"
+    def compose_lifecycle_version = "1.0.0-alpha04"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$compose_lifecycle_version"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+
+    // Navigation
+    def nav_version = "1.0.0-alpha10"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    // Hilt
+    def hiltCoreVersion = "2.33-beta"
+    def hiltVersion = "1.0.0-beta01"
+    def hiltComposeNavigation = "1.0.0-alpha01"
+    implementation "com.google.dagger:hilt-android:$hiltCoreVersion"
+    implementation "androidx.hilt:hilt-navigation-compose:$hiltComposeNavigation"
+    kapt "com.google.dagger:hilt-compiler:$hiltCoreVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltVersion"
+    // Hilt Tests
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltCoreVersion"
+    kaptAndroidTest "com.google.dagger:hilt-compiler:$hiltCoreVersion"
+
+    // Room Database
+    def room_version = '2.3.0-rc01'
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:27.0.0')
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation('com.google.android.gms:play-services-auth:19.0.0')
+    implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
+
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+
+}

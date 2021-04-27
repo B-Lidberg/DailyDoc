@@ -101,6 +101,7 @@ fun LoginScreen(
         )
     }
 }
+
 @Composable
 fun ProgressBar(signedIn: Boolean) {
     if (signedIn) {
@@ -108,7 +109,8 @@ fun ProgressBar(signedIn: Boolean) {
             LinearProgressIndicator(
                 Modifier
                     .fillMaxWidth()
-                    .height(20.dp))
+                    .height(20.dp)
+            )
             Text("(2 Second delay set to feature progress bar)")
         }
 

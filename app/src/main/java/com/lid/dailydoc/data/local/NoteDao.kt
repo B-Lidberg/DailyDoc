@@ -38,5 +38,4 @@ interface NoteDao {
     suspend fun clearNotes()
 
 
-
 }

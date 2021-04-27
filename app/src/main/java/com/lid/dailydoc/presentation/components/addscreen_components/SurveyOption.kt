@@ -1,4 +1,4 @@
- package com.lid.dailydoc.presentation.components.addscreen_components
+package com.lid.dailydoc.presentation.components.addscreen_components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -28,8 +28,8 @@ fun SurveyButtonAndOptions(
             listOf(surveyAnswers[2], surveyAnswers[3])
         )
     }
-        Column {
-            answerSets.forEach { answerSet ->
+    Column {
+        answerSets.forEach { answerSet ->
             Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                 answerSet.forEach { surveyAnswer ->
                     OutlinedButton(
@@ -48,11 +48,13 @@ fun SurveyButtonAndOptions(
 
 @Composable
 fun SurveyButtonText(savedAnswer: String, currentAnswer: String) {
-    Text(currentAnswer, color = if (savedAnswer == currentAnswer) {
-        MaterialTheme.colors.onPrimary
-    } else {
-        MaterialTheme.colors.onBackground
-    })
+    Text(
+        currentAnswer, color = if (savedAnswer == currentAnswer) {
+            MaterialTheme.colors.onPrimary
+        } else {
+            MaterialTheme.colors.onBackground
+        }
+    )
 }
 
 @Composable

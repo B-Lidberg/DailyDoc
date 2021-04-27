@@ -17,8 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.components.addscreen_components.BodyField
@@ -45,8 +43,9 @@ fun NoteAddScreen(
     val survey2 by vm.survey2.observeAsState(note.survey2)
     val survey3 by vm.survey3.observeAsState(note.survey3)
 
-    val completeNote = Note(dateCreated = note.dateCreated, note.id, summary = summary, body = body,
-                survey1 = survey1, survey2 = survey2, survey3 = survey3,
+    val completeNote = Note(
+        dateCreated = note.dateCreated, note.id, summary = summary, body = body,
+        survey1 = survey1, survey2 = survey2, survey3 = survey3,
     )
 
     var expandedSurveyBar by remember { mutableStateOf<String?>(null) }
@@ -130,14 +129,14 @@ fun SaveButton(
             }
         },
         backgroundColor =
-            if (note.summary.isEmpty()) {
-                MaterialTheme.colors.background
-            } else {
-                MaterialTheme.colors.secondary
-            },
+        if (note.summary.isEmpty()) {
+            MaterialTheme.colors.background
+        } else {
+            MaterialTheme.colors.secondary
+        },
         modifier =
-            Modifier
-                .size(width = 90.dp, height = 45.dp)
+        Modifier
+            .size(width = 90.dp, height = 45.dp)
     ) {
         Text(
             text = "Save",
@@ -176,7 +175,8 @@ fun EmptySummarySnackBar(snackbarHostState: SnackbarHostState) {
             ) {
                 Text(
                     text = snackbarHostState.currentSnackbarData?.message ?: "",
-                    style = MaterialTheme.typography.body1, textAlign = TextAlign.Center)
+                    style = MaterialTheme.typography.body1, textAlign = TextAlign.Center
+                )
             }
         }
     )

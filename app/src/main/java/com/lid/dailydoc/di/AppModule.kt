@@ -24,7 +24,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteDatabase(@ApplicationContext context: Context
+    fun provideNoteDatabase(
+        @ApplicationContext context: Context
     ): NoteDatabase {
         return Room.databaseBuilder(
             context,
@@ -35,7 +36,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideApplication(@ApplicationContext app: Context
+    fun provideApplication(
+        @ApplicationContext app: Context
     ): NotesApplication {
         return app as NotesApplication
     }
