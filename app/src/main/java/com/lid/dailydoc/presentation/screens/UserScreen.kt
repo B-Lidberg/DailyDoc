@@ -46,7 +46,7 @@ fun UserSettings(vm: UserViewModel, uiState: MutableTransitionState<UiDrawerStat
         expanded = showSettings,
         onDismissRequest = { showSettings = false }
     ) {
-        SignOutButton(uiState) { vm.signOut() }
+        SignOutButton(uiState) { vm.signOut(); showSettings = false }
     }
 }
 

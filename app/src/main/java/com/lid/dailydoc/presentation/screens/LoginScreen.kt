@@ -10,7 +10,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +34,6 @@ import com.lid.dailydoc.data.extras.informationText
 import com.lid.dailydoc.data.extras.summaryText
 import com.lid.dailydoc.navigation.UiDrawerState
 import com.lid.dailydoc.viewmodels.UserViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -54,9 +52,9 @@ fun LoginScreen(
 
     LaunchedEffect(signIn) {
         if (signIn) {
+//            uiState.targetState = UiDrawerState.LOADING
+//            delay(2000)
             uiState.targetState = UiDrawerState.LOADING
-            delay(2000)
-            uiState.targetState = UiDrawerState.LOGGED_IN
         }
     }
 
@@ -81,7 +79,6 @@ fun LoginScreen(
                 launcher.launch()
             }
         }
-        ProgressBar(signIn)
         Spacer(modifier = Modifier.weight(1f))
         Text(
             text = informationText,
@@ -92,20 +89,6 @@ fun LoginScreen(
     }
 }
 
-@Composable
-fun ProgressBar(signedIn: Boolean) {
-    if (signedIn) {
-        Column {
-            LinearProgressIndicator(
-                Modifier
-                    .fillMaxWidth()
-                    .height(20.dp)
-            )
-            Text("(2 Second delay set to feature progress bar)")
-        }
-
-    }
-}
 
 @Composable
 private fun GoogleSignInOption(enabled: Boolean = true, onClick: () -> Unit) {
