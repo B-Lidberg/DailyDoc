@@ -1,20 +1,24 @@
 package com.lid.dailydoc.presentation.screens
 
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.data.extras.surveyQuestions
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
+import com.lid.dailydoc.utils.getNoteInfo
 import com.lid.dailydoc.viewmodels.NoteDetailViewModel
 
 @Composable
@@ -31,7 +35,7 @@ fun NoteDetailScreen(
                 elevation = 0.dp,
                 modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
             ) {
-                CustomTopBar(note.dateCreated) { EditBodyButton() }
+                CustomTopBar(note.dateCreated) { ShareNoteButton(note) }
             }
         },
         content = {
@@ -60,6 +64,23 @@ fun SurveyDetails(note: Note) {
 }
 
 @Composable
-fun EditBodyButton() {
-    IconButton(onClick = {}) { Icon(Icons.Default.Edit, contentDescription = "Search Icon") }
+fun ShareNoteButton(note: Note) {
+    val context = LocalContext.current
+    IconButton(
+        onClick = { shareNote(note, context)}
+    ) {
+        Icon(Icons.Default.Share,
+            contentDescription = "Share Note"
+        )
+    }
 }
+
+private fun shareNote(note: Note, context: Context) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_SUBJECT, "DailyDoc: ${note.dateCreated}")
+        putExtra(Intent.EXTRA_TEXT, getNoteInfo(note))
+    }
+    context.startActivity(Intent.createChooser(intent, "Share note"))
+}
+
