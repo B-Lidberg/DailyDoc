@@ -23,19 +23,12 @@ interface NoteDao {
     fun findById(noteId: Long): Note
 
     @Query("SELECT EXISTS (SELECT 1 FROM notes_table WHERE note_date = :date)")
-    fun existsTest(date: String): Flow<Boolean>
-
-    @Query("SELECT EXISTS (SELECT 1 FROM notes_table WHERE note_date = :date)")
-    fun exists(date: String): Boolean
+    fun exists(date: String): Flow<Boolean>
 
     @Query("SELECT * FROM notes_table WHERE note_date = :date")
     fun getNoteByDate(date: String): Note
 
     @Insert(onConflict = REPLACE)
     suspend fun updateNote(note: Note)
-
-    @Query("DELETE FROM notes_table")
-    suspend fun clearNotes()
-
 
 }

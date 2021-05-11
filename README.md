@@ -10,6 +10,9 @@ Direct Download: [Daily Doc](https://drive.google.com/file/d/1QNgtfXcrYIcCSJWija
 
 There is a branch without Hilt (pre-hilt) if you're interested, but it will no longer be updated unless asked to.
 
+Discussion open - feel free to communicate through it as well if you're interested in a feature you would like for me to implement!
+
+--------------------------------------
 **Most Recent Features Added**
 - Drawer Navigation for Login & Account Screens (*Screenshots have not been updated*)
 
@@ -23,6 +26,9 @@ There is a branch without Hilt (pre-hilt) if you're interested, but it will no l
 <kbd>![Screenshot](screenshots/NoteDetailScreen.png)</kbd><kbd>![Screenshot](screenshots/ClearDialog.png)</kbd>
 <kbd>![Screenshot](screenshots/splashscreen.png)</kbd><kbd>![Screenshot](screenshots/signinscreen.png)</kbd>
 -------------------------------------
+**Currently working on implementing:**
+- Tests
+
 **Few features I'll be adding:**
 - ~~Login Screen~~ ✅
 - Remote Database

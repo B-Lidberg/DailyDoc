@@ -2,10 +2,8 @@ package com.lid.dailydoc.viewmodels
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.lifecycle.*
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepository
 import com.lid.dailydoc.utils.getCurrentDateAsString
@@ -68,9 +66,8 @@ class NoteAddViewModel @Inject constructor(
 
     private var noteExists: Boolean = false
 
-    @ObsoleteCoroutinesApi
     fun checkNoteExists() {
-        noteExists = repository.noteExists(date)
+        noteExists = repository.exists(date).asLiveData().value == true
     }
 
     var cachedNote = Note(dateCreated = "Mon, Jan 15, 2001")
