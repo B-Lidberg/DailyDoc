@@ -1,41 +1,21 @@
 package com.lid.dailydoc.data.repository
 
-import androidx.annotation.WorkerThread
-import com.lid.dailydoc.data.extras.fakeNote
-import com.lid.dailydoc.data.local.NoteDao
 import com.lid.dailydoc.data.model.Note
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class NoteRepository @Inject constructor(
-    private val noteDao: NoteDao,
-) {
-    init {
-        CoroutineScope(IO).launch { noteDao.insertNote(fakeNote) }
-    }
+interface NoteRepository {
 
-    val allNotes: Flow<List<Note>> = noteDao.getAllNotes()
+    val allNotes: Flow<List<Note>>
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun insertNote(note: Note) {
-        noteDao.insertNote(note)
-    }
+    suspend fun insertNote(note: Note)
 
-    fun findNoteById(noteId: Long) = noteDao.findById(noteId)
+    fun findNoteById(noteId: Long): Note
 
-    fun exists(date: String): Flow<Boolean> {
-        return noteDao.exists(date)
-    }
+    fun exists(date: String): Flow<Boolean>
 
-    fun findNoteByDate(date: String): Note {
-        return noteDao.getNoteByDate(date)
-    }
+    fun noteExists(date: String): Boolean
 
-    suspend fun updateNote(note: Note) {
-        noteDao.updateNote(note)
-    }
+    fun findNoteByDate(date: String): Note
+
+    suspend fun updateNote(note: Note)
 }
