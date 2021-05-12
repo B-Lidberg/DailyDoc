@@ -2,10 +2,9 @@ package com.lid.dailydoc.viewmodels
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.*
 import com.lid.dailydoc.data.model.Note
-import com.lid.dailydoc.data.repository.NoteRepository
+import com.lid.dailydoc.data.repository.NoteRepositoryImpl
 import com.lid.dailydoc.utils.getCurrentDateAsString
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -13,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NoteAddViewModel @Inject constructor(
-    private val repository: NoteRepository
+    private val repositoryImpl: NoteRepositoryImpl
 ) : ViewModel() {
 
     // DATE
@@ -66,8 +65,8 @@ class NoteAddViewModel @Inject constructor(
 
     private var noteExists: Boolean = false
 
-    fun checkNoteExists() {
-        noteExists = repository.exists(date).asLiveData().value == true
+    private fun checkNoteExists() {
+        noteExists = repositoryImpl.noteExists(date)
     }
 
     var cachedNote = Note(dateCreated = "Mon, Jan 15, 2001")
@@ -80,11 +79,11 @@ class NoteAddViewModel @Inject constructor(
         }
     }
 
-    private fun getNote(): Note = repository.findNoteByDate(date)
+    private fun getNote(): Note = repositoryImpl.findNoteByDate(date)
 
     fun getNoteById(noteId: Long): Note {
         return runBlocking(Dispatchers.IO) {
-            repository.findNoteById(noteId)
+            repositoryImpl.findNoteById(noteId)
         }
     }
 
@@ -92,7 +91,7 @@ class NoteAddViewModel @Inject constructor(
     @ObsoleteCoroutinesApi
     fun addNote(note: Note) {
         viewModelScope.launch(newSingleThreadContext("insert note")) {
-            if (noteExists) repository.updateNote(note) else repository.insertNote(note)
+            if (noteExists) repositoryImpl.updateNote(note) else repositoryImpl.insertNote(note)
         }
     }
 
