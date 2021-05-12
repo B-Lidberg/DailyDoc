@@ -33,7 +33,6 @@ class MainActivity : ComponentActivity() {
             DailyDocTheme {
                 Surface(color = MaterialTheme.colors.background) {
                     Navigation()
-//                    OptionDrawer()
                 }
             }
         }
