@@ -6,10 +6,10 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.navigation.MainDestinations.LOGIN
@@ -48,7 +48,7 @@ fun Navigation(
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
-    val addNoteVm = hiltNavGraphViewModel<NoteAddViewModel>()
+    val addNoteVm = hiltViewModel<NoteAddViewModel>()
 
     NavHost(navController = navController, startDestination = startDestination) {
 
@@ -56,12 +56,12 @@ fun Navigation(
             route = NOTES,
         ) {
 
-            val noteListVm = hiltNavGraphViewModel<NoteViewModel>()
+            val noteListVm = hiltViewModel<NoteViewModel>()
 
             addNoteVm.setDate()
             addNoteVm.cacheNote()
             val note = addNoteVm.cachedNote
-            val loginVm = hiltNavGraphViewModel<UserViewModel>(backStackEntry = it)
+            val loginVm = hiltViewModel<UserViewModel>(backStackEntry = it)
 
             NoteListScreen(
                 noteListVm, loginVm,
@@ -82,7 +82,7 @@ fun Navigation(
         }
 
         composable("$NOTE_DETAILS/${NOTE_ID}") {
-            val detailVm = hiltNavGraphViewModel<NoteDetailViewModel>(backStackEntry = it)
+            val detailVm = hiltViewModel<NoteDetailViewModel>(backStackEntry = it)
 
             val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
             if (noteId != null) NoteDetailScreen(detailVm, noteId)
