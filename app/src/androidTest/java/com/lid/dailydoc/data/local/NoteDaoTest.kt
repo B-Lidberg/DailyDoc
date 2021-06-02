@@ -55,7 +55,7 @@ class NoteDaoTest {
 
     @Test
     fun insert_note_into_database() = runBlockingTest {
-        val note = Note(dateCreated = "Saturday May 1, 2021", id = 1L,
+        val note = Note(date = 123L, noteId = "0",
             summary = "Test Summary", body = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
@@ -67,12 +67,12 @@ class NoteDaoTest {
 
     @Test
     fun delete_single_note_from_database() = runBlockingTest {
-        val note = Note(dateCreated = "Saturday May 1, 2021", id = 1L,
+        val note = Note(date = 123L, noteId = "0",
             summary = "Test Summary", body = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
         dao.insertNote(note)
-        dao.deleteNote(note.dateCreated)
+        dao.deleteNote(note.date)
 
         val allNotes = dao.getAllNotes().asLiveData().getOrAwaitValue()
         assertFalse(allNotes.contains(note))
@@ -80,11 +80,11 @@ class NoteDaoTest {
 
     @Test
     fun fetch_all_notes_from_database() = runBlockingTest {
-        val note = Note(dateCreated = "Saturday May 1, 2021", id = 1L,
+        val note = Note(date = 123L, noteId = "0",
             summary = "Test Summary", body = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
-        val note2 = Note(dateCreated = "Saturday May 1, 2020", id = 2L,
+        val note2 = Note(date = 1234L, noteId = "1",
             summary = "Test Summary", body = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
@@ -97,32 +97,32 @@ class NoteDaoTest {
 
     @Test
     fun find_noteById_in_database() = runBlockingTest {
-        val note = Note(dateCreated = "Saturday May 1, 2021", id = 1L,
+        val note = Note(date = 123L, noteId = "0",
             summary = "Test Summary", body = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
         dao.insertNote(note)
 
-        val fetchNote = dao.findById(note.id)
+        val fetchNote = dao.getNoteById(note.noteId)
         assertEquals(note, fetchNote)
     }
 
     @Test
     fun note_exists_in_database() = runBlockingTest {
-        val note = Note(dateCreated = "Saturday May 1, 2021", id = 1L,
+        val note = Note(date = 123L, noteId = "0",
             summary = "Test Summary", body = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
         dao.insertNote(note)
 
-        val exists = dao.exists(note.dateCreated).asLiveData().getOrAwaitValue()
+        val exists = dao.noteExists(note.date).asLiveData().getOrAwaitValue()
 
         assertTrue(exists)
     }
 
     @Test
     fun update_note_in_database() = runBlockingTest {
-        val note = Note(dateCreated = "Saturday May 1, 2021", id = 1L,
+        val note = Note(date = 123L, noteId = "0",
             summary = "Test Summary", body = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
@@ -130,8 +130,8 @@ class NoteDaoTest {
         note.summary = "NEW"
         dao.updateNote(note)
 
-        val fetchNote = dao.findById(note.id)
+        val fetchNote = dao.getNoteById(note.noteId)
 
-        assertEquals(fetchNote.summary, "NEW")
+        assertEquals(fetchNote?.summary, "NEW")
     }
 }

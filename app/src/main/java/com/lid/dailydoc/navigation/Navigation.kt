@@ -5,14 +5,12 @@ package com.lid.dailydoc.navigation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.lid.dailydoc.data.model.Note
-import com.lid.dailydoc.navigation.MainDestinations.LOGIN
 import com.lid.dailydoc.navigation.MainDestinations.NOTES
 import com.lid.dailydoc.navigation.MainDestinations.NOTE_DETAILS
 import com.lid.dailydoc.navigation.MainDestinations.NOTE_ID
@@ -34,7 +32,6 @@ object MainDestinations {
     const val NOTE_DETAILS = "note_details"
     const val NOTE_ID = "noteId"
     const val NOTE_KEY = "note"
-    const val LOGIN = "login"
     const val SPLASH = "loading"
 }
 
@@ -69,7 +66,7 @@ fun Navigation(
                 note
             )
         }
-        val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
+        val noteId = navController.previousBackStackEntry?.arguments?.getString(NOTE_ID)
         val note = noteId?.let { addNoteVm.getNoteById(it) }
         if (noteId != null) {
             composable("$NOTE_KEY/${NOTE_ID}") {
@@ -84,7 +81,7 @@ fun Navigation(
         composable("$NOTE_DETAILS/${NOTE_ID}") {
             val detailVm = hiltViewModel<NoteDetailViewModel>(backStackEntry = it)
 
-            val noteId = navController.previousBackStackEntry?.arguments?.getLong(NOTE_ID)
+            val noteId = navController.previousBackStackEntry?.arguments?.getString(NOTE_ID)
             if (noteId != null) NoteDetailScreen(detailVm, noteId)
         }
 
@@ -98,17 +95,17 @@ fun Navigation(
 
 class MainActions(navController: NavController) {
 
-    val detailScreen: (Long) -> Unit = { noteId: Long ->
-        navController.currentBackStackEntry?.arguments?.putLong(
+    val detailScreen: (String) -> Unit = { noteId: String ->
+        navController.currentBackStackEntry?.arguments?.putString(
             NOTE_ID,
             noteId
         )
         navController.navigate("$NOTE_DETAILS/${NOTE_ID}")
     }
     val addScreen: (Note) -> Unit = { note: Note ->
-        navController.currentBackStackEntry?.arguments?.putLong(
+        navController.currentBackStackEntry?.arguments?.putString(
             NOTE_ID,
-            note.id
+            note.noteId
         )
         navController.navigate("$NOTE_KEY/${NOTE_ID}")
     }
@@ -117,12 +114,6 @@ class MainActions(navController: NavController) {
     }
     val mainScreen: () -> Unit = {
         navController.navigate(NOTES) {
-            popUpTo(0) { inclusive = true }
-        }
-    }
-
-    val loginScreen: () -> Unit = {
-        navController.navigate(LOGIN) {
             popUpTo(0) { inclusive = true }
         }
     }

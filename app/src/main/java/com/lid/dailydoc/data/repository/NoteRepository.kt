@@ -9,13 +9,18 @@ interface NoteRepository {
 
     suspend fun insertNote(note: Note)
 
-    fun findNoteById(noteId: Long): Note
-
-    fun exists(date: String): Flow<Boolean>
-
-    fun noteExists(date: String): Boolean
-
-    fun findNoteByDate(date: String): Note
-
     suspend fun updateNote(note: Note)
+
+    fun observeNoteById(noteId: String): Flow<Note>
+
+    suspend fun getNoteById(noteId: String): Note?
+
+    fun noteExists(date: Long): Flow<Boolean>
+
+    fun findNoteByDate(date: Long): Note
+
+
+    suspend fun getAllUnsyncedNotes(): List<Note>
+
+    suspend fun deleteAllSyncedNotes()
 }

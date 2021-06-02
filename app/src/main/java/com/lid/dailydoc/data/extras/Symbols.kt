@@ -1,16 +1,17 @@
 package com.lid.dailydoc.data.extras
 
-const val bullet = "•"
-const val arrow = "‣"
-const val star = "★"
-const val complete = "✅"
-const val cross = "❌"
+import com.lid.dailydoc.other.Constants.ARROW
+import com.lid.dailydoc.other.Constants.BULLET
+import com.lid.dailydoc.other.Constants.COMPLETE
+import com.lid.dailydoc.other.Constants.CROSS
+import com.lid.dailydoc.other.Constants.STAR
+
 
 val symbolList = listOf(
-    bullet,
-    arrow,
-    star,
-    complete,
-    cross
+    BULLET,
+    ARROW,
+    STAR,
+    COMPLETE,
+    CROSS
 )
 

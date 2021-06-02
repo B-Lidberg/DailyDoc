@@ -1,4 +1,4 @@
-package com.lid.dailydoc.presentation.screens
+package com.lid.dailydoc.presentation.screens.drawer_screens
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.*

@@ -23,7 +23,8 @@ import com.lid.dailydoc.presentation.components.addscreen_components.BodyField
 import com.lid.dailydoc.presentation.components.addscreen_components.ClearButton
 import com.lid.dailydoc.presentation.components.addscreen_components.SummaryField
 import com.lid.dailydoc.presentation.components.addscreen_components.SurveyBar
-import com.lid.dailydoc.utils.getCurrentDateAsString
+import com.lid.dailydoc.utils.getCurrentDateAsLong
+import com.lid.dailydoc.utils.getDateAsString
 import com.lid.dailydoc.viewmodels.NoteAddViewModel
 import kotlinx.coroutines.*
 
@@ -44,14 +45,14 @@ fun NoteAddScreen(
     val survey3 by vm.survey3.observeAsState(note.survey3)
 
     val completeNote = Note(
-        dateCreated = note.dateCreated, note.id, summary = summary, body = body,
+        date = note.date, noteId = note.noteId, summary = summary, body = body,
         survey1 = survey1, survey2 = survey2, survey3 = survey3,
     )
 
     var expandedSurveyBar by remember { mutableStateOf<String?>(null) }
     val scrollState = rememberLazyListState()
 
-    val clearOnDateChange = { if (note.dateCreated != getCurrentDateAsString()) vm.clearNote() }
+    val clearOnDateChange = { if (note.date != getCurrentDateAsLong()) vm.clearNote() }
     val clear = { vm.clearNote() }
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -59,7 +60,7 @@ fun NoteAddScreen(
     Scaffold(
         topBar = {
             HeaderDateBar(
-                vm.cachedNote.dateCreated,
+                vm.cachedNote.date,
                 clear
             )
         },
@@ -148,15 +149,16 @@ fun SaveButton(
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HeaderDateBar(
-    date: String,
+    date: Long,
     onClear: () -> Unit,
 ) {
+    val headerDate = getDateAsString(date)
     TopAppBar(
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
         modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
     ) {
-        CustomTopBar(date) { ClearButton(onClear) }
+        CustomTopBar(headerDate) { ClearButton(onClear) }
     }
 }
 

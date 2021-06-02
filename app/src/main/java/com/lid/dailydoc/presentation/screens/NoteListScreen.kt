@@ -25,7 +25,7 @@ import com.lid.dailydoc.viewmodels.UserViewModel
 fun NoteListScreen(
     vm: NoteViewModel,
     userVm: UserViewModel,
-    toDetails: (Long) -> Unit,
+    toDetails: (String) -> Unit,
     toAdd: (Note) -> Unit,
     note: Note,
 ) {
@@ -59,7 +59,7 @@ fun NoteListTopBar() {
 
 
 @Composable
-fun NoteList(notes: List<Note>, toDetails: (Long) -> Unit) {
+fun NoteList(notes: List<Note>, toDetails: (String) -> Unit) {
     LazyColumn {
         items(items = notes) { note ->
             NoteCard(note, toDetails)

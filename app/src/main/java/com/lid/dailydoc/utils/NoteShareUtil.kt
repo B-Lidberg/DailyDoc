@@ -1,27 +1,27 @@
 package com.lid.dailydoc.utils
 
-import com.lid.dailydoc.data.extras.bullet
 import com.lid.dailydoc.data.extras.surveyQuestions
 import com.lid.dailydoc.data.model.Note
+import com.lid.dailydoc.other.Constants.BULLET
 
 fun getNoteInfo(note: Note) =
 
 """
 DailyDoc Note Details:
        
-Date: ${note.dateCreated}
+Date: ${note.date}
        
 Summary: 
-$bullet ${note.summary}
+$BULLET ${note.summary}
   
 Body: 
-$bullet ${note.body} 
+$BULLET ${note.body} 
       
 Surveys:
  1. ${surveyQuestions[0]}: 
-  $bullet ${note.survey1}  
+  $BULLET ${note.survey1}  
  2. ${surveyQuestions[1]}: 
-  $bullet ${note.survey2}   
+  $BULLET ${note.survey2}   
  3. ${surveyQuestions[2]}: 
-  $bullet ${note.survey3}
+  $BULLET ${note.survey3}
 """.trimIndent()

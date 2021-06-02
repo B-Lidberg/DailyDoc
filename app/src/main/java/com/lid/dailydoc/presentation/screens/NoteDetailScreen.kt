@@ -18,15 +18,17 @@ import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.data.extras.surveyQuestions
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
+import com.lid.dailydoc.utils.getDateAsString
 import com.lid.dailydoc.utils.getNoteInfo
 import com.lid.dailydoc.viewmodels.NoteDetailViewModel
 
 @Composable
 fun NoteDetailScreen(
     vm: NoteDetailViewModel,
-    noteId: Long,
+    noteId: String,
 ) {
     val note = vm.getNote(noteId)
+    val headerDate = getDateAsString(note.date)
 
     Scaffold(
         topBar = {
@@ -35,7 +37,7 @@ fun NoteDetailScreen(
                 elevation = 0.dp,
                 modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
             ) {
-                CustomTopBar(note.dateCreated) { ShareNoteButton(note) }
+                CustomTopBar(headerDate) { ShareNoteButton(note) }
             }
         },
         content = {
@@ -47,7 +49,7 @@ fun NoteDetailScreen(
 @Composable
 fun TempBody(note: Note) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        item { Text(text = "Note ID:\n${note.id}\n", fontSize = 24.sp) }
+        item { Text(text = "Note ID:\n${note.noteId}\n", fontSize = 24.sp) }
         item { SurveyDetails(note) }
         item { Text(text = "Summary:\n${note.summary}\n", fontSize = 24.sp) }
         item { Text(text = "Body:\n${note.body}\n", fontSize = 24.sp) }
@@ -78,7 +80,7 @@ fun ShareNoteButton(note: Note) {
 private fun shareNote(note: Note, context: Context) {
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
-        putExtra(Intent.EXTRA_SUBJECT, "DailyDoc: ${note.dateCreated}")
+        putExtra(Intent.EXTRA_SUBJECT, "DailyDoc: ${note.date}")
         putExtra(Intent.EXTRA_TEXT, getNoteInfo(note))
     }
     context.startActivity(Intent.createChooser(intent, "Share note"))

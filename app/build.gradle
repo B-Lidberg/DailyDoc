@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'dagger.hilt.android.plugin'
+    id "com.google.protobuf"
 }
 
 android {
@@ -53,6 +54,26 @@ android {
     }
     packagingOptions {
         exclude("META-INF/*.")
+    }
+}
+
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:$google_protobuf_version"
+    }
+
+    // Generates the java Protobuf-lite code for the Protobufs in this project. See
+    // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
+    // for more information.
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
     }
 }
 
@@ -147,11 +168,30 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
 
+    // DataStore (Preferences)
+    implementation "androidx.datastore:datastore-preferences:1.0.0-beta01"
+
+    // DataStore (Proto)
+    implementation  "androidx.datastore:datastore-core:1.0.0-beta01"
+    implementation  "com.google.protobuf:protobuf-javalite:$google_protobuf_version"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
+
+
+    // Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+
+    // Security
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
+    implementation "com.google.crypto.tink:tink-android:1.5.0"
+
+
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Markwon
     implementation "io.noties.markwon:core:4.4.0"
 
-
 }
+

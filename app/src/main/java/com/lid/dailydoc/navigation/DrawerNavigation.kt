@@ -6,16 +6,16 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.lid.dailydoc.presentation.screens.LoadingScreen
-import com.lid.dailydoc.presentation.screens.LoginScreen
-import com.lid.dailydoc.presentation.screens.UserScreen
+import com.lid.dailydoc.presentation.screens.drawer_screens.*
 import com.lid.dailydoc.viewmodels.UserViewModel
 
 
 enum class UiDrawerState {
     LOADING,
     LOGGED_IN,
-    LOGGED_OUT
+    LOGGED_OUT,
+    REGISTER,
+    INFO
 }
 
 @Composable
@@ -35,6 +35,10 @@ fun DrawerNavigation(
             UiDrawerState.LOGGED_IN -> UserScreen(vm, uiState)
 
             UiDrawerState.LOGGED_OUT -> LoginScreen(vm, uiState)
+
+            UiDrawerState.REGISTER -> RegisterScreen(vm, uiState)
+
+            UiDrawerState.INFO -> { InfoScreen(uiState) }
 
         }
     }

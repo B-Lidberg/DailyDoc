@@ -3,6 +3,7 @@
     package="com.lid.dailydoc">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 
     <application
@@ -13,7 +14,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DailyDoc">
+        android:theme="@style/Theme.DailyDoc"
+        android:windowSoftInputMode="adjustResize"
+        android:usesCleartextTraffic="true">
         <activity android:name="androidx.activity.ComponentActivity" />
         <activity
             android:name=".MainActivity"

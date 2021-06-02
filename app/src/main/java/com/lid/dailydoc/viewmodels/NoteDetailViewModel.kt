@@ -13,10 +13,10 @@ class NoteDetailViewModel @Inject constructor(
     private val repositoryImpl: NoteRepositoryImpl
 ) : ViewModel() {
 
-    fun getNote(noteId: Long): Note {
+    fun getNote(noteId: String): Note {
         return runBlocking(Dispatchers.IO) {
-            repositoryImpl.findNoteById(noteId)
-        }
+            repositoryImpl.getNoteById(noteId)
+        }!!
     }
 
 }

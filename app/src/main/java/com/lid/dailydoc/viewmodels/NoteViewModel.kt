@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepositoryImpl
+import com.lid.dailydoc.utils.getCurrentDateAsLong
 import com.lid.dailydoc.utils.getCurrentDateAsString
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -20,8 +21,8 @@ class NoteViewModel @Inject constructor(
     val allNotes: Flow<List<Note>> = repository.allNotes
 
     @RequiresApi(Build.VERSION_CODES.O)
-    var date: String = getCurrentDateAsString()
+    var date: Long = getCurrentDateAsLong()
 
-    val exists: LiveData<Boolean> = repository.exists(date).asLiveData()
+    val exists: LiveData<Boolean> = repository.noteExists(date).asLiveData()
 
 }

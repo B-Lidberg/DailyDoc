@@ -16,13 +16,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.data.model.Note
+import com.lid.dailydoc.utils.getCurrentDateAsLong
 import com.lid.dailydoc.utils.getCurrentDateAsString
+import com.lid.dailydoc.utils.getDateAsString
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun NoteCard(note: Note, toDetails: (Long) -> Unit) {
-    val noteId = note.id
+fun NoteCard(note: Note, toDetails: (String) -> Unit) {
+    val noteId = note.noteId
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -32,7 +34,7 @@ fun NoteCard(note: Note, toDetails: (Long) -> Unit) {
             .clickable(onClick = { toDetails(noteId) }),
         elevation = 4.dp,
         backgroundColor =
-        if (note.dateCreated != getCurrentDateAsString()) MaterialTheme.colors.primary
+        if (note.date != getCurrentDateAsLong()) MaterialTheme.colors.primary
         else MaterialTheme.colors.primaryVariant
     ) {
         Column(
@@ -44,7 +46,7 @@ fun NoteCard(note: Note, toDetails: (Long) -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 4.dp),
-                    text = note.dateCreated,
+                    text = getDateAsString(note.date),
                     fontSize = 20.sp,
                     maxLines = 1,
                     fontWeight = FontWeight.SemiBold,
