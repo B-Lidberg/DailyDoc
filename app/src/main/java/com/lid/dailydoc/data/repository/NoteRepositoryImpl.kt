@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 class NoteRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao,
+    private val noteApi: NoteApi
 ) : NoteRepository {
     init {
         CoroutineScope(IO).launch { noteDao.insertNote(fakeNote) }
