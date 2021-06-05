@@ -11,9 +11,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -24,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation.Companion.None
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -33,8 +30,6 @@ import com.lid.dailydoc.R
 import com.lid.dailydoc.data.authorization.LoginWithGoogle
 import com.lid.dailydoc.data.extras.appName
 import com.lid.dailydoc.data.extras.googleSignInText
-import com.lid.dailydoc.data.extras.informationText
-import com.lid.dailydoc.data.extras.summaryText
 import com.lid.dailydoc.navigation.UiDrawerState
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.launch

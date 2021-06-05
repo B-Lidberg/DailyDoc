@@ -17,8 +17,7 @@ import com.lid.dailydoc.navigation.UiDrawerState
 import kotlinx.coroutines.delay
 
 @Composable
-fun LoadingScreen(signedIn: () -> LiveData<Boolean>, uiState: MutableTransitionState<UiDrawerState>) {
-    val signIn by signedIn.invoke().observeAsState(signedIn.invoke().value)
+fun LoadingScreen(signedIn: Boolean, uiState: MutableTransitionState<UiDrawerState>) {
 Box(
     modifier = Modifier.fillMaxSize(),
     contentAlignment = Alignment.Center
@@ -26,9 +25,9 @@ Box(
     ProgressBar()
 
 }
-    LaunchedEffect(signIn) {
+    LaunchedEffect(signedIn) {
         delay(1000)
-        if (signIn == true) {
+        if (signedIn) {
             uiState.targetState = UiDrawerState.LOGGED_IN
         } else {
             uiState.targetState = UiDrawerState.LOGGED_OUT

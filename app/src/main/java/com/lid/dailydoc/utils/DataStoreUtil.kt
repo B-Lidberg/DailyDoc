@@ -1,18 +1,5 @@
 package com.lid.dailydoc.utils
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.MutablePreferences
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import com.lid.dailydoc.other.Constants.DataStore.DATA
-import com.lid.dailydoc.other.Constants.DataStore.SECURED_DATA
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import javax.inject.Inject
-
 /**
  * https://proandroiddev.com/securing-androids-datastore-ad56958ca6ee
  */

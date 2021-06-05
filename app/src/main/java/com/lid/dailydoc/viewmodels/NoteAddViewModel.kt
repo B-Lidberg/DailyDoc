@@ -2,8 +2,6 @@ package com.lid.dailydoc.viewmodels
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.*
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepositoryImpl

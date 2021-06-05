@@ -24,11 +24,14 @@ object Constants {
         val SECURED_DATA = stringPreferencesKey("secured_data")
     }
 
-    const val KEY_LOGGED_IN_EMAIL = "KEY_LOGGED_IN_EMAIL"
-    const val KEY_PASSWORD = "KEY_PASSWORD"
+    const val USER_DATASTORE_NAME = "user_data"
+    const val USER_DATASTORE_FILE_NAME = "user_data.pb"
 
-    const val NO_EMAIL = "NO_EMAIL"
-    const val NO_PASSWORD = "NO_PASSWORD"
+    val KEY_USERNAME = stringPreferencesKey("KEY_USERNAME")
+    const val NO_USERNAME =  "NO_USERNAME"
+
+    val KEY_PASSWORD = stringPreferencesKey("KEY_LOGGED_IN_PASSWORD")
+    const val NO_PASSWORD =  "NO_PASSWORD"
 
 
 

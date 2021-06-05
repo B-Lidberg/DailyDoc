@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -17,6 +18,9 @@ import com.lid.dailydoc.viewmodels.UserViewModel
 
 @Composable
 fun UserScreen(vm: UserViewModel, uiState: MutableTransitionState<UiDrawerState>) {
+
+    val username by vm.currentUsername.observeAsState()
+
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -28,7 +32,7 @@ fun UserScreen(vm: UserViewModel, uiState: MutableTransitionState<UiDrawerState>
         }
 
         Spacer(modifier = Modifier.padding(24.dp))
-        Text("User: ${FirebaseAuth.getInstance().currentUser?.email ?: ""}")
+        Text("User: $username")
     }
 }
 

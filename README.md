@@ -1,6 +1,10 @@
 # DailyDoc
 **Productivity Note App utilizing Jetpack Compose**
 
+***This branch is not complete and does not function properly. 
+Currently implementing Datastore and Retrofit for User Login & save notes to a remote database. 
+Will also be implementing a feature to share your notes with others***
+
 
 First project - Feedback welcomed! 
 

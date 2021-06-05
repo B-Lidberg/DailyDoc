@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.utils.getCurrentDateAsLong
-import com.lid.dailydoc.utils.getCurrentDateAsString
 import com.lid.dailydoc.utils.getDateAsString
 
 

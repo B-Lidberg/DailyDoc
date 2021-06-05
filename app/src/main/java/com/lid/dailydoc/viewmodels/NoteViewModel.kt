@@ -8,7 +8,6 @@ import androidx.lifecycle.asLiveData
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepositoryImpl
 import com.lid.dailydoc.utils.getCurrentDateAsLong
-import com.lid.dailydoc.utils.getCurrentDateAsString
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
