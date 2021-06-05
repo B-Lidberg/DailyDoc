@@ -15,7 +15,7 @@ buildscript {
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32'
         classpath 'com.google.gms:google-services:4.3.5'
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.34.1-beta"
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.15'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.16'
 
     }
 }

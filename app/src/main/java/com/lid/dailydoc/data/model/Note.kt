@@ -1,7 +1,8 @@
 package com.lid.dailydoc.data.model
 
-import androidx.room.*
-import androidx.room.TypeConverters
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import java.util.*
 

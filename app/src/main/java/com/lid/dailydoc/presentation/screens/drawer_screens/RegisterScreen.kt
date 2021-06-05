@@ -2,28 +2,27 @@ package com.lid.dailydoc.presentation.screens.drawer_screens
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Observer
 import com.lid.dailydoc.data.extras.appName
 import com.lid.dailydoc.navigation.UiDrawerState
 import com.lid.dailydoc.other.Status
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+
 
 @Composable
 fun RegisterScreen(
@@ -45,33 +44,6 @@ fun RegisterScreen(
     LaunchedEffect(signIn) {
         if (signIn) uiState.targetState = UiDrawerState.LOADING
     }
-
-//    LaunchedEffect() {
-    vm.loginStatus.observeForever(Observer { result ->
-            result?.let {
-                scope.launch {
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        snackbarHostState.showSnackbar(result.data ?: "Successfully logged in")
-                        vm.authenticateApi(username.value, password.value)
-                        Timber.d("CALLED")
-                        uiState.targetState = UiDrawerState.LOGGED_IN
-//                            redirectLogin()
-                    }
-                    Status.ERROR -> {
-                        snackbarHostState.showSnackbar(
-                            result.message ?: "An unknown error occurred"
-                        )
-                    }
-                    Status.LOADING -> {
-
-
-                    }
-                }
-            }
-        }
-    })
-//    }
 
     Scaffold(
         scaffoldState = scaffoldState
@@ -214,6 +186,7 @@ fun RegisterScreen(
                                 when (result.status) {
                                     Status.SUCCESS -> {
                                         scaffoldState.snackbarHostState.showSnackbar(
+
                                             message = result.data
                                                 ?: "Successfully registered an account",
                                         )
@@ -257,6 +230,4 @@ fun RegisterScreen(
         }
     }
 }
-
-
 

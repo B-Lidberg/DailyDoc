@@ -7,10 +7,8 @@ import com.lid.dailydoc.data.remote.NoteApi
 import com.lid.dailydoc.data.remote.requests.AccountRequest
 import com.lid.dailydoc.other.Resource
 import com.lid.dailydoc.utils.await
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(

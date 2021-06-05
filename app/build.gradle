@@ -2,9 +2,9 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id "com.google.protobuf"
     id 'com.google.gms.google-services'
     id 'dagger.hilt.android.plugin'
-    id "com.google.protobuf"
 }
 
 android {
@@ -168,12 +168,16 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
 
-    // DataStore (Preferences)
-    implementation "androidx.datastore:datastore-preferences:1.0.0-beta01"
-
     // DataStore (Proto)
     implementation  "androidx.datastore:datastore-core:1.0.0-beta01"
+    implementation  "androidx.datastore:datastore:1.0.0-beta01"
     implementation  "com.google.protobuf:protobuf-javalite:$google_protobuf_version"
+
+    // DataStore (Preferences)
+    implementation "androidx.datastore:datastore-preferences:1.0.0-beta01"
+    implementation "androidx.datastore:datastore-preferences-core:1.0.0-beta01"
+
+
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"

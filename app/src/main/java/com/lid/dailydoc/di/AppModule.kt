@@ -3,12 +3,12 @@ package com.lid.dailydoc.di
 import android.content.Context
 import androidx.room.Room
 import com.lid.dailydoc.NotesApplication
-import com.lid.dailydoc.other.Constants.BASE_URL
-import com.lid.dailydoc.other.Constants.DATABASE_NAME
 import com.lid.dailydoc.data.local.NoteDao
 import com.lid.dailydoc.data.local.NoteDatabase
 import com.lid.dailydoc.data.remote.BasicAuthInterceptor
 import com.lid.dailydoc.data.remote.NoteApi
+import com.lid.dailydoc.other.Constants.BASE_URL
+import com.lid.dailydoc.other.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
