@@ -1,7 +1,7 @@
 # DailyDoc
 **Productivity Note App utilizing Jetpack Compose**
 
-
+***Currently working on branch: withRemoteDatabase.. Once implemented and running, I will update master & also start implementing UI updates with Jetpack Compose along with refactoring code base.***
 First project - Feedback welcomed! 
 
 Daily Doc is a productivity app to help you keep track of your daily progress.
