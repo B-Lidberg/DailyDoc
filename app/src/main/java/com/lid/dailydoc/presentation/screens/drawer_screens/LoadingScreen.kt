@@ -1,7 +1,5 @@
 package com.lid.dailydoc.presentation.screens.drawer_screens
 
-import android.widget.ProgressBar
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -9,17 +7,25 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lid.dailydoc.navigation.UiDrawerState
+import com.lid.dailydoc.UserData.UiDrawerState
+import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 
 @Composable
 fun LoadingScreen(
-    signedIn: Boolean,
-    uiState: MutableTransitionState<UiDrawerState>,
+    vm: UserViewModel,
     scaffoldState: ScaffoldState,
     scope: CoroutineScope
 ) {
+    LaunchedEffect(true) {
+        delay(1000)
+        if (vm.signedIn.value == true) {
+            vm.navigateToUserScreen()
+        } else {
+            vm.navigateToLoginScreen()
+        }
+    }
     Scaffold(
         scaffoldState = scaffoldState
     ) {
@@ -31,14 +37,7 @@ fun LoadingScreen(
             ProgressBar()
 
         }
-        LaunchedEffect(signedIn) {
-            delay(1000)
-            if (signedIn) {
-                uiState.targetState = UiDrawerState.LOGGED_IN
-            } else {
-                uiState.targetState = UiDrawerState.LOGGED_OUT
-            }
-        }
+
     }
 }
 

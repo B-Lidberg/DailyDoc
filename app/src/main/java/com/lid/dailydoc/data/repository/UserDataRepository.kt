@@ -6,9 +6,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.lid.dailydoc.UserData
+import com.lid.dailydoc.UserData.UiDrawerState
 import com.lid.dailydoc.other.Constants
 import com.lid.dailydoc.other.Constants.NO_PASSWORD
 import com.lid.dailydoc.other.Constants.NO_USERNAME
+import com.lid.dailydoc.other.Status
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import java.io.IOException
@@ -55,6 +57,7 @@ class UserDataRepository @Inject constructor(
                 .toBuilder()
                 .setUsername(newUsername)
                 .setPassword(newPassword)
+                .setUiDrawerState(UiDrawerState.LOADING)
                 .build()
         }
     }
@@ -65,6 +68,35 @@ class UserDataRepository @Inject constructor(
                 .toBuilder()
                 .clear()
                 .build()
+        }
+    }
+
+    suspend fun setUiDrawerStateToLoggedIn() {
+        userDataStore.updateData { currentData ->
+            currentData
+                .toBuilder()
+                .setUiDrawerState(UiDrawerState.LOGGED_IN)
+                .buildPartial()
+        }
+    }
+    suspend fun setUiDrawerStateToLoggedOut() {
+        userDataStore.updateData { currentData ->
+            currentData.toBuilder().setUiDrawerState(UiDrawerState.LOGGED_OUT).build()
+        }
+    }
+    suspend fun setUiDrawerStateToLoading() {
+        userDataStore.updateData { currentData ->
+            currentData.toBuilder().setUiDrawerState(UiDrawerState.LOADING).build()
+        }
+    }
+    suspend fun setUiDrawerStateToRegister() {
+        userDataStore.updateData { currentData ->
+            currentData.toBuilder().setUiDrawerState(UiDrawerState.REGISTER).build()
+        }
+    }
+    suspend fun setUiDrawerStateToInfo() {
+        userDataStore.updateData { currentData ->
+            currentData.toBuilder().setUiDrawerState(UiDrawerState.INFO).build()
         }
     }
 

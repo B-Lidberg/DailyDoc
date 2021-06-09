@@ -6,4 +6,14 @@ option java_multiple_files = true;
 message UserData {
   string username = 1;
   string password = 2;
+
+  enum UiDrawerState {
+    UNSPECIFIED = 0;
+    LOADING = 3;
+    LOGGED_IN = 4;
+    LOGGED_OUT = 5;
+    REGISTER = 6;
+    INFO = 7;
+  }
+  UiDrawerState uiDrawerState = 3;
 }

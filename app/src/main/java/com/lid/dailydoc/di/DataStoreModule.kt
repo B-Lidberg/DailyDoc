@@ -22,7 +22,6 @@ class DataStoreModule {
     @Provides
     fun provideSerializer() = UserDataSerializer
 
-
     @Provides
     @Singleton
     fun provideUserDataStore(

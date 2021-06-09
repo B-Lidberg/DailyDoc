@@ -3,10 +3,10 @@ package com.lid.dailydoc.viewmodels
 import androidx.lifecycle.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.lid.dailydoc.UserData
 import com.lid.dailydoc.data.remote.BasicAuthInterceptor
 import com.lid.dailydoc.data.repository.AuthRepository
 import com.lid.dailydoc.data.repository.UserDataRepository
-import com.lid.dailydoc.navigation.UiDrawerState
 import com.lid.dailydoc.other.Constants.NO_PASSWORD
 import com.lid.dailydoc.other.Constants.NO_USERNAME
 import com.lid.dailydoc.other.Resource
@@ -30,6 +30,43 @@ class UserViewModel @Inject constructor(
     val currentUsername = userDataFlow.map { user ->
         user.username
     }.asLiveData()
+
+    val currentUiDrawerState = userDataFlow.map { user ->
+        user.uiDrawerState
+    }.asLiveData()
+
+    fun navigateToUserScreen() {
+        viewModelScope.launch {
+            userDataRepository.setUiDrawerStateToLoggedIn()
+        }
+    }
+
+    fun navigateToLoginScreen() {
+        viewModelScope.launch {
+            userDataRepository.setUiDrawerStateToLoggedOut()
+        }
+    }
+
+    fun navigateToRegisterScreen() {
+        viewModelScope.launch {
+            userDataRepository.setUiDrawerStateToRegister()
+        }
+    }
+
+    fun navigateToInfoScreen() {
+        viewModelScope.launch {
+            userDataRepository.setUiDrawerStateToInfo()
+        }
+    }
+
+    fun navigateToLoadingScreen() {
+        viewModelScope.launch {
+            userDataRepository.setUiDrawerStateToLoading()
+        }
+    }
+
+
+
 
     fun isLoggedIn(): Boolean {
         val username = userData.value?.username
@@ -58,7 +95,7 @@ class UserViewModel @Inject constructor(
     private val _registerStatus = MutableLiveData<Resource<String>>()
     val registerStatus: LiveData<Resource<String>> = _registerStatus
 
-    internal var subContentState: ((UiDrawerState) -> Unit)? = null
+    internal var subContentState: ((UserData.UiDrawerState) -> Unit)? = null
 
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> = _loading
@@ -69,6 +106,8 @@ class UserViewModel @Inject constructor(
     private val _error = MutableLiveData<String?>(null)
     val error: LiveData<String?> = _error
 
+    private val _uiDrawerState = MutableLiveData<UserData.UiDrawerState>()
+    val uiDrawerState: LiveData<UserData.UiDrawerState> = _uiDrawerState
 
     fun loginWithUsername(username: String, password: String) {
         _loginStatus.postValue(Resource.loading(null))

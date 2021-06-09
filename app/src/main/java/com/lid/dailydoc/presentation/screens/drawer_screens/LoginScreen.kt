@@ -3,7 +3,6 @@ package com.lid.dailydoc.presentation.screens.drawer_screens
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,7 +29,7 @@ import com.lid.dailydoc.R
 import com.lid.dailydoc.data.authorization.LoginWithGoogle
 import com.lid.dailydoc.data.extras.appName
 import com.lid.dailydoc.data.extras.googleSignInText
-import com.lid.dailydoc.navigation.UiDrawerState
+import com.lid.dailydoc.UserData.UiDrawerState
 import com.lid.dailydoc.other.Status
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -40,7 +39,6 @@ import timber.log.Timber
 @Composable
 fun LoginScreen(
     vm: UserViewModel,
-    uiState: MutableTransitionState<UiDrawerState>,
     scaffoldState: ScaffoldState,
     scope: CoroutineScope
 ) {
@@ -57,7 +55,7 @@ fun LoginScreen(
     val passwordVisibility = remember { mutableStateOf(false) }
 
     LaunchedEffect(signedIn) {
-        if (signedIn) uiState.targetState = UiDrawerState.LOADING
+        if (signedIn) vm.navigateToLoadingScreen()
     }
     Scaffold(
         scaffoldState = scaffoldState,
@@ -122,7 +120,7 @@ fun LoginScreen(
                                         vm.authenticateApi(trimmedUsername, trimmedPassword)
                                         Timber.d("CALLED")
                                         vm.setUserData(trimmedUsername, trimmedPassword)
-                                        uiState.targetState = UiDrawerState.LOGGED_IN
+                                        vm.navigateToUserScreen()
                                     }
                                     Status.ERROR -> {
                                         scaffoldState.snackbarHostState.showSnackbar(
@@ -142,7 +140,7 @@ fun LoginScreen(
 
             }
             TextButton(
-                onClick = { uiState.targetState = UiDrawerState.REGISTER },
+                onClick = { vm.navigateToRegisterScreen() },
             ) {
                 Text(
                     text = "Click here to register an account!"

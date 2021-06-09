@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material.SnackbarHostState
+import com.lid.dailydoc.UserData.UiDrawerState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,12 +17,12 @@ import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.extras.appName
 import com.lid.dailydoc.data.extras.informationText
 import com.lid.dailydoc.data.extras.summaryText
-import com.lid.dailydoc.navigation.UiDrawerState
+import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun InfoScreen(
-    uiState: MutableTransitionState<UiDrawerState>,
+    vm: UserViewModel,
     scaffoldState: ScaffoldState,
     scope: CoroutineScope
 ) {

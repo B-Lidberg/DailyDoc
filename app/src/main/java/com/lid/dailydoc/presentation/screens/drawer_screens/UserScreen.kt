@@ -12,14 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.lid.dailydoc.navigation.UiDrawerState
+import com.lid.dailydoc.UserData.UiDrawerState
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun UserScreen(
     vm: UserViewModel,
-    uiState: MutableTransitionState<UiDrawerState>,
     scaffoldState: ScaffoldState,
     scope: CoroutineScope
 ) {
@@ -31,7 +30,7 @@ fun UserScreen(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = CenterVertically,
         ) {
-            UserSettings(vm, uiState)
+            UserSettings(vm)
             Spacer(modifier = Modifier.padding(end = 12.dp))
             Text(text = "Account", fontSize = 24.sp, textAlign = TextAlign.Center)
         }
@@ -42,7 +41,7 @@ fun UserScreen(
 }
 
 @Composable
-fun UserSettings(vm: UserViewModel, uiState: MutableTransitionState<UiDrawerState>) {
+fun UserSettings(vm: UserViewModel) {
     var showSettings by remember { mutableStateOf(false) }
 
     IconButton(onClick = { showSettings = true }) {
@@ -55,16 +54,16 @@ fun UserSettings(vm: UserViewModel, uiState: MutableTransitionState<UiDrawerStat
         expanded = showSettings,
         onDismissRequest = { showSettings = false }
     ) {
-        SignOutButton(uiState) { vm.signOut(); showSettings = false }
+        SignOutButton({ vm.navigateToLoginScreen() }) { vm.signOut(); showSettings = false }
     }
 }
 
 @Composable
-fun SignOutButton(uiState: MutableTransitionState<UiDrawerState>, signOut: () -> Unit) {
+fun SignOutButton(toLogout: () -> Unit, signOut: () -> Unit) {
     Button(
         onClick = {
             signOut()
-            uiState.targetState = UiDrawerState.LOGGED_OUT
+            toLogout()
         }
     ) {
         Text("Sign Out")

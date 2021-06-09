@@ -6,49 +6,38 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import com.lid.dailydoc.UserData.UiDrawerState
 import com.lid.dailydoc.presentation.screens.drawer_screens.*
 import com.lid.dailydoc.viewmodels.UserViewModel
-
-
-enum class UiDrawerState {
-    LOADING,
-    LOGGED_IN,
-    LOGGED_OUT,
-    REGISTER,
-    INFO
-}
 
 @Composable
 fun DrawerNavigation(
     vm: UserViewModel,
 ) {
-    val uiState = remember { MutableTransitionState(UiDrawerState.LOADING) }
-    val signedIn by vm.signedIn.observeAsState(vm.isLoggedIn())
+
+    val uiDrawerState by vm.currentUiDrawerState.observeAsState(vm.currentUiDrawerState.value ?: UiDrawerState.LOADING)
 
     val scaffoldState = rememberScaffoldState()
-    val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
     Crossfade(
-        targetState = uiState.currentState,
+        targetState = uiDrawerState,
         animationSpec = tween(600)
     ) { state ->
-        updateTransition(uiState, label = "drawer_screen")
+        updateTransition(uiDrawerState, label = "drawer_screen")
         when (state) {
-            UiDrawerState.LOADING -> LoadingScreen(signedIn, uiState, scaffoldState, scope)
+            UiDrawerState.LOADING -> LoadingScreen(vm, scaffoldState, scope)
 
-            UiDrawerState.LOGGED_IN -> UserScreen(vm, uiState, scaffoldState, scope)
+            UiDrawerState.LOGGED_IN -> UserScreen(vm, scaffoldState, scope)
 
-            UiDrawerState.LOGGED_OUT -> LoginScreen(vm, uiState, scaffoldState, scope)
+            UiDrawerState.LOGGED_OUT -> LoginScreen(vm, scaffoldState, scope)
 
-            UiDrawerState.REGISTER -> RegisterScreen(vm, uiState, scaffoldState, scope)
+            UiDrawerState.REGISTER -> RegisterScreen(vm, scaffoldState, scope)
 
-            UiDrawerState.INFO -> { InfoScreen(uiState, scaffoldState, scope) }
+            UiDrawerState.INFO -> { InfoScreen(vm, scaffoldState, scope) }
+
 
         }
     }

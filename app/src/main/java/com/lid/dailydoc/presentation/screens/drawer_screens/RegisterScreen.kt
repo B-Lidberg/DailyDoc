@@ -1,6 +1,5 @@
 package com.lid.dailydoc.presentation.screens.drawer_screens
 
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,7 +16,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.data.extras.appName
-import com.lid.dailydoc.navigation.UiDrawerState
+import com.lid.dailydoc.UserData.UiDrawerState
 import com.lid.dailydoc.other.Status
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -26,7 +25,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegisterScreen(
     vm: UserViewModel,
-    uiState: MutableTransitionState<UiDrawerState>,
     scaffoldState: ScaffoldState,
     scope: CoroutineScope
 ) {
@@ -39,7 +37,7 @@ fun RegisterScreen(
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(signedIn) {
-        if (signedIn) uiState.targetState = UiDrawerState.LOADING
+        if (signedIn) vm.navigateToLoadingScreen()
     }
 
     Scaffold(
@@ -50,7 +48,7 @@ fun RegisterScreen(
             horizontalArrangement = Arrangement.End
         ) {
             IconButton(
-                onClick = { uiState.targetState = UiDrawerState.LOGGED_OUT }
+                onClick = { vm.navigateToLoginScreen() }
             ) {
                 Icon(
                     Icons.Default.Close,
@@ -189,7 +187,7 @@ fun RegisterScreen(
                                             result.data ?: "Successfully registered an account"
                                         )
                                         vm.setUserData(trimmedUsername, trimmedPassword)
-                                            uiState.targetState = UiDrawerState.LOGGED_OUT
+                                            vm.navigateToUserScreen()
                                     }
                                     Status.ERROR -> {
                                         scaffoldState.snackbarHostState.showSnackbar(
