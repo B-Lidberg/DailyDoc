@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.lid.dailydoc";
+option java_multiple_files = true;
+
+message UserData {
+  string username = 1;
+  string password = 2;
+}

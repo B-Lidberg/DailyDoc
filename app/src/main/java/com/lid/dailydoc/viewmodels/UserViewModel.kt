@@ -7,9 +7,11 @@ import com.lid.dailydoc.data.remote.BasicAuthInterceptor
 import com.lid.dailydoc.data.repository.AuthRepository
 import com.lid.dailydoc.data.repository.UserDataRepository
 import com.lid.dailydoc.navigation.UiDrawerState
+import com.lid.dailydoc.other.Constants.NO_PASSWORD
+import com.lid.dailydoc.other.Constants.NO_USERNAME
 import com.lid.dailydoc.other.Resource
-import com.lid.dailydoc.other.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,8 +19,38 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val userDataRepository: UserDataRepository
+    private val userDataRepository: UserDataRepository,
+    private val basicAuthInterceptor: BasicAuthInterceptor,
 ) : ViewModel() {
+
+    private val userDataFlow = userDataRepository.userDataFlow
+
+
+    val userData = userDataFlow.asLiveData()
+    val currentUsername = userDataFlow.map { user ->
+        user.username
+    }.asLiveData()
+
+    fun isLoggedIn(): Boolean {
+        val username = userData.value?.username
+        val password = userData.value?.password
+        return  username != NO_USERNAME &&
+                !username.isNullOrEmpty() &&
+                password != NO_PASSWORD &&
+                !password.isNullOrEmpty()
+    }
+
+
+    fun setLoginBoolean() {
+        val username = userData.value?.username
+        val password = userData.value?.password
+        _signedIn.value =
+            username != NO_USERNAME &&
+            !username.isNullOrEmpty() &&
+            password != NO_PASSWORD &&
+            !password.isNullOrEmpty()
+    }
+
 
     private val _loginStatus = MutableLiveData<Resource<String>>()
     val loginStatus: LiveData<Resource<String>> = _loginStatus
@@ -26,20 +58,12 @@ class UserViewModel @Inject constructor(
     private val _registerStatus = MutableLiveData<Resource<String>>()
     val registerStatus: LiveData<Resource<String>> = _registerStatus
 
-    private val _currentUsername = MutableLiveData<String>()
-    val currentUsername: LiveData<String> = _currentUsername
-
-    private val _currentPassword = MutableLiveData<String>()
-    val currentPassword: LiveData<String> = _currentPassword
-
     internal var subContentState: ((UiDrawerState) -> Unit)? = null
-    private val _user = MutableLiveData("")
-    val user: LiveData<String> = _user
 
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> = _loading
 
-    private val _signedIn = MutableLiveData(false)
+    private val _signedIn: MutableLiveData<Boolean> = MutableLiveData()
     val signedIn: LiveData<Boolean> = _signedIn
 
     private val _error = MutableLiveData<String?>(null)
@@ -55,12 +79,6 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch {
             val result = authRepository.loginWithUsername(username, password)
             _loginStatus.postValue(result)
-        }.invokeOnCompletion {
-            if (userDataRepository.isLoggedIn()) {
-                _currentUsername.value = username
-                _currentPassword.value = password
-                _user.value = _currentUsername.value
-            }
         }
     }
 
@@ -77,30 +95,30 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch {
         val result = authRepository.registerUser(username, password)
             _registerStatus.postValue(result)
-        }.invokeOnCompletion {
-
         }
     }
-
-    @Inject
-    lateinit var basicAuthInterceptor: BasicAuthInterceptor
-
-
     fun authenticateApi(username: String, password: String) {
         basicAuthInterceptor.username = username
         basicAuthInterceptor.password = password
     }
 
-    fun isLoggedIn()= userDataRepository.isLoggedIn()
+    fun setUserData(username: String, password: String) {
+        viewModelScope.launch {
+            userDataRepository.setUserData(username, password)
+        }.invokeOnCompletion {
+            setLoginBoolean()
+        }
+    }
 
 
     init {
+        viewModelScope.launch {
+            setLoginBoolean()
+        }
 //        Firebase.auth.addAuthStateListener {
 //            _signedIn.value = it.currentUser != null
 //            _user.value = it.currentUser?.email ?: "Guest"
 //        }
-            _signedIn.value = userDataRepository.isLoggedIn()
-            _user.value = _currentUsername.value
     }
 
 
@@ -112,7 +130,9 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch {
             Firebase.auth.signOut()
             userDataRepository.clearUserData()
-            _signedIn.value = false
+        }.invokeOnCompletion {
+            setLoginBoolean()
+
         }
     }
 

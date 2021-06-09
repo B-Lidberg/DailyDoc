@@ -20,29 +20,26 @@ import com.lid.dailydoc.data.extras.appName
 import com.lid.dailydoc.navigation.UiDrawerState
 import com.lid.dailydoc.other.Status
 import com.lid.dailydoc.viewmodels.UserViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
-
 
 @Composable
 fun RegisterScreen(
     vm: UserViewModel,
-    uiState: MutableTransitionState<UiDrawerState>
+    uiState: MutableTransitionState<UiDrawerState>,
+    scaffoldState: ScaffoldState,
+    scope: CoroutineScope
 ) {
 
-    val signIn by vm.signedIn.observeAsState(vm.signedIn.value!!)
+    val signedIn by vm.signedIn.observeAsState(vm.isLoggedIn())
 
     val username = rememberSaveable { mutableStateOf("") }
     val password = rememberSaveable { mutableStateOf("") }
     val confirmedPassword = rememberSaveable { mutableStateOf("") }
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
 
-    val scaffoldState = rememberScaffoldState()
-    val snackbarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
-
-    LaunchedEffect(signIn) {
-        if (signIn) uiState.targetState = UiDrawerState.LOADING
+    LaunchedEffect(signedIn) {
+        if (signedIn) uiState.targetState = UiDrawerState.LOADING
     }
 
     Scaffold(
@@ -175,35 +172,32 @@ fun RegisterScreen(
             )
             Button(
                 onClick = {
+                    val trimmedUsername = username.value.trim()
+                    val trimmedPassword = password.value.trim()
+                    val trimmedConfirmedPassword = confirmedPassword.value.trim()
                     vm.registerUser(
-                        username.value.trim(),
-                        password.value.trim(),
-                        confirmedPassword = confirmedPassword.value.trim()
+                        trimmedUsername,
+                        trimmedPassword,
+                        trimmedConfirmedPassword
                     )
                     vm.registerStatus.observeForever { result ->
-                        scope.launch {
-                            result?.let {
+                        result?.let {
+                            scope.launch {
                                 when (result.status) {
                                     Status.SUCCESS -> {
                                         scaffoldState.snackbarHostState.showSnackbar(
-
-                                            message = result.data
-                                                ?: "Successfully registered an account",
+                                            result.data ?: "Successfully registered an account"
                                         )
-                                        vm.authenticateApi(username.value, password.value)
-                                        Timber.d("CALLED")
-                                        uiState.targetState = UiDrawerState.LOGGED_IN
+                                        vm.setUserData(trimmedUsername, trimmedPassword)
+                                            uiState.targetState = UiDrawerState.LOGGED_OUT
                                     }
                                     Status.ERROR -> {
                                         scaffoldState.snackbarHostState.showSnackbar(
-                                            message = result.message
-                                                ?: "An unknown error occurred",
+                                            result.message ?: "An unknown error occurred"
                                         )
                                     }
                                     Status.LOADING -> {
-
                                     }
-
                                 }
                             }
                         }

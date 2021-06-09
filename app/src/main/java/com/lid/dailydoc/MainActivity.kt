@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
+
     @ObsoleteCoroutinesApi
     @ExperimentalAnimationApi
     @ExperimentalCoroutinesApi

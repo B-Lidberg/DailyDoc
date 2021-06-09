@@ -47,6 +47,8 @@ fun Navigation(
 
     val addNoteVm = hiltViewModel<NoteAddViewModel>()
 
+    val userVm = hiltViewModel<UserViewModel>()
+
     NavHost(navController = navController, startDestination = startDestination) {
 
         composable(
@@ -58,10 +60,9 @@ fun Navigation(
             addNoteVm.setDate()
             addNoteVm.cacheNote()
             val note = addNoteVm.cachedNote
-            val loginVm = hiltViewModel<UserViewModel>(backStackEntry = it)
 
             NoteListScreen(
-                noteListVm, loginVm,
+                noteListVm, userVm,
                 actions.detailScreen, actions.addScreen,
                 note
             )

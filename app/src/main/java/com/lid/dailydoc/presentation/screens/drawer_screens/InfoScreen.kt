@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,10 +18,13 @@ import com.lid.dailydoc.data.extras.appName
 import com.lid.dailydoc.data.extras.informationText
 import com.lid.dailydoc.data.extras.summaryText
 import com.lid.dailydoc.navigation.UiDrawerState
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun InfoScreen(
-    uiState: MutableTransitionState<UiDrawerState>
+    uiState: MutableTransitionState<UiDrawerState>,
+    scaffoldState: ScaffoldState,
+    scope: CoroutineScope
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),

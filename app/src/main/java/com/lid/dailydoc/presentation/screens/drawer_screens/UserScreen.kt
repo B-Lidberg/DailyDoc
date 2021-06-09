@@ -12,12 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.firebase.auth.FirebaseAuth
 import com.lid.dailydoc.navigation.UiDrawerState
 import com.lid.dailydoc.viewmodels.UserViewModel
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun UserScreen(vm: UserViewModel, uiState: MutableTransitionState<UiDrawerState>) {
+fun UserScreen(
+    vm: UserViewModel,
+    uiState: MutableTransitionState<UiDrawerState>,
+    scaffoldState: ScaffoldState,
+    scope: CoroutineScope
+) {
 
     val username by vm.currentUsername.observeAsState()
 

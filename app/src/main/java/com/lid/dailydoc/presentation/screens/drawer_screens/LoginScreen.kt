@@ -31,35 +31,37 @@ import com.lid.dailydoc.data.authorization.LoginWithGoogle
 import com.lid.dailydoc.data.extras.appName
 import com.lid.dailydoc.data.extras.googleSignInText
 import com.lid.dailydoc.navigation.UiDrawerState
+import com.lid.dailydoc.other.Status
 import com.lid.dailydoc.viewmodels.UserViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @Composable
 fun LoginScreen(
     vm: UserViewModel,
-    uiState: MutableTransitionState<UiDrawerState>
+    uiState: MutableTransitionState<UiDrawerState>,
+    scaffoldState: ScaffoldState,
+    scope: CoroutineScope
 ) {
     val launcher = rememberLauncherForActivityResult(LoginWithGoogle()) {
         if (it != null) {
             vm.loginWithGoogle(it)
         }
     }
-    val scope = rememberCoroutineScope()
     val loading by vm.loading.observeAsState(false)
-    val signIn by vm.signedIn.observeAsState(vm.signedIn.value!!)
+    val signedIn by vm.signedIn.observeAsState(vm.isLoggedIn())
 
     val username = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val passwordVisibility = remember { mutableStateOf(false) }
 
-    LaunchedEffect(signIn) {
-        if (signIn) {
-//            uiState.targetState = UiDrawerState.LOADING
-//            delay(2000)
-            uiState.targetState = UiDrawerState.LOADING
-        }
+    LaunchedEffect(signedIn) {
+        if (signedIn) uiState.targetState = UiDrawerState.LOADING
     }
-    Scaffold {
+    Scaffold(
+        scaffoldState = scaffoldState,
+    ) {
 
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -105,7 +107,35 @@ fun LoginScreen(
                 )
             )
             Button(
-                onClick = { vm.loginWithUsername(username.value.trim(), password.value.trim()) },
+                onClick = {
+                    val trimmedUsername = username.value.trim()
+                    val trimmedPassword = password.value.trim()
+                    vm.loginWithUsername(trimmedUsername, trimmedPassword)
+                    vm.loginStatus.observeForever { result ->
+                        result?.let {
+                            scope.launch {
+                                when (result.status) {
+                                    Status.SUCCESS -> {
+                                        scaffoldState.snackbarHostState.showSnackbar(
+                                            result.data ?: "Successfully logged in"
+                                        )
+                                        vm.authenticateApi(trimmedUsername, trimmedPassword)
+                                        Timber.d("CALLED")
+                                        vm.setUserData(trimmedUsername, trimmedPassword)
+                                        uiState.targetState = UiDrawerState.LOGGED_IN
+                                    }
+                                    Status.ERROR -> {
+                                        scaffoldState.snackbarHostState.showSnackbar(
+                                            result.message ?: "An unknown error occurred"
+                                        )
+                                    }
+                                    Status.LOADING -> {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 enabled = username.value.trim().isNotEmpty() && password.value.trim().isNotEmpty()
             ) {
                 Text(text = "Sign In")

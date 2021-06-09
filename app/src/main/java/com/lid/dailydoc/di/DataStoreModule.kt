@@ -1,7 +1,13 @@
 package com.lid.dailydoc.di
 
 import android.content.Context
-import com.lid.dailydoc.data.repository.UserDataRepository
+import androidx.datastore.core.DataStore
+import androidx.datastore.core.DataStoreFactory
+import androidx.datastore.core.Serializer
+import androidx.datastore.dataStoreFile
+import com.lid.dailydoc.UserData
+import com.lid.dailydoc.datastore.data.UserDataSerializer
+import com.lid.dailydoc.other.Constants.USER_DATASTORE_FILE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,8 +20,18 @@ import javax.inject.Singleton
 class DataStoreModule {
 
     @Provides
+    fun provideSerializer() = UserDataSerializer
+
+
+    @Provides
     @Singleton
-    fun provideUserDataStore(@ApplicationContext context: Context): UserDataRepository =
-        UserDataRepository(context)
+    fun provideUserDataStore(
+        @ApplicationContext context: Context,
+        serializer: UserDataSerializer
+    ): DataStore<UserData> =
+        DataStoreFactory.create(
+            produceFile = { context.dataStoreFile(USER_DATASTORE_FILE_NAME) },
+            serializer = serializer
+        )
 
 }

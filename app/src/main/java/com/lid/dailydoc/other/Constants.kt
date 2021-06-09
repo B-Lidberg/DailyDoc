@@ -27,10 +27,10 @@ object Constants {
     const val USER_DATASTORE_NAME = "user_data"
     const val USER_DATASTORE_FILE_NAME = "user_data.pb"
 
-    val KEY_USERNAME = stringPreferencesKey("KEY_USERNAME")
+    val KEY_USERNAME = "username"
     const val NO_USERNAME =  "NO_USERNAME"
 
-    val KEY_PASSWORD = stringPreferencesKey("KEY_LOGGED_IN_PASSWORD")
+    val KEY_PASSWORD = "password"
     const val NO_PASSWORD =  "NO_PASSWORD"
 
 
