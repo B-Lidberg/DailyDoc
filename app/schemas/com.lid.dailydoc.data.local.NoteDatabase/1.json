@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "bfece32aa25c84a1de20e12aa388f768",
+    "entities": [
+      {
+        "tableName": "notes_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`note_date` INTEGER NOT NULL, `note_id` TEXT NOT NULL, `note_summary` TEXT NOT NULL, `note_body` TEXT NOT NULL, `note_survey1` TEXT NOT NULL, `note_survey2` TEXT NOT NULL, `note_survey3` TEXT NOT NULL, `note_owner` TEXT NOT NULL, `note_users` TEXT NOT NULL, `isSynced` INTEGER NOT NULL, PRIMARY KEY(`note_id`))",
+        "fields": [
+          {
+            "fieldPath": "date",
+            "columnName": "note_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "noteId",
+            "columnName": "note_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary",
+            "columnName": "note_summary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "body",
+            "columnName": "note_body",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "survey1",
+            "columnName": "note_survey1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "survey2",
+            "columnName": "note_survey2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "survey3",
+            "columnName": "note_survey3",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "owner",
+            "columnName": "note_owner",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "users",
+            "columnName": "note_users",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSynced",
+            "columnName": "isSynced",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "note_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bfece32aa25c84a1de20e12aa388f768')"
+    ]
+  }
+}

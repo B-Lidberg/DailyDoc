@@ -1,4 +1,4 @@
-package com.lid.dailydoc.datastore.data
+package com.lid.dailydoc.data.datastore.data
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer

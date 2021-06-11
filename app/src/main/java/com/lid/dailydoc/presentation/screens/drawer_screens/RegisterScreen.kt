@@ -11,15 +11,19 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Observer
 import com.lid.dailydoc.data.extras.appName
 import com.lid.dailydoc.UserData.UiDrawerState
 import com.lid.dailydoc.other.Status
+import com.lid.dailydoc.presentation.components.ProgressBar
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 
 @Composable
@@ -29,16 +33,19 @@ fun RegisterScreen(
     scope: CoroutineScope
 ) {
 
-    val signedIn by vm.signedIn.observeAsState(vm.isLoggedIn())
+    val visibility = remember { mutableStateOf(false) }
 
     val username = rememberSaveable { mutableStateOf("") }
     val password = rememberSaveable { mutableStateOf("") }
     val confirmedPassword = rememberSaveable { mutableStateOf("") }
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
+    val cUsername by vm.currentUsername.observeAsState()
+    val cPassword by vm.currentPassword.observeAsState()
+    val cDrawerState by vm.currentUiDrawerState.observeAsState()
 
-    LaunchedEffect(signedIn) {
-        if (signedIn) vm.navigateToLoadingScreen()
-    }
+    val currentLifeCycle = LocalLifecycleOwner.current
+
+
 
     Scaffold(
         scaffoldState = scaffoldState
@@ -178,28 +185,36 @@ fun RegisterScreen(
                         trimmedPassword,
                         trimmedConfirmedPassword
                     )
-                    vm.registerStatus.observeForever { result ->
+                    vm.registerStatus.observe(currentLifeCycle, Observer { result ->
                         result?.let {
-                            scope.launch {
-                                when (result.status) {
-                                    Status.SUCCESS -> {
+                            when (result.status) {
+                                Status.SUCCESS -> {
+                                    scope.coroutineContext.cancelChildren()
+                                    visibility.value = false
+                                    scope.launch {
                                         scaffoldState.snackbarHostState.showSnackbar(
                                             result.data ?: "Successfully registered an account"
                                         )
-                                        vm.setUserData(trimmedUsername, trimmedPassword)
-                                            vm.navigateToUserScreen()
                                     }
-                                    Status.ERROR -> {
+                                    vm.setUserData(trimmedUsername, trimmedPassword)
+                                    vm.navigateToUserScreen()
+                                }
+                                Status.ERROR -> {
+                                    scope.coroutineContext.cancelChildren()
+                                    visibility.value = false
+                                    scope.launch {
                                         scaffoldState.snackbarHostState.showSnackbar(
                                             result.message ?: "An unknown error occurred"
                                         )
                                     }
-                                    Status.LOADING -> {
-                                    }
+
+                                }
+                                Status.LOADING -> {
+                                    visibility.value = true
                                 }
                             }
                         }
-                    }
+                    })
                 },
                 enabled =
                 username.value.trim().isNotEmpty() &&
@@ -219,6 +234,10 @@ fun RegisterScreen(
                         "others will see your username.",
                 modifier = Modifier.padding(8.dp)
             )
+            Text(text = "username: $cUsername")
+            Text(text = "password: $cPassword")
+            Text(text = "screen: $cDrawerState")
+            ProgressBar(visibility = visibility.value)
         }
     }
 }

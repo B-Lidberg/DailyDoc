@@ -81,23 +81,36 @@ class UserDataRepository @Inject constructor(
     }
     suspend fun setUiDrawerStateToLoggedOut() {
         userDataStore.updateData { currentData ->
-            currentData.toBuilder().setUiDrawerState(UiDrawerState.LOGGED_OUT).build()
+            currentData
+                .toBuilder()
+                .setUiDrawerState(UiDrawerState.LOGGED_OUT)
+                .buildPartial()
         }
     }
     suspend fun setUiDrawerStateToLoading() {
         userDataStore.updateData { currentData ->
-            currentData.toBuilder().setUiDrawerState(UiDrawerState.LOADING).build()
+            currentData
+                .toBuilder()
+                .setUiDrawerState(UiDrawerState.LOADING)
+                .buildPartial()
         }
     }
     suspend fun setUiDrawerStateToRegister() {
         userDataStore.updateData { currentData ->
-            currentData.toBuilder().setUiDrawerState(UiDrawerState.REGISTER).build()
+            currentData
+                .toBuilder()
+                .setUiDrawerState(UiDrawerState.REGISTER)
+                .buildPartial()
         }
     }
     suspend fun setUiDrawerStateToInfo() {
         userDataStore.updateData { currentData ->
-            currentData.toBuilder().setUiDrawerState(UiDrawerState.INFO).build()
+            currentData
+                .toBuilder()
+                .setUiDrawerState(UiDrawerState.INFO)
+                .buildPartial()
         }
+
     }
 
 }

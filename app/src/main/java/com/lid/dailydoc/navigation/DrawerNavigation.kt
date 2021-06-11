@@ -1,16 +1,15 @@
 package com.lid.dailydoc.navigation
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import com.lid.dailydoc.UserData.UiDrawerState
 import com.lid.dailydoc.presentation.screens.drawer_screens.*
 import com.lid.dailydoc.viewmodels.UserViewModel
+import kotlinx.coroutines.Dispatchers
 
 @Composable
 fun DrawerNavigation(
@@ -20,7 +19,7 @@ fun DrawerNavigation(
     val uiDrawerState by vm.currentUiDrawerState.observeAsState(vm.currentUiDrawerState.value ?: UiDrawerState.LOADING)
 
     val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope { Dispatchers.IO }
 
     Crossfade(
         targetState = uiDrawerState,
@@ -37,6 +36,8 @@ fun DrawerNavigation(
             UiDrawerState.REGISTER -> RegisterScreen(vm, scaffoldState, scope)
 
             UiDrawerState.INFO -> { InfoScreen(vm, scaffoldState, scope) }
+
+            else -> LoadingScreen(vm, scaffoldState, scope)
 
 
         }

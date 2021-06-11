@@ -6,7 +6,7 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.core.Serializer
 import androidx.datastore.dataStoreFile
 import com.lid.dailydoc.UserData
-import com.lid.dailydoc.datastore.data.UserDataSerializer
+import com.lid.dailydoc.data.datastore.data.UserDataSerializer
 import com.lid.dailydoc.other.Constants.USER_DATASTORE_FILE_NAME
 import dagger.Module
 import dagger.Provides

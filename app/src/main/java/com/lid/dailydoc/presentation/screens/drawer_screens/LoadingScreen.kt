@@ -3,14 +3,19 @@ package com.lid.dailydoc.presentation.screens.drawer_screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lid.dailydoc.UserData.UiDrawerState
+import com.lid.dailydoc.presentation.components.ProgressBar
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoadingScreen(
@@ -18,7 +23,11 @@ fun LoadingScreen(
     scaffoldState: ScaffoldState,
     scope: CoroutineScope
 ) {
-    LaunchedEffect(true) {
+
+    val signedIn by vm.signedIn.observeAsState()
+
+    DisposableEffect(signedIn, vm.redirectScreen()) {
+        vm.setLoginBoolean()
         delay(1000)
         if (vm.signedIn.value == true) {
             vm.navigateToUserScreen()
@@ -26,6 +35,7 @@ fun LoadingScreen(
             vm.navigateToLoginScreen()
         }
     }
+
     Scaffold(
         scaffoldState = scaffoldState
     ) {
@@ -34,25 +44,9 @@ fun LoadingScreen(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            ProgressBar()
+            ProgressBar(true)
 
         }
 
-    }
-}
-
-@Composable
-fun ProgressBar() {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text("Loading...", style = MaterialTheme.typography.h4)
-        LinearProgressIndicator(
-            Modifier
-                .fillMaxWidth()
-                .height(20.dp)
-        )
-        Text("(1 second delay set to feature progress bar)")
     }
 }

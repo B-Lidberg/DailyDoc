@@ -11,6 +11,7 @@ import com.lid.dailydoc.other.Constants.NO_PASSWORD
 import com.lid.dailydoc.other.Constants.NO_USERNAME
 import com.lid.dailydoc.other.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,15 +26,22 @@ class UserViewModel @Inject constructor(
 
     private val userDataFlow = userDataRepository.userDataFlow
 
-
     val userData = userDataFlow.asLiveData()
+
     val currentUsername = userDataFlow.map { user ->
         user.username
+    }.asLiveData()
+
+    val currentPassword = userDataFlow.map { user ->
+        user.password
     }.asLiveData()
 
     val currentUiDrawerState = userDataFlow.map { user ->
         user.uiDrawerState
     }.asLiveData()
+
+    private val _signedIn: MutableLiveData<Boolean> = MutableLiveData()
+    val signedIn: LiveData<Boolean> = _signedIn
 
     fun navigateToUserScreen() {
         viewModelScope.launch {
@@ -65,8 +73,15 @@ class UserViewModel @Inject constructor(
         }
     }
 
-
-
+    fun redirectScreen() {
+        viewModelScope.launch {
+            if (signedIn.value == true) {
+                userDataRepository.setUiDrawerStateToLoggedIn()
+            } else {
+                userDataRepository.setUiDrawerStateToLoggedOut()
+            }
+        }
+    }
 
     fun isLoggedIn(): Boolean {
         val username = userData.value?.username
@@ -77,15 +92,14 @@ class UserViewModel @Inject constructor(
                 !password.isNullOrEmpty()
     }
 
-
     fun setLoginBoolean() {
         val username = userData.value?.username
         val password = userData.value?.password
         _signedIn.value =
             username != NO_USERNAME &&
-            !username.isNullOrEmpty() &&
-            password != NO_PASSWORD &&
-            !password.isNullOrEmpty()
+                    !username.isNullOrEmpty() &&
+                    password != NO_PASSWORD &&
+                    !password.isNullOrEmpty()
     }
 
 
@@ -96,15 +110,6 @@ class UserViewModel @Inject constructor(
     val registerStatus: LiveData<Resource<String>> = _registerStatus
 
     internal var subContentState: ((UserData.UiDrawerState) -> Unit)? = null
-
-    private val _loading = MutableLiveData(false)
-    val loading: LiveData<Boolean> = _loading
-
-    private val _signedIn: MutableLiveData<Boolean> = MutableLiveData()
-    val signedIn: LiveData<Boolean> = _signedIn
-
-    private val _error = MutableLiveData<String?>(null)
-    val error: LiveData<String?> = _error
 
     private val _uiDrawerState = MutableLiveData<UserData.UiDrawerState>()
     val uiDrawerState: LiveData<UserData.UiDrawerState> = _uiDrawerState
@@ -144,40 +149,23 @@ class UserViewModel @Inject constructor(
     fun setUserData(username: String, password: String) {
         viewModelScope.launch {
             userDataRepository.setUserData(username, password)
-        }.invokeOnCompletion {
-            setLoginBoolean()
         }
-    }
-
-
-    init {
-        viewModelScope.launch {
-            setLoginBoolean()
-        }
-//        Firebase.auth.addAuthStateListener {
-//            _signedIn.value = it.currentUser != null
-//            _user.value = it.currentUser?.email ?: "Guest"
-//        }
-    }
-
-
-    fun removeError() {
-        _error.value = null
+        setLoginBoolean()
+        _registerStatus.postValue(Resource.loading("default"))
+        _registerStatus.postValue(Resource.loading("default"))
     }
 
     fun signOut() {
+//            Firebase.auth.signOut()
         viewModelScope.launch {
-            Firebase.auth.signOut()
             userDataRepository.clearUserData()
-        }.invokeOnCompletion {
-            setLoginBoolean()
+        }.ensureActive()
+        setLoginBoolean()
 
-        }
     }
 
-    fun loginWithGoogle(idToken: String) = viewModelScope.launch {
+//    fun loginWithGoogle(idToken: String) = viewModelScope.launch {
 //        try {
-//            app.connectedOrThrow()
 //            _loading.postValue(true)
 //            authRepository.loginWithGoogle(idToken)
 //            _signedIn.postValue(true)
@@ -186,5 +174,5 @@ class UserViewModel @Inject constructor(
 //        } finally {
 //            _loading.postValue(false)
 //        }
-    }
+//    }
 }
