@@ -197,6 +197,7 @@ dependencies {
 
     // Markwon
     implementation "io.noties.markwon:core:4.4.0"
+    implementation 'com.github.jeziellago:compose-markdown:0.2.2'
 
 }
 

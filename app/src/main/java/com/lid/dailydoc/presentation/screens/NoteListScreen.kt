@@ -33,7 +33,8 @@ fun NoteListScreen(
     toAdd: (Note) -> Unit,
     currentNote: Note,
 ) {
-    val currentNotes = remember { mutableStateOf<List<Note>>(emptyList()) }
+//    val currentNotes = remember { mutableStateOf<List<Note>>(emptyList()) }
+    val currentNotes by vm.currentNotes.observeAsState(emptyList())
     val exists by vm.exists.observeAsState(false)
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
@@ -62,7 +63,7 @@ fun NoteListScreen(
                         when (result.status) {
                             Status.SUCCESS -> {
                                 progressBarVisibility.value = false
-                                currentNotes.value = result.data!!.sortedByDescending { note -> note.date }
+                                vm.updateCurrentNotes(result.data!!.sortedByDescending { note -> note.date })
                             }
                             Status.ERROR -> {
                                 event.getContentIfNotHandled()?.let { errorResource ->
@@ -73,20 +74,20 @@ fun NoteListScreen(
                                     }
                                 }
                                 result.data?.let { notes ->
-                                    currentNotes.value = notes.sortedByDescending { note -> note.date }
+                                    vm.updateCurrentNotes(notes.sortedByDescending { note -> note.date })
                                 }
                                 progressBarVisibility.value = false
                             }
                             Status.LOADING -> {
                                 progressBarVisibility.value = true
                                 result.data?.let { notes ->
-                                    currentNotes.value = notes.sortedByDescending { note -> note.date }
+                                    vm.updateCurrentNotes(notes.sortedByDescending { note -> note.date })
                                 }
                             }
                         }
                     }
                 })
-                NoteList(currentNotes.value, toDetails, { vm.checkForCurrentNote() } )
+                NoteList(currentNotes, toDetails, { vm.checkForCurrentNote() } )
             }
         )
     }

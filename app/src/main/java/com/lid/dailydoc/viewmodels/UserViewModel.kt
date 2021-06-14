@@ -10,6 +10,7 @@ import com.lid.dailydoc.other.Constants.NO_PASSWORD
 import com.lid.dailydoc.other.Constants.NO_USERNAME
 import com.lid.dailydoc.other.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -101,23 +102,11 @@ class UserViewModel @Inject constructor(
                     !password.isNullOrEmpty()
     }
 
-//    suspend fun isAuthenticated(userData: LiveData<UserData>): Boolean {
-//        val username = userData.value?.username ?: ""
-//        val password = userData.value?.password ?: ""
-//        if ()
-//    }
-
-
     private val _loginStatus = MutableLiveData<Resource<String>>()
     val loginStatus: LiveData<Resource<String>> = _loginStatus
 
     private val _registerStatus = MutableLiveData<Resource<String>>()
     val registerStatus: LiveData<Resource<String>> = _registerStatus
-
-    internal var subContentState: ((UserData.UiDrawerState) -> Unit)? = null
-
-    private val _uiDrawerState = MutableLiveData<UserData.UiDrawerState>()
-    val uiDrawerState: LiveData<UserData.UiDrawerState> = _uiDrawerState
 
     fun loginWithUsername(username: String, password: String) {
         _loginStatus.postValue(Resource.loading(null))
@@ -166,11 +155,10 @@ class UserViewModel @Inject constructor(
             userDataRepository.clearUserData()
             _registerStatus.postValue(Resource.loading(null))
             _loginStatus.postValue(Resource.loading(null))
+            authenticateApi("", "")
         }
         setLoginBoolean()
         navigateToLoginScreen()
-
-
     }
 
 //    fun loginWithGoogle(idToken: String) = viewModelScope.launch {

@@ -46,11 +46,11 @@ fun Navigation(
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
-
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = NOTES) {
-            val userVm = hiltViewModel<UserViewModel>()
             val noteListVm = hiltViewModel<NoteViewModel>()
+            val userVm = hiltViewModel<UserViewModel>()
+
             val note by noteListVm.currentNote.observeAsState(noteListVm.getCurrentNote())
 
             NoteListScreen(

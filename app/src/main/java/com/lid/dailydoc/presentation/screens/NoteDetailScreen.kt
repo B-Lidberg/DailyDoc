@@ -21,6 +21,7 @@ import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.utils.getDateAsString
 import com.lid.dailydoc.utils.getNoteInfo
 import com.lid.dailydoc.viewmodels.NoteDetailViewModel
+import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun NoteDetailScreen(
@@ -49,13 +50,8 @@ fun NoteDetailScreen(
 @Composable
 fun TempBody(note: Note) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        item { Text(text = "Owner:\n${note.owner}\n", fontSize = 24.sp) }
-
-        item { Text(text = "Note ID:\n${note.noteId}\n", fontSize = 24.sp) }
-        item { Text(text = "DATE:\n${note.date}\n") }
-        item { SurveyDetails(note) }
         item { Text(text = "Summary:\n${note.summary}\n", fontSize = 24.sp) }
-        item { Text(text = "Body:\n${note.content}\n", fontSize = 24.sp) }
+        item { MarkdownText(markdown = "${note.content}\n", fontSize = 24.sp) }
     }
 }
 
