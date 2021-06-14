@@ -30,7 +30,7 @@ interface NoteDao {
     fun noteExists(date: Long): Flow<Boolean>
 
     @Query("SELECT * FROM notes_table WHERE note_date = :date")
-    fun getNoteByDate(date: Long): Note?
+    suspend fun getNoteByDate(date: Long): Note?
 
 
     @Query("DELETE FROM notes_table WHERE note_date = :date")

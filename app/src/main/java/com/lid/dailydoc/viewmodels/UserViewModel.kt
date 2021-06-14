@@ -4,12 +4,12 @@ import androidx.lifecycle.*
 import com.lid.dailydoc.UserData
 import com.lid.dailydoc.data.remote.BasicAuthInterceptor
 import com.lid.dailydoc.data.repository.AuthRepository
+import com.lid.dailydoc.data.repository.NoteRepositoryImpl
 import com.lid.dailydoc.data.repository.UserDataRepository
 import com.lid.dailydoc.other.Constants.NO_PASSWORD
 import com.lid.dailydoc.other.Constants.NO_USERNAME
 import com.lid.dailydoc.other.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,6 +19,7 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val userDataRepository: UserDataRepository,
+    private val noteRepository: NoteRepositoryImpl,
     private val basicAuthInterceptor: BasicAuthInterceptor,
 ) : ViewModel() {
 
@@ -160,13 +161,14 @@ class UserViewModel @Inject constructor(
     }
 
     fun signOut() {
-//            Firebase.auth.signOut()
         viewModelScope.launch {
+            noteRepository.clearLocalDatabase()
             userDataRepository.clearUserData()
             _registerStatus.postValue(Resource.loading(null))
             _loginStatus.postValue(Resource.loading(null))
         }
         setLoginBoolean()
+        navigateToLoginScreen()
 
 
     }

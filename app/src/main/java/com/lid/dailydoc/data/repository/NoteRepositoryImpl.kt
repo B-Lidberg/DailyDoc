@@ -2,7 +2,6 @@ package com.lid.dailydoc.data.repository
 
 import android.app.Application
 import androidx.annotation.WorkerThread
-import com.lid.dailydoc.data.extras.fakeNote
 import com.lid.dailydoc.data.local.NoteDao
 import com.lid.dailydoc.data.model.LocallyDeletedNoteId
 import com.lid.dailydoc.data.model.Note
@@ -12,17 +11,14 @@ import com.lid.dailydoc.other.Resource
 import com.lid.dailydoc.other.checkForInternetConnection
 import com.lid.dailydoc.other.networkBoundResource
 import com.lid.dailydoc.utils.getCurrentDateAsLong
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
 class NoteRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao,
     private val noteApi: NoteApi,
-    private val context: Application
+    private val context: Application,
 ) : NoteRepository {
 
     private var curNotesResponse: Response<List<Note>>? = null
@@ -50,16 +46,13 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     suspend fun syncNotes() {
-        val locallyDeletedNoteIDs = noteDao.getAllLocallyDeletedNoteIds()
-        locallyDeletedNoteIDs.forEach { id -> deleteNote(id.deletedNoteId) }
-
         val unsyncedNotes = noteDao.getAllUnsyncedNotes()
         unsyncedNotes.forEach { note -> insertNote(note) }
 
         curNotesResponse = noteApi.getNotes()
         curNotesResponse?.body()?.let { notes ->
-            noteDao.deleteAllNotes()
-            insertNotes(notes.onEach { note -> note.isSynced = true } )
+            clearLocalDatabase()
+            insertNotes(notes.onEach { note -> note.isSynced = true })
         }
     }
 
@@ -109,7 +102,7 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
 
-    override fun findNoteByDate(date: Long): Note {
+    override suspend fun getNoteByDate(date: Long): Note {
         return noteDao.getNoteByDate(date) ?: Note(getCurrentDateAsLong())
     }
 

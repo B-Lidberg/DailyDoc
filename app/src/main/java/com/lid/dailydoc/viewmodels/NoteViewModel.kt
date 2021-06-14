@@ -8,34 +8,18 @@ import com.lid.dailydoc.other.Resource
 import com.lid.dailydoc.utils.getCurrentDateAsLong
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
 class NoteViewModel @Inject constructor(
-    private val repository: NoteRepositoryImpl
+    private val repository: NoteRepositoryImpl,
 ) : ViewModel() {
 
-    init {
-        viewModelScope.launch {
-            checkForCurrentNote()
-        }
-    }
+    private val forceUpdate = MutableLiveData<Boolean>(false)
 
+    fun syncAllNotes() = forceUpdate.postValue(true)
 
-    private val _forceUpdate = MutableLiveData<Boolean>(false)
-    val forceUpdate: LiveData<Boolean> = _forceUpdate
-
-    fun syncAllNotes() = _forceUpdate.postValue(true)
-
-    fun clearLocalDatabase() {
-        viewModelScope.launch {
-            repository.clearLocalDatabase()
-        }
-    }
-
-
-    private val _allNotes = _forceUpdate.switchMap {
+    private val _allNotes = forceUpdate.switchMap {
         repository.getAllNotes().asLiveData(viewModelScope.coroutineContext)
             .switchMap {
                 MutableLiveData(Event(it))
@@ -50,16 +34,14 @@ class NoteViewModel @Inject constructor(
     fun checkForCurrentNote() {
         viewModelScope.launch {
             val date = getCurrentDateAsLong()
-            val note = _currentNote?.value ?: Note(date)
-            if (note.date != date) {
-                _currentNote.postValue(Note(date))
-            }
+            val note = repository.getNoteByDate(date) ?: Note(date)
+            _currentNote.postValue(note)
         }
     }
 
     fun getCurrentNote(): Note {
         return runBlocking(Dispatchers.IO) {
-            repository.findNoteByDate(getCurrentDateAsLong())
+            repository.getNoteByDate(getCurrentDateAsLong())
         }
     }
 

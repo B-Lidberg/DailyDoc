@@ -15,13 +15,16 @@ import kotlinx.coroutines.Dispatchers
 fun DrawerNavigation(
     vm: UserViewModel,
     syncNotes: () -> Unit,
-    clearLocalDatabase: () -> Unit,
 ) {
 
     val uiDrawerState by vm.currentUiDrawerState.observeAsState(vm.currentUiDrawerState.value ?: UiDrawerState.LOADING)
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope { Dispatchers.IO }
+
+    LaunchedEffect(vm.currentUsername) {
+        syncNotes()
+    }
 
     Crossfade(
         targetState = uiDrawerState,
@@ -31,7 +34,7 @@ fun DrawerNavigation(
         when (state) {
             UiDrawerState.LOADING -> LoadingScreen(vm, scaffoldState)
 
-            UiDrawerState.LOGGED_IN -> UserScreen(vm, scaffoldState, scope, syncNotes, clearLocalDatabase)
+            UiDrawerState.LOGGED_IN -> UserScreen(vm, scaffoldState, syncNotes)
 
             UiDrawerState.LOGGED_OUT -> LoginScreen(vm, scaffoldState, scope)
 

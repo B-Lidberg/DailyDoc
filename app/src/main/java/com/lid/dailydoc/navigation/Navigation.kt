@@ -46,20 +46,15 @@ fun Navigation(
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
-    val userVm = hiltViewModel<UserViewModel>()
-    val noteListVm = hiltViewModel<NoteViewModel>()
-    LaunchedEffect(userVm.userData) {
-        noteListVm.syncAllNotes()
-        noteListVm.checkForCurrentNote()
-    }
 
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = NOTES) {
-
+            val userVm = hiltViewModel<UserViewModel>()
+            val noteListVm = hiltViewModel<NoteViewModel>()
             val note by noteListVm.currentNote.observeAsState(noteListVm.getCurrentNote())
 
             NoteListScreen(
-                noteListVm, userVm,
+                userVm, noteListVm,
                 actions.detailScreen, actions.addScreen,
                 note
             )
@@ -69,18 +64,8 @@ fun Navigation(
 
             val noteId = navController.previousBackStackEntry?.arguments?.getString(NOTE_ID)
             val note = noteId?.let { addNoteVm.getNoteById(noteId) } ?: Note(getCurrentDateAsLong())
-            NoteAddScreen(addNoteVm, actions.upPress, note!!)
+            NoteAddScreen(addNoteVm, actions.upPress, note)
         }
-//        if (noteId != null) {
-//            composable("$NOTE_KEY/${NOTE_ID}") {
-//                NoteAddScreen(addNoteVm, actions.upPress, note!!)
-//            }
-//        } else {
-//            composable("$NOTE_KEY/${NOTE_ID}") {
-//                NoteAddScreen(addNoteVm, actions.upPress, addNoteVm.cachedNote)
-//            }
-//        }
-
 
         composable("$NOTE_DETAILS/${NOTE_ID}") {
             val detailVm = hiltViewModel<NoteDetailViewModel>(backStackEntry = it)
@@ -92,7 +77,7 @@ fun Navigation(
         composable(
             route = SPLASH,
         ) {
-            SplashScreen(actions.mainScreen, { userVm.setLoginBoolean() } )
+            SplashScreen(actions.mainScreen)
         }
     }
 }

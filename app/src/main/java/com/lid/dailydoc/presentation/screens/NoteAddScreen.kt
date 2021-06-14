@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LiveData
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.presentation.components.addscreen_components.BodyField
@@ -38,6 +39,7 @@ fun NoteAddScreen(
     toMain: () -> Unit,
     note: Note,
 ) {
+
     val owner by vm.currentUsername.observeAsState(vm.currentUsername.value ?: "")
     val summary by vm.summary.observeAsState(note.summary)
     val body by vm.body.observeAsState(note.content)
@@ -57,6 +59,7 @@ fun NoteAddScreen(
     val clear = { vm.clearNote() }
 
     val snackbarHostState = remember { SnackbarHostState() }
+
 
     Scaffold(
         topBar = {

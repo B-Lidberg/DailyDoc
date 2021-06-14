@@ -12,17 +12,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.viewmodels.UserViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import okhttp3.internal.wait
 
 @Composable
 fun UserScreen(
     vm: UserViewModel,
     scaffoldState: ScaffoldState,
-    scope: CoroutineScope,
     syncNotes: () -> Unit,
-    clearLocalDatabase: () -> Unit,
 ) {
 
     val username by vm.currentUsername.observeAsState()
@@ -43,7 +38,7 @@ fun UserScreen(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = CenterVertically,
             ) {
-                UserSettings(vm, clearLocalDatabase)
+                UserSettings { vm.signOut() }
                 Spacer(modifier = Modifier.padding(end = 12.dp))
                 Text(text = "Account", fontSize = 24.sp, textAlign = TextAlign.Center)
             }
@@ -57,7 +52,7 @@ fun UserScreen(
 }
 
 @Composable
-fun UserSettings(vm: UserViewModel, clearLocalDatabase: () -> Unit) {
+fun UserSettings(signOut: () -> Unit) {
     var showSettings by remember { mutableStateOf(false) }
 
     IconButton(onClick = { showSettings = true }) {
@@ -72,11 +67,7 @@ fun UserSettings(vm: UserViewModel, clearLocalDatabase: () -> Unit) {
     ) {
         SignOutButton {
         showSettings = false
-        vm.signOut()
-        clearLocalDatabase()
-        vm.navigateToLoginScreen()
-
-
+            signOut()
         }
     }
 }

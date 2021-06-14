@@ -53,7 +53,6 @@ class UserDataRepository @Inject constructor(
                 .toBuilder()
                 .setUsername(newUsername)
                 .setPassword(newPassword)
-                .setUiDrawerState(UiDrawerState.LOADING)
                 .build()
         }
     }

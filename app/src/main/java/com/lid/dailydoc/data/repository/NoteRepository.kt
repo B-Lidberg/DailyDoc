@@ -20,7 +20,7 @@ interface NoteRepository {
 
     fun noteExists(date: Long): Flow<Boolean>
 
-    fun findNoteByDate(date: Long): Note
+    suspend fun getNoteByDate(date: Long): Note?
 
 
     suspend fun getAllUnsyncedNotes(): List<Note>

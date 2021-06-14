@@ -1,15 +1,9 @@
 package com.lid.dailydoc.viewmodels
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.datastore.core.DataStore
 import androidx.lifecycle.*
-import com.lid.dailydoc.UserData
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepositoryImpl
 import com.lid.dailydoc.data.repository.UserDataRepository
-import com.lid.dailydoc.other.Event
-import com.lid.dailydoc.other.Resource
 import com.lid.dailydoc.utils.getCurrentDateAsLong
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -132,7 +126,7 @@ class NoteAddViewModel @Inject constructor(
     suspend fun getCurrentNote(): Note {
         var result : Note? = null
         var waitFor = viewModelScope.async {
-            result = noteRepository.findNoteByDate(getCurrentDateAsLong())
+            result = noteRepository.getNoteByDate(getCurrentDateAsLong())
             return@async result!!
         }
         waitFor.await()
