@@ -93,18 +93,6 @@ class NoteAddViewModel @Inject constructor(
         _survey3.value = newAnswer
     }
 
-    init {
-        viewModelScope.launch {
-        val _date = getCurrentDateAsLong()
-        }
-    }
-
-    private var _date = getCurrentDateAsLong()
-    var date = _date
-
-    private var noteExists: Boolean = false
-
-    var cachedNote = Note(date = 18808)
 
 //    @ObsoleteCoroutinesApi
 //    fun cacheNote() {

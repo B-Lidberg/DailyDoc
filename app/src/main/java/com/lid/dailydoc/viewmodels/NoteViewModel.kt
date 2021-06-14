@@ -27,6 +27,15 @@ class NoteViewModel @Inject constructor(
     }
     val allNotes: LiveData<Event<Resource<List<Note>>>> = _allNotes
 
+    private val _currentNotes: MutableLiveData<List<Note>> = MutableLiveData()
+    val currentNotes: LiveData<List<Note>> = _currentNotes
+
+    fun updateCurrentNotes(notes: List<Note>) {
+        viewModelScope.launch {
+            _currentNotes.postValue(notes)
+        }
+    }
+
 
     private val _currentNote: MutableLiveData<Note> = MutableLiveData()
     val currentNote: LiveData<Note> = _currentNote

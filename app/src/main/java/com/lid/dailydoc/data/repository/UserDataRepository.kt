@@ -61,7 +61,9 @@ class UserDataRepository @Inject constructor(
         userDataStore.updateData { currentUserData ->
             currentUserData
                 .toBuilder()
-                .clear()
+                .clearUsername()
+                .clearPassword()
+//                .clear()
                 .build()
         }
     }

@@ -12,6 +12,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.viewmodels.UserViewModel
+import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun UserScreen(
@@ -26,7 +30,6 @@ fun UserScreen(
     val cDrawerState by vm.currentUiDrawerState.observeAsState()
 
     LaunchedEffect(username) {
-        vm.authenticateApi(username ?: "", password ?: "")
         syncNotes()
     }
 
@@ -39,9 +42,9 @@ fun UserScreen(
                 verticalAlignment = CenterVertically,
             ) {
                 UserSettings { vm.signOut() }
-                Spacer(modifier = Modifier.padding(end = 12.dp))
-                Text(text = "Account", fontSize = 24.sp, textAlign = TextAlign.Center)
             }
+            Spacer(modifier = Modifier.padding(end = 12.dp))
+            Text(text = "Account", fontSize = 24.sp, textAlign = TextAlign.Center)
 
             Spacer(modifier = Modifier.padding(24.dp))
             Text("User: $username")
