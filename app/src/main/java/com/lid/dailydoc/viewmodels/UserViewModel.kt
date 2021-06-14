@@ -1,8 +1,6 @@
 package com.lid.dailydoc.viewmodels
 
 import androidx.lifecycle.*
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.lid.dailydoc.UserData
 import com.lid.dailydoc.data.remote.BasicAuthInterceptor
 import com.lid.dailydoc.data.repository.AuthRepository
@@ -102,6 +100,12 @@ class UserViewModel @Inject constructor(
                     !password.isNullOrEmpty()
     }
 
+//    suspend fun isAuthenticated(userData: LiveData<UserData>): Boolean {
+//        val username = userData.value?.username ?: ""
+//        val password = userData.value?.password ?: ""
+//        if ()
+//    }
+
 
     private val _loginStatus = MutableLiveData<Resource<String>>()
     val loginStatus: LiveData<Resource<String>> = _loginStatus
@@ -159,8 +163,11 @@ class UserViewModel @Inject constructor(
 //            Firebase.auth.signOut()
         viewModelScope.launch {
             userDataRepository.clearUserData()
-        }.ensureActive()
+            _registerStatus.postValue(Resource.loading(null))
+            _loginStatus.postValue(Resource.loading(null))
+        }
         setLoginBoolean()
+
 
     }
 

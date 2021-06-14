@@ -26,14 +26,14 @@ fun LoadingScreen(
 
     val signedIn by vm.signedIn.observeAsState()
 
-    DisposableEffect(signedIn, vm.redirectScreen()) {
+    LaunchedEffect(signedIn) {
         vm.setLoginBoolean()
         delay(1000)
         if (vm.signedIn.value == true) {
-            vm.navigateToUserScreen()
-        } else {
-            vm.navigateToLoginScreen()
-        }
+                vm.navigateToUserScreen()
+            } else {
+                vm.navigateToLoginScreen()
+            }
     }
 
     Scaffold(

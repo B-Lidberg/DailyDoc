@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -27,7 +26,6 @@ import androidx.compose.ui.text.input.VisualTransformation.Companion.None
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.lid.dailydoc.R
 import com.lid.dailydoc.data.authorization.LoginWithGoogle
@@ -37,7 +35,6 @@ import com.lid.dailydoc.other.Status
 import com.lid.dailydoc.presentation.components.ProgressBar
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.*
-import okhttp3.internal.wait
 import timber.log.Timber
 
 @Composable
@@ -66,6 +63,11 @@ fun LoginScreen(
     val currentLifeCycle = LocalLifecycleOwner.current
 
 
+//    LaunchedEffect(vm.userData) {
+//        if (vm.isAuthenticated(vm.userData)) {
+//
+//        }
+//    }
 
     Scaffold(
         scaffoldState = scaffoldState,
