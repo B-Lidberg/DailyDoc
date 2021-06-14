@@ -15,7 +15,7 @@ Summary:
 $BULLET ${note.summary}
   
 Body: 
-$BULLET ${note.body} 
+$BULLET ${note.content} 
       
 Surveys:
  1. ${surveyQuestions[0]}: 

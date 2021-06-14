@@ -17,10 +17,6 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
-    Constants.USER_DATASTORE_NAME
-)
-
 @Singleton
 class UserDataRepository @Inject constructor(
     private val userDataStore: DataStore<UserData>

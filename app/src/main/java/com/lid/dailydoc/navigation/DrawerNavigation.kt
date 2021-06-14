@@ -14,6 +14,8 @@ import kotlinx.coroutines.Dispatchers
 @Composable
 fun DrawerNavigation(
     vm: UserViewModel,
+    syncNotes: () -> Unit,
+    clearLocalDatabase: () -> Unit,
 ) {
 
     val uiDrawerState by vm.currentUiDrawerState.observeAsState(vm.currentUiDrawerState.value ?: UiDrawerState.LOADING)
@@ -27,9 +29,9 @@ fun DrawerNavigation(
     ) { state ->
         updateTransition(uiDrawerState, label = "drawer_screen")
         when (state) {
-            UiDrawerState.LOADING -> LoadingScreen(vm, scaffoldState, scope)
+            UiDrawerState.LOADING -> LoadingScreen(vm, scaffoldState)
 
-            UiDrawerState.LOGGED_IN -> UserScreen(vm, scaffoldState, scope)
+            UiDrawerState.LOGGED_IN -> UserScreen(vm, scaffoldState, scope, syncNotes, clearLocalDatabase)
 
             UiDrawerState.LOGGED_OUT -> LoginScreen(vm, scaffoldState, scope)
 
@@ -37,7 +39,7 @@ fun DrawerNavigation(
 
             UiDrawerState.INFO -> { InfoScreen(vm, scaffoldState, scope) }
 
-            else -> LoadingScreen(vm, scaffoldState, scope)
+            else -> LoadingScreen(vm, scaffoldState)
 
 
         }

@@ -2,22 +2,64 @@ package com.lid.dailydoc.viewmodels
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.datastore.core.DataStore
 import androidx.lifecycle.*
+import com.lid.dailydoc.UserData
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.data.repository.NoteRepositoryImpl
+import com.lid.dailydoc.data.repository.UserDataRepository
+import com.lid.dailydoc.other.Event
+import com.lid.dailydoc.other.Resource
 import com.lid.dailydoc.utils.getCurrentDateAsLong
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
 class NoteAddViewModel @Inject constructor(
-    private val repositoryImpl: NoteRepositoryImpl
+    private val noteRepository: NoteRepositoryImpl,
+    userRepository: UserDataRepository
 ) : ViewModel() {
 
-    // DATE
-    @RequiresApi(Build.VERSION_CODES.O)
-    var date: Long = getCurrentDateAsLong()
+//    private val _note = MutableLiveData<Event<Resource<Note>>>()
+//    val note: LiveData<Event<Resource<Note>>> = _note
+
+    private val userDataFlow = userRepository.userDataFlow
+
+    val userData = userDataFlow.asLiveData()
+
+    val currentUsername = userDataFlow.map { user ->
+        user.username
+    }.asLiveData()
+
+    fun insertNote(note: Note) = GlobalScope.launch {
+        noteRepository.insertNote(note)
+    }
+
+//    fun getNoteById(noteId: String) = viewModelScope.launch {
+//        _note.postValue(Event(Resource.loading(null)))
+//        val note = noteRepository.getNoteById(noteId)
+//        note?.let { currentNote ->
+//            if (currentNote.date == getCurrentDateAsLong()) {
+//                _note.postValue(Event(Resource.success(currentNote)))
+//            } else {
+//                val newNote = Note(date = getCurrentDateAsLong())
+//                _note.postValue(Event(Resource.success(newNote)))
+//            }
+//        } ?: _note.postValue(Event(Resource.success(Note(getCurrentDateAsLong()))))
+//        // _note.postValue(Event(Resource.error("Note not found", null)))
+//    }
+//
+//    fun saveNote() {
+//        val authUser = currentUsername.value ?: ""
+//
+//
+//    }
+//
+//    // DATE
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    var date: Long = getCurrentDateAsLong()
 
     // SUMMARY
     private val _summary: MutableLiveData<String> = MutableLiveData()
@@ -57,37 +99,52 @@ class NoteAddViewModel @Inject constructor(
         _survey3.value = newAnswer
     }
 
-    // get or create Daily Note
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun setDate() {
-        date = getCurrentDateAsLong()
+    init {
+        viewModelScope.launch {
+        val _date = getCurrentDateAsLong()
+        }
     }
+
+    private var _date = getCurrentDateAsLong()
+    var date = _date
 
     private var noteExists: Boolean = false
 
     var cachedNote = Note(date = 18808)
 
-    @ObsoleteCoroutinesApi
-    fun cacheNote() {
-        viewModelScope.launch(Dispatchers.Default) {
-            noteExists = repositoryImpl.noteExists(date).asLiveData().value ?: false
-            cachedNote = if (noteExists) getNote() else Note(date)
-        }
-    }
+//    @ObsoleteCoroutinesApi
+//    fun cacheNote() {
+//        viewModelScope.launch(Dispatchers.Default) {
+//            noteExists = noteRepository.noteExists(date).asLiveData().value ?: false
+//            cachedNote = if (noteExists) getNote() else Note(date)
+//        }
+//    }
 
-    private fun getNote(): Note = repositoryImpl.findNoteByDate(date)
 
     fun getNoteById(noteId: String): Note {
         return runBlocking(Dispatchers.IO) {
-            repositoryImpl.getNoteById(noteId)
-        }!!
+            noteRepository.getNoteById(noteId)
+        } ?: Note(getCurrentDateAsLong(), owner = currentUsername.value ?: "")
     }
+
+//    fun getCurrentNote(): Note = noteRepository.findNoteByDate(getCurrentDateAsLong())
+
+    suspend fun getCurrentNote(): Note {
+        var result : Note? = null
+        var waitFor = viewModelScope.async {
+            result = noteRepository.findNoteByDate(getCurrentDateAsLong())
+            return@async result!!
+        }
+        waitFor.await()
+        return result!!
+    }
+
 
     // Add Note
     @ObsoleteCoroutinesApi
     fun addNote(note: Note) {
-        viewModelScope.launch(newSingleThreadContext("insert note")) {
-            if (noteExists) repositoryImpl.updateNote(note) else repositoryImpl.insertNote(note)
+        GlobalScope.launch {
+            noteRepository.insertNote(note)
         }
     }
 

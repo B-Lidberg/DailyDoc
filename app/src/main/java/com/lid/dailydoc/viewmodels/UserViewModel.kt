@@ -156,7 +156,7 @@ class UserViewModel @Inject constructor(
         }
         setLoginBoolean()
         _registerStatus.postValue(Resource.loading("default"))
-        _registerStatus.postValue(Resource.loading("default"))
+        _loginStatus.postValue(Resource.loading("default"))
     }
 
     fun signOut() {

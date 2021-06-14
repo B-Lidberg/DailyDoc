@@ -3,8 +3,8 @@
 package com.lid.dailydoc.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -20,6 +20,7 @@ import com.lid.dailydoc.presentation.screens.NoteAddScreen
 import com.lid.dailydoc.presentation.screens.NoteDetailScreen
 import com.lid.dailydoc.presentation.screens.NoteListScreen
 import com.lid.dailydoc.presentation.screens.SplashScreen
+import com.lid.dailydoc.utils.getCurrentDateAsLong
 import com.lid.dailydoc.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.viewmodels.NoteDetailViewModel
 import com.lid.dailydoc.viewmodels.NoteViewModel
@@ -45,21 +46,17 @@ fun Navigation(
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
-    val addNoteVm = hiltViewModel<NoteAddViewModel>()
-
     val userVm = hiltViewModel<UserViewModel>()
+    val noteListVm = hiltViewModel<NoteViewModel>()
+    LaunchedEffect(userVm.userData) {
+        noteListVm.syncAllNotes()
+        noteListVm.checkForCurrentNote()
+    }
 
     NavHost(navController = navController, startDestination = startDestination) {
+        composable(route = NOTES) {
 
-        composable(
-            route = NOTES,
-        ) {
-
-            val noteListVm = hiltViewModel<NoteViewModel>()
-
-            addNoteVm.setDate()
-            addNoteVm.cacheNote()
-            val note = addNoteVm.cachedNote
+            val note by noteListVm.currentNote.observeAsState(noteListVm.getCurrentNote())
 
             NoteListScreen(
                 noteListVm, userVm,
@@ -67,17 +64,23 @@ fun Navigation(
                 note
             )
         }
-        val noteId = navController.previousBackStackEntry?.arguments?.getString(NOTE_ID)
-        val note = noteId?.let { addNoteVm.getNoteById(it) }
-        if (noteId != null) {
-            composable("$NOTE_KEY/${NOTE_ID}") {
-                NoteAddScreen(addNoteVm, actions.upPress, note!!)
-            }
-        } else {
-            composable("$NOTE_KEY/${NOTE_ID}") {
-                NoteAddScreen(addNoteVm, actions.upPress, addNoteVm.cachedNote)
-            }
+        composable("$NOTE_KEY/${NOTE_ID}") {
+            val addNoteVm = hiltViewModel<NoteAddViewModel>()
+
+            val noteId = navController.previousBackStackEntry?.arguments?.getString(NOTE_ID)
+            val note = noteId?.let { addNoteVm.getNoteById(noteId) } ?: Note(getCurrentDateAsLong())
+            NoteAddScreen(addNoteVm, actions.upPress, note!!)
         }
+//        if (noteId != null) {
+//            composable("$NOTE_KEY/${NOTE_ID}") {
+//                NoteAddScreen(addNoteVm, actions.upPress, note!!)
+//            }
+//        } else {
+//            composable("$NOTE_KEY/${NOTE_ID}") {
+//                NoteAddScreen(addNoteVm, actions.upPress, addNoteVm.cachedNote)
+//            }
+//        }
+
 
         composable("$NOTE_DETAILS/${NOTE_ID}") {
             val detailVm = hiltViewModel<NoteDetailViewModel>(backStackEntry = it)
@@ -89,7 +92,7 @@ fun Navigation(
         composable(
             route = SPLASH,
         ) {
-            SplashScreen(actions.mainScreen)
+            SplashScreen(actions.mainScreen, { userVm.setLoginBoolean() } )
         }
     }
 }

@@ -56,7 +56,7 @@ class NoteDaoTest {
     @Test
     fun insert_note_into_database() = runBlockingTest {
         val note = Note(date = 123L, noteId = "0",
-            summary = "Test Summary", body = "Test Body",
+            summary = "Test Summary", content = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
         dao.insertNote(note)
@@ -68,7 +68,7 @@ class NoteDaoTest {
     @Test
     fun delete_single_note_from_database() = runBlockingTest {
         val note = Note(date = 123L, noteId = "0",
-            summary = "Test Summary", body = "Test Body",
+            summary = "Test Summary", content = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
         dao.insertNote(note)
@@ -81,11 +81,11 @@ class NoteDaoTest {
     @Test
     fun fetch_all_notes_from_database() = runBlockingTest {
         val note = Note(date = 123L, noteId = "0",
-            summary = "Test Summary", body = "Test Body",
+            summary = "Test Summary", content = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
         val note2 = Note(date = 1234L, noteId = "1",
-            summary = "Test Summary", body = "Test Body",
+            summary = "Test Summary", content = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
         dao.insertNote(note)
@@ -98,7 +98,7 @@ class NoteDaoTest {
     @Test
     fun find_noteById_in_database() = runBlockingTest {
         val note = Note(date = 123L, noteId = "0",
-            summary = "Test Summary", body = "Test Body",
+            summary = "Test Summary", content = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
         dao.insertNote(note)
@@ -110,7 +110,7 @@ class NoteDaoTest {
     @Test
     fun note_exists_in_database() = runBlockingTest {
         val note = Note(date = 123L, noteId = "0",
-            summary = "Test Summary", body = "Test Body",
+            summary = "Test Summary", content = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
         dao.insertNote(note)
@@ -123,7 +123,7 @@ class NoteDaoTest {
     @Test
     fun update_note_in_database() = runBlockingTest {
         val note = Note(date = 123L, noteId = "0",
-            summary = "Test Summary", body = "Test Body",
+            summary = "Test Summary", content = "Test Body",
             survey1 = "Yes", survey2 = "No", survey3 = "Maybe"
         )
         dao.insertNote(note)

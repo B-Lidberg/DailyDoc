@@ -14,17 +14,19 @@ inline fun <ResultType, RequestType> networkBoundResource(
 
     val flow = if (shouldFetch(data)) {
         emit(Resource.loading(data))
-
         try {
             val fetchedResult = fetch()
+
             saveFetchResult(fetchedResult)
             query().map { Resource.success(it) }
+
         } catch (t: Throwable) {
             onFetchFailed(t)
             query().map { Resource.error("Couldn't reach server. It might be down", it) }
         }
     } else {
         query().map { Resource.success(it) }
+
     }
 
     emitAll(flow)

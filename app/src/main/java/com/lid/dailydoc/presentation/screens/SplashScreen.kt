@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SplashScreen(
     toMain: () -> Unit,
+    loginBoolean: () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     Column(
@@ -25,6 +26,7 @@ fun SplashScreen(
         Text("Daily Doc", style = MaterialTheme.typography.h3)
         scope.launch {
             delay(1500)
+            loginBoolean()
             toMain()
         }
     }

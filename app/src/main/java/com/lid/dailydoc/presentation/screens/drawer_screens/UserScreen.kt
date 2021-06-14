@@ -13,20 +13,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.launch
+import okhttp3.internal.wait
 
 @Composable
 fun UserScreen(
     vm: UserViewModel,
     scaffoldState: ScaffoldState,
     scope: CoroutineScope,
+    syncNotes: () -> Unit,
+    clearLocalDatabase: () -> Unit,
 ) {
 
     val username by vm.currentUsername.observeAsState()
+    val password by vm.currentPassword.observeAsState()
 
-    val cUsername by vm.currentUsername.observeAsState()
-    val cPassword by vm.currentPassword.observeAsState()
     val cDrawerState by vm.currentUiDrawerState.observeAsState()
+
+    LaunchedEffect(username) {
+        vm.authenticateApi(username ?: "", password ?: "")
+        syncNotes()
+    }
 
 
     Scaffold(scaffoldState = scaffoldState) {
@@ -36,22 +43,21 @@ fun UserScreen(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = CenterVertically,
             ) {
-                UserSettings(vm)
+                UserSettings(vm, clearLocalDatabase)
                 Spacer(modifier = Modifier.padding(end = 12.dp))
                 Text(text = "Account", fontSize = 24.sp, textAlign = TextAlign.Center)
             }
 
             Spacer(modifier = Modifier.padding(24.dp))
             Text("User: $username")
-            Text(text = "username: $cUsername")
-            Text(text = "password: $cPassword")
+            Text(text = "password: $password")
             Text(text = "screen: $cDrawerState")
         }
     }
 }
 
 @Composable
-fun UserSettings(vm: UserViewModel) {
+fun UserSettings(vm: UserViewModel, clearLocalDatabase: () -> Unit) {
     var showSettings by remember { mutableStateOf(false) }
 
     IconButton(onClick = { showSettings = true }) {
@@ -65,12 +71,15 @@ fun UserSettings(vm: UserViewModel) {
         onDismissRequest = { showSettings = false }
     ) {
         SignOutButton {
-            showSettings = false
-                vm.signOut()
-                vm.navigateToLoginScreen()
-            }
+        showSettings = false
+        vm.signOut()
+        clearLocalDatabase()
+        vm.navigateToLoginScreen()
+
+
         }
     }
+}
 
 @Composable
 fun SignOutButton(logoutUser: () -> Unit) {

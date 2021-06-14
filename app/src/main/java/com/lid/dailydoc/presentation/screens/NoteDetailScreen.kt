@@ -49,10 +49,13 @@ fun NoteDetailScreen(
 @Composable
 fun TempBody(note: Note) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
+        item { Text(text = "Owner:\n${note.owner}\n", fontSize = 24.sp) }
+
         item { Text(text = "Note ID:\n${note.noteId}\n", fontSize = 24.sp) }
+        item { Text(text = "DATE:\n${note.date}\n") }
         item { SurveyDetails(note) }
         item { Text(text = "Summary:\n${note.summary}\n", fontSize = 24.sp) }
-        item { Text(text = "Body:\n${note.body}\n", fontSize = 24.sp) }
+        item { Text(text = "Body:\n${note.content}\n", fontSize = 24.sp) }
     }
 }
 

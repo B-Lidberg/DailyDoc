@@ -12,7 +12,7 @@ data class Note(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "note_id") val noteId: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "note_summary") var summary: String = "",
-    @ColumnInfo(name = "note_body") var body: String = "",
+    @ColumnInfo(name = "note_body") var content: String = "",
     @ColumnInfo(name = "note_survey1") var survey1: String = "",
     @ColumnInfo(name = "note_survey2") var survey2: String = "",
     @ColumnInfo(name = "note_survey3") var survey3: String = "",

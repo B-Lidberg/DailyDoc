@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,16 +42,15 @@ import timber.log.Timber
 fun LoginScreen(
     vm: UserViewModel,
     scaffoldState: ScaffoldState,
-    scope: CoroutineScope
+    scope: CoroutineScope,
 ) {
     val launcher = rememberLauncherForActivityResult(LoginWithGoogle()) {
         if (it != null) {
 //            vm.loginWithGoogle(it)
         }
     }
-//    val loading by vm.loading.observeAsState(false)
 
-    val username = remember { mutableStateOf("") }
+    val username = rememberSaveable { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val passwordVisibility = remember { mutableStateOf(false) }
 
@@ -61,13 +61,6 @@ fun LoginScreen(
     val cDrawerState by vm.currentUiDrawerState.observeAsState()
 
     val currentLifeCycle = LocalLifecycleOwner.current
-
-
-//    LaunchedEffect(vm.userData) {
-//        if (vm.isAuthenticated(vm.userData)) {
-//
-//        }
-//    }
 
     Scaffold(
         scaffoldState = scaffoldState,

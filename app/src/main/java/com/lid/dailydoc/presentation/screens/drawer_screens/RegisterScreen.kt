@@ -18,7 +18,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import com.lid.dailydoc.data.extras.appName
-import com.lid.dailydoc.UserData.UiDrawerState
 import com.lid.dailydoc.other.Status
 import com.lid.dailydoc.presentation.components.ProgressBar
 import com.lid.dailydoc.viewmodels.UserViewModel
@@ -30,22 +29,20 @@ import kotlinx.coroutines.launch
 fun RegisterScreen(
     vm: UserViewModel,
     scaffoldState: ScaffoldState,
-    scope: CoroutineScope
+    scope: CoroutineScope,
 ) {
 
     val visibility = remember { mutableStateOf(false) }
 
     val username = rememberSaveable { mutableStateOf("") }
-    val password = rememberSaveable { mutableStateOf("") }
-    val confirmedPassword = rememberSaveable { mutableStateOf("") }
-    val passwordVisibility = rememberSaveable { mutableStateOf(false) }
+    val password = remember { mutableStateOf("") }
+    val confirmedPassword = remember { mutableStateOf("") }
+    val passwordVisibility = remember { mutableStateOf(false) }
     val cUsername by vm.currentUsername.observeAsState()
     val cPassword by vm.currentPassword.observeAsState()
     val cDrawerState by vm.currentUiDrawerState.observeAsState()
 
     val currentLifeCycle = LocalLifecycleOwner.current
-
-
 
     Scaffold(
         scaffoldState = scaffoldState
@@ -196,6 +193,7 @@ fun RegisterScreen(
                                             result.data ?: "Successfully registered an account"
                                         )
                                     }
+                                    vm.authenticateApi(trimmedUsername, trimmedPassword)
                                     vm.setUserData(trimmedUsername, trimmedPassword)
                                     vm.navigateToUserScreen()
                                 }
@@ -241,4 +239,5 @@ fun RegisterScreen(
         }
     }
 }
+
 

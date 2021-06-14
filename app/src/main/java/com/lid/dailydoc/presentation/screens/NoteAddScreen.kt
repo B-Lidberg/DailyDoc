@@ -38,15 +38,16 @@ fun NoteAddScreen(
     toMain: () -> Unit,
     note: Note,
 ) {
+    val owner by vm.currentUsername.observeAsState(vm.currentUsername.value ?: "")
     val summary by vm.summary.observeAsState(note.summary)
-    val body by vm.body.observeAsState(note.body)
+    val body by vm.body.observeAsState(note.content)
     val survey1 by vm.survey1.observeAsState(note.survey1)
     val survey2 by vm.survey2.observeAsState(note.survey2)
     val survey3 by vm.survey3.observeAsState(note.survey3)
 
     val completeNote = Note(
-        date = note.date, noteId = note.noteId, summary = summary, body = body,
-        survey1 = survey1, survey2 = survey2, survey3 = survey3,
+        date = note.date, noteId = note.noteId, summary = summary, content = body,
+        survey1 = survey1, survey2 = survey2, survey3 = survey3, owner = owner
     )
 
     var expandedSurveyBar by remember { mutableStateOf<String?>(null) }
@@ -60,7 +61,7 @@ fun NoteAddScreen(
     Scaffold(
         topBar = {
             HeaderDateBar(
-                vm.cachedNote.date,
+                note.date,
                 clear
             )
         },
