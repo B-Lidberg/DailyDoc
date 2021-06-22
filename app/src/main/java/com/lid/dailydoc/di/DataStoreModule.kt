@@ -3,7 +3,6 @@ package com.lid.dailydoc.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
-import androidx.datastore.core.Serializer
 import androidx.datastore.dataStoreFile
 import com.lid.dailydoc.UserData
 import com.lid.dailydoc.data.datastore.data.UserDataSerializer

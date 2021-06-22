@@ -22,6 +22,9 @@ interface NoteRepository {
 
     suspend fun getNoteByDate(date: Long): Note?
 
+    fun getAllNotesForUser(user: String): Flow<Resource<List<Note>>>
+
+    fun getUsersForCurrentUser(): Flow<Resource<List<String>>>
 
     suspend fun getAllUnsyncedNotes(): List<Note>
 

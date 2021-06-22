@@ -1,7 +1,9 @@
 package com.lid.dailydoc.viewmodels
 
 import androidx.lifecycle.*
-import com.lid.dailydoc.UserData
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.lid.dailydoc.data.remote.BasicAuthInterceptor
 import com.lid.dailydoc.data.repository.AuthRepository
 import com.lid.dailydoc.data.repository.NoteRepositoryImpl
@@ -9,8 +11,10 @@ import com.lid.dailydoc.data.repository.UserDataRepository
 import com.lid.dailydoc.other.Constants.NO_PASSWORD
 import com.lid.dailydoc.other.Constants.NO_USERNAME
 import com.lid.dailydoc.other.Resource
+import com.lid.dailydoc.utils.LoadingState
+import com.lid.dailydoc.utils.await
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,6 +27,8 @@ class UserViewModel @Inject constructor(
     private val noteRepository: NoteRepositoryImpl,
     private val basicAuthInterceptor: BasicAuthInterceptor,
 ) : ViewModel() {
+
+    val loadingState = MutableStateFlow(LoadingState.IDLE)
 
     private val userDataFlow = userDataRepository.userDataFlow
 
@@ -65,31 +71,6 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch {
             userDataRepository.setUiDrawerStateToInfo()
         }
-    }
-
-    fun navigateToLoadingScreen() {
-        viewModelScope.launch {
-            userDataRepository.setUiDrawerStateToLoading()
-        }
-    }
-
-    fun redirectScreen() {
-        viewModelScope.launch {
-            if (signedIn.value == true) {
-                userDataRepository.setUiDrawerStateToLoggedIn()
-            } else {
-                userDataRepository.setUiDrawerStateToLoggedOut()
-            }
-        }
-    }
-
-    fun isLoggedIn(): Boolean {
-        val username = userData.value?.username
-        val password = userData.value?.password
-        return  username != NO_USERNAME &&
-                !username.isNullOrEmpty() &&
-                password != NO_PASSWORD &&
-                !password.isNullOrEmpty()
     }
 
     fun setLoginBoolean() {
@@ -161,15 +142,20 @@ class UserViewModel @Inject constructor(
         navigateToLoginScreen()
     }
 
-//    fun loginWithGoogle(idToken: String) = viewModelScope.launch {
-//        try {
-//            _loading.postValue(true)
-//            authRepository.loginWithGoogle(idToken)
-//            _signedIn.postValue(true)
-//        } catch (e: Exception) {
-//            _error.postValue(e.localizedMessage)
-//        } finally {
-//            _loading.postValue(false)
-//        }
-//    }
+    fun loginWithGoogle(credential: AuthCredential) = viewModelScope.launch {
+        try {
+            loadingState.emit(LoadingState.LOADING)
+            Firebase.auth.signInWithCredential(credential).await()
+            loadingState.emit(LoadingState.LOADED)
+        } catch (e: Exception) {
+            loadingState.emit(LoadingState.error(e.localizedMessage))
+        }
+        try {
+            loadingState.emit(LoadingState.LOADING)
+            Firebase.auth.signInWithCredential(credential).await()
+            loadingState.emit(LoadingState.LOADED)
+        } catch (e: Exception) {
+            loadingState.emit(LoadingState.error(e.localizedMessage))
+        }
+    }
 }

@@ -1,7 +1,9 @@
 package com.lid.dailydoc.presentation.screens.drawer_screens
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -10,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.lid.dailydoc.presentation.components.ProgressBar
 import com.lid.dailydoc.viewmodels.UserViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 
 @Composable

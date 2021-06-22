@@ -31,7 +31,7 @@ fun ClearButton(onAction: () -> Unit) {
                         Text(
                             "If Confirmed the note will be cleared, " +
                                     "however an overwrite will not occur until Saved. " +
-                                    "To retain previous state, close and re-open the app"
+                                    "To retain previous state, press the back button or close the app"
                         )
                     },
                     confirmButton = {

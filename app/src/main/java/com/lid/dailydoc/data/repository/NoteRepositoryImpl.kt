@@ -131,4 +131,11 @@ class NoteRepositoryImpl @Inject constructor(
         return noteDao.observeNoteById(noteId)
     }
 
+    override fun getAllNotesForUser(user: String): Flow<Resource<List<Note>>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUsersForCurrentUser(): Flow<Resource<List<String>>> {
+        TODO("Not yet implemented")
+    }
 }

@@ -3,9 +3,7 @@ package com.lid.dailydoc.presentation.screens
 
 import android.content.Context
 import android.content.Intent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -13,6 +11,9 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lid.dailydoc.data.extras.surveyQuestions
@@ -20,15 +21,13 @@ import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.presentation.components.CustomTopBar
 import com.lid.dailydoc.utils.getDateAsString
 import com.lid.dailydoc.utils.getNoteInfo
-import com.lid.dailydoc.viewmodels.NoteDetailViewModel
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun NoteDetailScreen(
-    vm: NoteDetailViewModel,
-    noteId: String,
+    getNote: () -> Note,
 ) {
-    val note = vm.getNote(noteId)
+    val note = getNote.invoke()
     val headerDate = getDateAsString(note.date)
 
     Scaffold(
@@ -42,18 +41,39 @@ fun NoteDetailScreen(
             }
         },
         content = {
-            TempBody(note)
+            NoteDetails(note)
         }
     )
 }
 
 @Composable
-fun TempBody(note: Note) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        item { Text(text = "Summary:\n${note.summary}\n", fontSize = 24.sp) }
-        item { MarkdownText(markdown = "${note.content}\n", fontSize = 24.sp) }
+fun NoteDetails(note: Note) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        item {
+            Box() {
+                Text(
+                    text = note.summary,
+                    style = MaterialTheme.typography.h4,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                )
+            }
+        }
+        item { Divider(Modifier.fillMaxWidth(.85f).height(2.dp)) }
+        item {
+            Box {
+                MarkdownText(
+                    markdown = note.content,
+                    style = MaterialTheme.typography.body1,
+                    modifier = Modifier.padding(top = 16.dp, bottom = 24.dp),
+                )
+            }
+        }
+        }
     }
-}
 
 @Composable
 fun SurveyDetails(note: Note) {
@@ -83,5 +103,41 @@ private fun shareNote(note: Note, context: Context) {
         putExtra(Intent.EXTRA_TEXT, getNoteInfo(note))
     }
     context.startActivity(Intent.createChooser(intent, "Share note"))
+}
+
+@Preview
+@Composable
+fun ComposablePreview() {
+    val note = Note(date = 18850, summary = "A note with markdown text and a bunch of random text to fill the screen as well!",
+        content =
+        """# Markdown Text & Preview added 
+
+* Markdown put into NoteDetailScreen 
+* Preview added for screen as well 
+
+*This should be italicized* 
+**This should be bold** 
+***This should be I and B***
+
+x
+y
+z"""
+        )
+    val headerDate = getDateAsString(note.date)
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                backgroundColor = MaterialTheme.colors.background,
+                elevation = 0.dp,
+                modifier = Modifier.padding(bottom = 6.dp, start = 8.dp, end = 8.dp)
+            ) {
+                CustomTopBar(headerDate) { ShareNoteButton(note) }
+            }
+        },
+        content = {
+            NoteDetails(note)
+        }
+    )
 }
 

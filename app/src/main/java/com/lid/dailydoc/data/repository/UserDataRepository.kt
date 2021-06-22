@@ -1,18 +1,14 @@
 package com.lid.dailydoc.data.repository
 
-import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import com.lid.dailydoc.UserData
 import com.lid.dailydoc.UserData.UiDrawerState
-import com.lid.dailydoc.other.Constants
 import com.lid.dailydoc.other.Constants.NO_PASSWORD
 import com.lid.dailydoc.other.Constants.NO_USERNAME
-import com.lid.dailydoc.other.Status
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -27,7 +23,7 @@ class UserDataRepository @Inject constructor(
     val userDataFlow: Flow<UserData> = userDataStore.data
         .catch { exception ->
             if (exception is IOException) {
-                Log.e(TAG, "Error reading user data.", exception)
+                Timber.e(exception, "Error reading user data.")
             } else {
                 throw exception
             }

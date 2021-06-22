@@ -1,8 +1,7 @@
 # DailyDoc
 **Productivity Note App utilizing Jetpack Compose**
 
-***
-Currently working on improving UI features and will be applying these directly to the main branch***
+***Currently working on improving UI features and will be applying these directly to the main branch***
 
 
 First project - Feedback welcomed! 

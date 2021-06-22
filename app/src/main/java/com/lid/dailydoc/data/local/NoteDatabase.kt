@@ -1,7 +1,8 @@
 package com.lid.dailydoc.data.local
 
-import androidx.room.*
-import androidx.room.migration.AutoMigrationSpec
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.lid.dailydoc.data.model.LocallyDeletedNoteId
 import com.lid.dailydoc.data.model.Note
 

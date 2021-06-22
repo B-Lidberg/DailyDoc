@@ -33,7 +33,6 @@ fun NoteListScreen(
     toAdd: (Note) -> Unit,
     currentNote: Note,
 ) {
-//    val currentNotes = remember { mutableStateOf<List<Note>>(emptyList()) }
     val currentNotes by vm.currentNotes.observeAsState(emptyList())
     val exists by vm.exists.observeAsState(false)
     val drawerState = rememberDrawerState(DrawerValue.Closed)

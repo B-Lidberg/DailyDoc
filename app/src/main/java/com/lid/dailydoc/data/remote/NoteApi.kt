@@ -40,4 +40,14 @@ interface NoteApi {
 
     @GET("/getNotes")
     suspend fun getNotes(): Response<List<Note>>
+
+    @GET("/getUsersForCurrentUser")
+    suspend fun getUsersForCurrentUser(
+        @Body user: String
+    ): Response<List<String>>
+
+    @GET("/getNotesForUser")
+    suspend fun getNotesForUser(
+        @Body user: String
+    ): Response<List<Note>>
 }

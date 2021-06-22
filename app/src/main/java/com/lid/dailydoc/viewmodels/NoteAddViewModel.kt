@@ -31,6 +31,7 @@ class NoteAddViewModel @Inject constructor(
         noteRepository.insertNote(note)
     }
 
+
 //    fun getNoteById(noteId: String) = viewModelScope.launch {
 //        _note.postValue(Event(Resource.loading(null)))
 //        val note = noteRepository.getNoteById(noteId)
@@ -113,7 +114,7 @@ class NoteAddViewModel @Inject constructor(
 
     suspend fun getCurrentNote(): Note {
         var result : Note? = null
-        var waitFor = viewModelScope.async {
+        val waitFor = viewModelScope.async {
             result = noteRepository.getNoteByDate(getCurrentDateAsLong())
             return@async result!!
         }

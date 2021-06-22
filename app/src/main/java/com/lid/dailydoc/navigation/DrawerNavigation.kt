@@ -4,8 +4,11 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import com.lid.dailydoc.UserData.UiDrawerState
 import com.lid.dailydoc.presentation.screens.drawer_screens.*
 import com.lid.dailydoc.viewmodels.UserViewModel
@@ -34,7 +37,7 @@ fun DrawerNavigation(
         when (state) {
             UiDrawerState.LOADING -> LoadingScreen(vm, scaffoldState)
 
-            UiDrawerState.LOGGED_IN -> UserScreen(vm, scaffoldState, syncNotes)
+            UiDrawerState.LOGGED_IN -> UserScreen(vm.currentUsername, scaffoldState, { vm.signOut() }, syncNotes)
 
             UiDrawerState.LOGGED_OUT -> LoginScreen(vm, scaffoldState, scope)
 

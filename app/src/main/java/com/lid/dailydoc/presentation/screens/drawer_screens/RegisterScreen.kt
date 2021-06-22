@@ -5,8 +5,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,9 +39,6 @@ fun RegisterScreen(
     val password = remember { mutableStateOf("") }
     val confirmedPassword = remember { mutableStateOf("") }
     val passwordVisibility = remember { mutableStateOf(false) }
-    val cUsername by vm.currentUsername.observeAsState()
-    val cPassword by vm.currentPassword.observeAsState()
-    val cDrawerState by vm.currentUiDrawerState.observeAsState()
 
     val currentLifeCycle = LocalLifecycleOwner.current
 
@@ -182,7 +180,7 @@ fun RegisterScreen(
                         trimmedPassword,
                         trimmedConfirmedPassword
                     )
-                    vm.registerStatus.observe(currentLifeCycle, Observer { result ->
+                    vm.registerStatus.observe(currentLifeCycle, { result ->
                         result?.let {
                             when (result.status) {
                                 Status.SUCCESS -> {
@@ -232,9 +230,6 @@ fun RegisterScreen(
                         "others will see your username.",
                 modifier = Modifier.padding(8.dp)
             )
-            Text(text = "username: $cUsername")
-            Text(text = "password: $cPassword")
-            Text(text = "screen: $cDrawerState")
             ProgressBar(visibility = visibility.value)
         }
     }
