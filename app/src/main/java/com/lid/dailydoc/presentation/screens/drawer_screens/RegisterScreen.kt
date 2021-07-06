@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -91,7 +92,7 @@ fun RegisterScreen(
                     }
                     ) {
                         Icon(
-                            Icons.Default.Warning,
+                            Icons.Default.Visibility,
                             contentDescription = "Change password visibility",
                             tint = if (passwordVisibility.value) MaterialTheme.colors.primary
                             else Color.LightGray
@@ -133,7 +134,7 @@ fun RegisterScreen(
                     }
                     ) {
                         Icon(
-                            Icons.Default.Warning,
+                            Icons.Default.Visibility,
                             contentDescription = "Change password visibility",
                             tint = if (passwordVisibility.value) MaterialTheme.colors.primary
                             else Color.LightGray

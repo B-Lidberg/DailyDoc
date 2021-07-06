@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PanoramaFishEye
+import androidx.compose.material.icons.filled.Password
+import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -102,7 +105,7 @@ fun LoginScreen(
                     }
                     ) {
                         Icon(
-                            Icons.Default.Warning,
+                            Icons.Default.Visibility,
                             contentDescription = "Change password visibility",
                             tint = if (passwordVisibility.value) MaterialTheme.colors.primary
                             else Color.LightGray
