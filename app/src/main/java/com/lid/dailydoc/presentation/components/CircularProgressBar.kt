@@ -19,11 +19,10 @@ fun ProgressBar(visibility: Boolean) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("Loading...", style = MaterialTheme.typography.h6)
-            Spacer(modifier = Modifier.padding(4.dp))
             CircularProgressIndicator(
-                Modifier
-                    .fillMaxSize(.15f)
+                modifier = Modifier
+                    .fillMaxSize(.15f),
+                color = MaterialTheme.colors.secondary
             )
         }
     }

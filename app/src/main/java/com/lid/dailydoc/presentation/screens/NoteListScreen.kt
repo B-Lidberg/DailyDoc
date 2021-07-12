@@ -12,6 +12,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lid.dailydoc.data.model.Note
 import com.lid.dailydoc.navigation.DrawerNavigation
@@ -27,13 +28,13 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun NoteListScreen(
-    userVm: UserViewModel = viewModel(),
-    vm: NoteViewModel = viewModel(),
+    userVm: UserViewModel = hiltViewModel(),
+    vm: NoteViewModel = hiltViewModel(),
     toDetails: (String) -> Unit,
     toAdd: (Note) -> Unit,
-    currentNote: Note,
 ) {
     val currentNotes by vm.currentNotes.observeAsState(emptyList())
+    val currentNote by vm.currentNote.observeAsState(vm.getCurrentNote())
     val exists by vm.exists.observeAsState(false)
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
@@ -55,7 +56,6 @@ fun NoteListScreen(
             topBar = { NoteListTopBar() },
             floatingActionButton = { AddNoteButton(toAdd, currentNote, exists) },
             content = {
-                ProgressBar(progressBarVisibility.value)
                 vm.allNotes.observe(currentLifeCycle, {
                     it?.let { event ->
                         val result = event.peekContent()
@@ -87,6 +87,8 @@ fun NoteListScreen(
                     }
                 })
                 NoteList(currentNotes, toDetails, { vm.checkForCurrentNote() } )
+                ProgressBar(progressBarVisibility.value)
+
             }
         )
     }

@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -16,7 +17,7 @@ fun SurveyButtonAndOptions(
 ) {
     onSurveyChange(savedAnswer)
 
-    Text(survey[0])
+    Text(survey[0], textAlign = TextAlign.Center)
     Spacer(modifier = Modifier.size(4.dp))
     val surveyAnswers = survey.drop(1)
 
@@ -32,8 +33,8 @@ fun SurveyButtonAndOptions(
         answerSets.forEach { answerSet ->
             Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                 answerSet.forEach { surveyAnswer ->
-                    OutlinedButton(
-                        modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
+                    Button(
+                        modifier = Modifier.padding(bottom = 4.dp),
                         onClick = { onSurveyChange(surveyAnswer) },
                         shape = CircleShape,
                         colors = surveyButtonBackground(savedAnswer, surveyAnswer),

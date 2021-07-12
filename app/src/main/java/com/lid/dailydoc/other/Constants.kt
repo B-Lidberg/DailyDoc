@@ -15,8 +15,17 @@ object Constants {
     const val DATABASE_NAME = "note_database"
 
     // URL
-    const val BASE_URL = "http://10.0.2.2:8080"
+//    const val BASE_URL = "http://10.0.2.2:8843"
+    const val BASE_URL = "http://192.168.1.202:8843"
+
     val IGNORE_AUTH_URLS = listOf("/login", "/register")
+
+    // Navigation Routes
+    const val NOTES = "notes"
+    const val NOTE_DETAILS = "note_details"
+    const val NOTE_ID = "noteId"
+    const val NOTE_KEY = "note"
+    const val SPLASH = "loading"
 
     // DataStore
     object DataStore {

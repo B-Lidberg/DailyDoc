@@ -7,7 +7,7 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.lid.dailydoc.presentation.components.CustomButton
+import com.lid.dailydoc.presentation.components.SimpleTextButton
 
 @Composable
 fun ClearButton(onAction: () -> Unit) {
@@ -35,7 +35,7 @@ fun ClearButton(onAction: () -> Unit) {
                         )
                     },
                     confirmButton = {
-                        CustomButton(
+                        SimpleTextButton(
                             onClick = {
                                 onAction()
                                 openDialog.value = false
@@ -44,7 +44,7 @@ fun ClearButton(onAction: () -> Unit) {
                         )
                     },
                     dismissButton = {
-                        CustomButton(
+                        SimpleTextButton(
                             onClick = { openDialog.value = false },
                             text = "Dismiss"
                         )

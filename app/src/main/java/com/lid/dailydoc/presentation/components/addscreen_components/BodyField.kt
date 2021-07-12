@@ -12,6 +12,7 @@ import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 
@@ -29,6 +30,7 @@ fun BodyField(
         value = body,
         onValueChange = { bodyChange(it) },
         label = { Text(text = "Note Body") },
+        placeholder = { Text(text = "Comments and Reflection go here", Modifier.alpha(.25f)) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = colors.background,
             unfocusedBorderColor = colors.background

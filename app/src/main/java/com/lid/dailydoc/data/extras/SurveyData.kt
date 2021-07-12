@@ -25,4 +25,50 @@ val survey3Data = listOf(
     "Stopped early"
 )
 
+val surveyNumberData01 = listOf(
+    surveyQuestions[0],
+    "1",
+    "2",
+)
+val surveyNumberData3 = listOf(
+    surveyQuestions[1],
+    "1",
+    "2",
+    "3",
+)
+val surveyNumberData4 = listOf(
+    surveyQuestions[2],
+    "1",
+    "2",
+    "3",
+    "4"
+)
+val surveyNumberData5 = listOf(
+    surveyQuestions[2],
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+)
+val surveyNumberData6 = listOf(
+    surveyQuestions[2],
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
+)
+val surveyNumberData7 = listOf(
+    surveyQuestions[2],
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7"
+)
+
 
