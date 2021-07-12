@@ -1,7 +1,7 @@
 # DailyDoc
 **Productivity Note App utilizing Jetpack Compose**
 
-***Currently working on improving UI features and will be applying these directly to the main branch***
+***Working with another developer to build mocks to rebuild the design for Daily Doc! Current design only showcases current app functionality***
 
 
 First project - Feedback welcomed! 
@@ -9,13 +9,6 @@ First project - Feedback welcomed!
 Daily Doc is a productivity app to help you keep track of your daily progress inspired by 100-day-challenges.
 
 Direct Download: [Daily Doc](https://drive.google.com/file/d/1QNgtfXcrYIcCSJWijaeHScoawmNUNh6e/view?usp=sharing)
-
-There is a branch without Hilt (pre-hilt) if you're interested, but it will no longer be updated unless asked to.
-
-There is also branches for local Database only, and another with remote using Retrofit & Proto DataStore.
-
-Working with another developer to build mocks to rebuild the design for Daily Doc! Current design only showcases current app functionality
-
 
 --------------------------------------
   
