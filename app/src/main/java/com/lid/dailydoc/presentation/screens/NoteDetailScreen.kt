@@ -24,9 +24,8 @@ import com.lid.dailydoc.utils.getNoteInfo
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
-fun NoteDetailScreen(
-    getNote: () -> Note,
-) {
+fun NoteDetailScreen(getNote: () -> Note) {
+
     val note = getNote.invoke()
     val headerDate = getDateAsString(note.date)
 
@@ -62,7 +61,10 @@ fun NoteDetails(note: Note) {
                 )
             }
         }
-        item { Divider(Modifier.fillMaxWidth(.85f).height(2.dp)) }
+        item { Divider(
+            Modifier
+                .fillMaxWidth(.85f)
+                .height(2.dp)) }
         item {
             Box {
                 MarkdownText(

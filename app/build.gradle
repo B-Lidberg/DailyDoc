@@ -86,14 +86,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.0'
 
 
-    def ktx_version = "1.3.2"
-    def appCompat_version = "1.3.0"
-    def material_version = "1.3.0"
-    def compose_activity_version = "1.3.0-alpha07"
+    def ktx_version = "1.6.0"
+    def appCompat_version = "1.3.1"
+    def material_version = "1.4.0"
+    def compose_activity_version = "1.3.0"
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "androidx.appcompat:appcompat:$appCompat_version"
     implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling:1.0.0-beta09"
     implementation "androidx.activity:activity-compose:$compose_activity_version"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -114,21 +114,21 @@ dependencies {
     androidTestImplementation "android.arch.core:core-testing:1.1.1"
 
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
-    androidTestImplementation 'androidx.test:core:1.3.0'
+    androidTestImplementation 'androidx.test:core:1.4.0'
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
 
-    androidTestImplementation 'com.google.truth:truth:1.0.1'
+    androidTestImplementation 'com.google.truth:truth:1.1.2'
     androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
 
-    androidTestUtil 'androidx.test:orchestrator:1.3.0'
+    androidTestUtil 'androidx.test:orchestrator:1.4.0'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
     // LifeCycle
     def lifecycle_version = "2.3.1"
-    def compose_lifecycle_version = "1.0.0-alpha04"
+    def compose_lifecycle_version = "1.0.0-alpha07"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
@@ -137,13 +137,13 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
     // Navigation
-    def nav_version = "2.4.0-alpha01"
+    def nav_version = "2.4.0-alpha05"
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
     // Hilt
-    def hiltCoreVersion = "2.35.1"
+    def hiltCoreVersion = "2.37"
     def hiltVersion = "1.0.0-beta01"
-    def hiltComposeNavigation = "1.0.0-alpha02"
+    def hiltComposeNavigation = "1.0.0-alpha03"
     implementation "com.google.dagger:hilt-android:$hiltCoreVersion"
     implementation "androidx.hilt:hilt-navigation-compose:$hiltComposeNavigation"
     kapt "com.google.dagger:hilt-compiler:$hiltCoreVersion"
@@ -154,7 +154,7 @@ dependencies {
     kaptAndroidTest "com.google.dagger:hilt-compiler:$hiltCoreVersion"
 
     // Room Database
-    def room_version = '2.4.0-alpha02'
+    def room_version = '2.4.0-alpha04'
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -162,33 +162,33 @@ dependencies {
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:27.0.0')
     implementation 'com.google.firebase:firebase-auth-ktx'
-    implementation('com.google.android.gms:play-services-auth:19.0.0')
-    implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
+    implementation('com.google.android.gms:play-services-auth:19.2.0')
+    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Retrofit
     def retrofit_version = '2.9.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
 
     // DataStore (Proto)
-    implementation  "androidx.datastore:datastore-core:1.0.0-beta01"
-    implementation  "androidx.datastore:datastore:1.0.0-beta01"
+    implementation  "androidx.datastore:datastore-core:1.0.0-rc02"
+    implementation  "androidx.datastore:datastore:1.0.0-rc02"
     implementation  "com.google.protobuf:protobuf-javalite:$google_protobuf_version"
 
     // DataStore (Preferences)
-    implementation "androidx.datastore:datastore-preferences:1.0.0-beta01"
-    implementation "androidx.datastore:datastore-preferences-core:1.0.0-beta01"
+    implementation "androidx.datastore:datastore-preferences:1.0.0-rc02"
+    implementation "androidx.datastore:datastore-preferences-core:1.0.0-rc02"
 
 
 
     // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
 
 
     // Serialization
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0"
 
     // Security
     implementation "androidx.security:security-crypto:1.1.0-alpha03"
@@ -199,8 +199,8 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Markwon
-    implementation "io.noties.markwon:core:4.4.0"
-    implementation 'com.github.jeziellago:compose-markdown:0.2.2'
+    implementation "io.noties.markwon:core:4.6.2"
+    implementation 'com.github.jeziellago:compose-markdown:0.2.5'
 
 }
 

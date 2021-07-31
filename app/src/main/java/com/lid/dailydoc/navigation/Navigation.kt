@@ -4,8 +4,6 @@ package com.lid.dailydoc.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -21,8 +19,6 @@ import com.lid.dailydoc.presentation.screens.SplashScreen
 import com.lid.dailydoc.utils.getCurrentDateAsLong
 import com.lid.dailydoc.viewmodels.NoteAddViewModel
 import com.lid.dailydoc.viewmodels.NoteDetailViewModel
-import com.lid.dailydoc.viewmodels.NoteViewModel
-import com.lid.dailydoc.viewmodels.UserViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 
@@ -39,11 +35,6 @@ fun Navigation(
     NavHost(navController = navController, startDestination = startDestination) {
 
         composable(route = Screen.NoteList.route) {
-//            val noteListVm = hiltViewModel<NoteViewModel>()
-//            val userVm = hiltViewModel<UserViewModel>()
-
-//            val note by noteListVm.currentNote.observeAsState(noteListVm.getCurrentNote())
-
             NoteListScreen(
                 toDetails = actions.detailScreen, toAdd = actions.addScreen,
             )
@@ -58,9 +49,9 @@ fun Navigation(
         }
 
         composable(Screen.NoteDetail.route) {
-            val detailVm = hiltViewModel<NoteDetailViewModel>(backStackEntry = it)
+            val detailVm = hiltViewModel<NoteDetailViewModel>(it)
 
-            val noteId = navController.previousBackStackEntry?.arguments?.getString(NOTE_ID)
+            val noteId =  navController.previousBackStackEntry?.arguments?.getString(NOTE_ID)
             if (noteId != null) NoteDetailScreen { detailVm.getNote(noteId) }
         }
 
