@@ -217,7 +217,8 @@ fun RegisterScreen(
                 username.value.trim().isNotEmpty() &&
                         password.value.trim().isNotEmpty() &&
                         confirmedPassword.value.trim().isNotEmpty() &&
-                        password.value.trim() == confirmedPassword.value.trim()
+                        password.value.trim() == confirmedPassword.value.trim(),
+                modifier = Modifier.padding(top = 8.dp, bottom = 2.dp)
             ) {
                 Text(text = "Register")
 
@@ -229,7 +230,8 @@ fun RegisterScreen(
                 text = "Remember your username / password as there is no account recovery. " +
                         "Keep in mind when sharing notes " +
                         "others will see your username.",
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                textAlign = TextAlign.Center
             )
             ProgressBar(visibility = visibility.value)
         }

@@ -135,7 +135,8 @@ fun LoginScreen(
                         )
                     })
                 },
-                enabled = username.value.trim().isNotEmpty() && password.value.trim().isNotEmpty()
+                enabled = username.value.trim().isNotEmpty() && password.value.trim().isNotEmpty(),
+                modifier = Modifier.padding(top = 8.dp, bottom = 2.dp)
             ) {
                 Text(text = "Sign In")
 
